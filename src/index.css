@@ -1,0 +1,11 @@
+@import './assets/Inter/inter.css';
+@import 'frappe-ui/src/style.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.menu-button-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
