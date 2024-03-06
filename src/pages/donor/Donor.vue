@@ -8,8 +8,11 @@
           <button style="color: blue;">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="index in 10" :key="index">
-            <ImageCard></ImageCard>
+          <div class="card-container" v-for="event in tenEvents" :key="index">
+            <ImageCard :title="event.subject"
+            :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+            :content="event.starts_on">
+            </ImageCard>
           </div>
         </div>
       </div>
@@ -37,8 +40,11 @@
           <button style="color: blue;">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="index in 10" :key="index">
-            <ImageCard></ImageCard>
+          <div class="card-container" v-for="event in tenDonationEvents" :key="index">
+            <ImageCard :title="event.subject"
+            :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+            :content="event.starts_on + ' - ' + event.ends_on">
+            </ImageCard>
           </div>
         </div>
       </div>
@@ -57,6 +63,7 @@ import Card from "@/components/Card.vue"
 import Footer from "@/components/donor/Footer.vue"
 import ImageCard from "../../components/ImageCard.vue"
 import Header from "../../components/Header.vue"
+import { tenEvents, tenDonationEvents } from "@/data/event/EventList"
 
 const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: '/donor/zakat' },
@@ -66,6 +73,8 @@ const menus = [
   { icon: ZakatIcon, label: 'Donatur', route: '/donor/donatur-tetap' },
   { icon: ZakatIcon, label: 'Donasi', route: '/donor/donasi-khusus' },
 ];
+
+// console.log(tenEvents)
 </script>
 
 <style scoped>
