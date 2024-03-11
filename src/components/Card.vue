@@ -1,7 +1,7 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-card-title>{{props.title}}</ion-card-title>
+            <ion-card-title class="text-xl font-bold">{{props.title}}</ion-card-title>
             <ion-card-subtitle>{{props.subtitle}}</ion-card-subtitle>
         </ion-card-header>
 

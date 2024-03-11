@@ -8,7 +8,7 @@
           <button style="color: blue;">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="event in tenEvents" :key="index">
+          <div class="card-container" v-for="(event, index) in tenEvents" :key="index">
             <ImageCard :title="event.subject"
             :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
             :content="event.starts_on">
@@ -40,7 +40,7 @@
           <button style="color: blue;">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="event in tenDonationEvents" :key="index">
+          <div class="card-container" v-for="(event, index) in tenDonationEvents" :key="index">
             <ImageCard :title="event.subject"
             :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
             :content="event.starts_on + ' - ' + event.ends_on">
@@ -55,6 +55,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeMount } from "vue"
+import { useRouter } from 'vue-router';
 import { totalResource, totalJumatan, cards } from "@/data/donation/TotalDonation"
 import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
@@ -63,18 +64,26 @@ import Card from "@/components/Card.vue"
 import Footer from "@/components/donor/Footer.vue"
 import ImageCard from "../../components/ImageCard.vue"
 import Header from "../../components/Header.vue"
-import { tenEvents, tenDonationEvents } from "@/data/event/EventList"
+import { eventResource, tenEvents, tenDonationEvents } from "@/data/event/EventList"
 
 const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: '/donor/zakat' },
-  { icon: ZakatIcon, label: 'Infaq', route: '/donor/infaq' },
+  { icon: ZakatIcon, label: 'Infaq', route: '/infaq' },
   { icon: ZakatIcon, label: 'Hibah', route: '/donor/hibah' },
   { icon: ZakatIcon, label: 'Fidyah', route: '/donor/fidyah' },
   { icon: ZakatIcon, label: 'Donatur', route: '/donor/donatur-tetap' },
   { icon: ZakatIcon, label: 'Donasi', route: '/donor/donasi-khusus' },
 ];
 
-// console.log(tenEvents)
+const router = useRouter();
+
+console.log('router', router);
+
+// const navigate = (route) => {
+//   router.push({ path: "/accountant" });
+//   // console.log('navigating to', router.currentRoute.value.path);
+//   // console.log(router);
+// };
 </script>
 
 <style scoped>

@@ -14,25 +14,23 @@ const routes = [
     path: '/accountant',
     name: 'Accountant',
     component: () => import('@/pages/accountant/Accountant.vue'),
-    // children: [
-    //   {
-    //     path: '/donations',
-    //     name: 'AccountantDonations',
-    //     component: () => import('@/pages/accountant/AccountantDonations.vue'),
-    //   },
-    // ],
   },
   {
     path: '/donor',
     name: 'Donor',
     component: () => import('@/pages/donor/Donor.vue'),
-    children: [
-      {
-        path: '/infaq',
-        name: 'Infaq',
-        component: () => import('@/pages/donor/InfaqInput.vue'),
-      },
-    ],
+    // children: [
+    //   {
+    //     path: 'infaq',
+    //     name: 'Infaq',
+    //     component: () => import('@/pages/donor/InfaqInput.vue'),
+    //   },
+    // ],
+  },
+  {
+    path: '/infaq',
+    name: 'Infaq',
+    component: () => import('@/pages/donor/InfaqInput.vue'),
   },
   {
     name: 'Login',

@@ -3,11 +3,11 @@
         <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" /> -->
         <img alt="Silhouette of mountains" :src="props.thumbnail" />
         <ion-card-header>
-            <ion-card-title>{{props.title}}</ion-card-title>
+            <ion-card-title class="text-lg font-bold">{{props.title}}</ion-card-title>
             <!-- <ion-card-subtitle>{{props.subtitle}}</ion-card-subtitle> -->
         </ion-card-header>
 
-        <ion-card-content>
+        <ion-card-content class="text-base">
             {{props.content}}
         </ion-card-content>
     </ion-card>

@@ -1,19 +1,13 @@
 <template>
     <ion-page>
-        <ion-header :translucent="true">
-            <ion-toolbar>
-                <ion-title>
-                    Form Infaq
-                </ion-title>
-            </ion-toolbar>
-        </ion-header>
+        <Header></Header>
 
-        <ion-content :fullscreen="true">
-            <ion-header collapse="condense">
+        <ion-content>
+            <!-- <ion-header collapse="condense">
                 <ion-toolbar>
                     <ion-title size="large">Form Infaq</ion-title>
                 </ion-toolbar>
-            </ion-header>
+            </ion-header> -->
 
             <DonationForm />
         </ion-content>
@@ -23,4 +17,5 @@
 <script setup>
 import DonationForm from "@/components/donor/DonationForm.vue"
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/vue"
+import Header from "@/components/Header.vue"
 </script>

@@ -13,7 +13,7 @@
           </ion-item>
   
           <ion-item>
-            <ion-label position="floating">Tanggal</ion-label>
+            <!-- <ion-label position="floating">Tanggal</ion-label> -->
             <ion-datetime v-model="tanggal" display-format="DD/MM/YYYY" :min="today"></ion-datetime>
           </ion-item>
   
@@ -48,10 +48,10 @@
   const metodePembayaran = ref('');
   
   const isValidForm = computed(() => {
-    return nama.value && email.value && tanggal.value && jumlahUang.value !== null && metodePembayaran.value;
+    return tanggal.value && jumlahUang.value !== null && metodePembayaran.value;
   });
   
-  const submitForm = () => {
+  const submitFoFrm = () => {
     if (isValidForm.value) {
       // Handle form submission logic here
       console.log('Form submitted:', {

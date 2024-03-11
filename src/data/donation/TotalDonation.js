@@ -8,7 +8,7 @@ export const totalResource = createResource({
     // cache: "non_profit:totalResource",
     transform(data) {
         let [d, m, y] = get_date()
-        const objData = {'title': data, 'subtitle': "Total Donasi", 'content': '1 - ' + d + ' ' + m + ' ' + y}
+        const objData = {'title': 'Rp.' + data, 'subtitle': "Total Donasi", 'content': '1 - ' + d + ' ' + m + ' ' + y}
         cards.value.push(objData)
         return data;
     }
@@ -21,7 +21,7 @@ export const totalJumatan = createResource({
   transform(data) {
       let [d, m, y] = get_date()
       let lastFriday = get_last_friday()
-      const objData = {'title': data, 'subtitle': "Donasi Jum'atan", 'content': lastFriday + ' ' + m + ' ' + y}
+      const objData = {'title': 'Rp. ' + data, 'subtitle': "Donasi Jum'atan", 'content': lastFriday + ' ' + m + ' ' + y}
       cards.value.push(objData)
       return data;
   }

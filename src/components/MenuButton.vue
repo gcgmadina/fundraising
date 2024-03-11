@@ -1,7 +1,7 @@
 <!-- components/MenuButton.vue -->
 <template>
   <!-- <ion-button size="large" fill="clear" @click="navigate"> -->
-  <ion-button :size="props.buttonsize" fill="clear" @click="navigate">
+  <ion-button :size="props.buttonsize" fill="clear" @click="navigate" :href="props.route">
     <div class="custom-button">
       <ion-icon :icon="props.icon" size="large"></ion-icon>
       <div class="menuname">{{ props.label }}</div>
@@ -23,7 +23,9 @@ const props = defineProps({
 const router = useRouter();
 
 const navigate = () => {
-  router.push(props.route);
+  console.log('navigating to', props.route);
+  console.log('Button clicked');
+  router.push({ path: props.route });
 };
 </script>
 
