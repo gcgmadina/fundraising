@@ -15,6 +15,8 @@
                   <ion-input v-model="email" type="email" label="Email" labelPlacement="floating"></ion-input>
                 </ion-item>
 
+                <PhoneInput :v-model="phone"></PhoneInput>
+
                 <ion-item>
                   <ion-input v-model.number="jumlahUang" type="number" required label="Jumlah Donasi"
                     labelPlacement="floating"></ion-input>
@@ -40,10 +42,12 @@ import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime,
 import Header from "@/components/Header.vue";
 import Footer from "@/components/donor/Footer.vue";
 import { createResource } from "frappe-ui"
-import { formatDateTime } from '@/data/DateUtils';
+import { formatDateTime } from "@/data/DateUtils";
+import PhoneInput from "@/components/PhoneInput.vue";
 
 const tipeDonasi = ref('Infaq');
 const nama = ref();
+const phone = ref();
 const email = ref();
 const tipeItem = ref('Uang');
 const today = formatDateTime(new Date());
@@ -60,6 +64,7 @@ const submitForm = () => {
     // Handle form submission logic here
     console.log('Form submitted:', {
       nama: nama.value,
+      phone: phone.value,
       email: email.value,
       tanggal: tanggal.value,
       jumlahUang: jumlahUang.value,
