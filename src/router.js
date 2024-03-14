@@ -19,18 +19,16 @@ const routes = [
     path: '/donor',
     name: 'Donor',
     component: () => import('@/pages/donor/Donor.vue'),
-    // children: [
-    //   {
-    //     path: 'infaq',
-    //     name: 'Infaq',
-    //     component: () => import('@/pages/donor/InfaqInput.vue'),
-    //   },
-    // ],
   },
   {
     path: '/infaq',
     name: 'Infaq',
     component: () => import('@/pages/donor/InfaqInput.vue'),
+  },
+  {
+    path: '/zakat',
+    name: 'Zakat',
+    component: () => import('@/pages/donor/ZakatInput.vue'),
   },
   {
     name: 'Login',
