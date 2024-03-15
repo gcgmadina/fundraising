@@ -28,6 +28,10 @@
                     <ion-select-option value="tf">Transfer Bank</ion-select-option>
                   </ion-select>
                 </ion-item>
+
+                <ion-item v-if="metodePembayaran === 'tf'">
+                  <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input>
+                </ion-item>
         
                 <ion-button @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
               </ion-list>
@@ -47,13 +51,14 @@ import PhoneInput from "@/components/PhoneInput.vue";
 
 const tipeDonasi = ref('Infaq');
 const nama = ref();
-const phone = ref();
+const phone = ref('');
 const email = ref();
 const tipeItem = ref('Uang');
 const today = formatDateTime(new Date());
 const tanggal = ref(today);
 const jumlahUang = ref(null);
 const metodePembayaran = ref(''); 
+const bank = ref('');
 
 const isValidForm = computed(() => {
   return tanggal.value && jumlahUang.value !== null && metodePembayaran.value;
@@ -61,21 +66,13 @@ const isValidForm = computed(() => {
 
 const submitForm = () => {
   if (isValidForm.value) {
-    // Handle form submission logic here
-    console.log('Form submitted:', {
-      nama: nama.value,
-      phone: phone.value,
-      email: email.value,
-      tanggal: tanggal.value,
-      jumlahUang: jumlahUang.value,
-      metodePembayaran: metodePembayaran.value,
-    });
     let postDonation = createResource ({
       method: "POST",
       url: "non_profit.api.fundraising.new_donation",
       params: {
         donation_type: tipeDonasi.value,
         fullname: nama.value,
+        phone: phone.value,
         donor: email.value,
         item_type: tipeItem.value,
         date: tanggal.value,

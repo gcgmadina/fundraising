@@ -10,7 +10,7 @@ import { IonInput, IonItem, IonList } from '@ionic/vue';
 import { maskito as vMaskito } from '@maskito/vue';
 
 const phoneOptions = {
-    mask: ['+', '6', '2', '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+    mask: ['+', '6', '2', '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
     elementPredicate: (el) => {
         return new Promise((resolve) => {
             requestAnimationFrame(async () => {
