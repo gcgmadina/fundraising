@@ -18,15 +18,17 @@
 <script setup>
 import { IonFooter, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
-import ZakatIcon from "@/components/icons/ZakatIcon.svg"
+import HomeIcon from "@/components/icons/HomeIcon.svg"
+import QRIcon from "@/components/icons/QRIcon.svg"
+import AccountIcon from "@/components/icons/AccountIcon.svg"
 
 // Data untuk menu
 const menus = [
-    { icon: ZakatIcon, label: 'Beranda', route: '/donor/' },
+    { icon: HomeIcon, label: 'Beranda', route: '/donor/' },
     // { icon: ZakatIcon, label: 'Kegiatan', route: '/donor/kegiatan' },
-    { icon: ZakatIcon, label: 'Donasi', route: '/donor/donasi' }, 
+    { icon: QRIcon, label: 'Donasi', route: '/donor/donasi' }, 
     // { icon: ZakatIcon, label: 'Laporan', route: '/donor/laporan' }, 
-    { icon: ZakatIcon, label: 'Akun', route: '/donor/akun' }, 
+    { icon: AccountIcon, label: 'Akun', route: '/donor/akun' }, 
 ];
 </script>
 

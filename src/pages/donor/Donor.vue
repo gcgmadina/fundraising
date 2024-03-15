@@ -60,6 +60,11 @@ import { totalResource, totalJumatan, cards } from "@/data/donation/TotalDonatio
 import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import ZakatIcon from "@/components/icons/ZakatIcon.svg"
+import InfaqIcon from "@/components/icons/InfaqIcon.svg"
+import HibahIcon from "@/components/icons/HibahIcon.svg"
+import FidyahIcon from "@/components/icons/FidyahIcon.svg"
+import RegularIcon from "@/components/icons/RegularIcon.svg"
+import DonasiKhususIcon from "@/components/icons/DonasiKhususIcon.svg"
 import Card from "@/components/Card.vue"
 import Footer from "@/components/donor/Footer.vue"
 import ImageCard from "../../components/ImageCard.vue"
@@ -68,11 +73,11 @@ import { eventResource, tenEvents, tenDonationEvents } from "@/data/event/EventL
 
 const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: '/zakat' },
-  { icon: ZakatIcon, label: 'Infaq', route: '/infaq' },
-  { icon: ZakatIcon, label: 'Hibah', route: '/hibah' },
-  { icon: ZakatIcon, label: 'Fidyah', route: '/fidyah' },
-  { icon: ZakatIcon, label: 'Donatur', route: '/donatur-tetap' },
-  { icon: ZakatIcon, label: 'Donasi', route: '/donasi-khusus' },
+  { icon: InfaqIcon, label: 'Infaq', route: '/infaq' },
+  { icon: HibahIcon, label: 'Hibah', route: '/hibah' },
+  { icon: FidyahIcon, label: 'Fidyah', route: '/fidyah' },
+  { icon: RegularIcon, label: 'Donatur', route: '/donatur-tetap' },
+  { icon: DonasiKhususIcon, label: 'Donasi', route: '/donasi-khusus' },
 ];
 
 const router = useRouter();
