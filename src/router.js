@@ -31,6 +31,11 @@ const routes = [
     component: () => import('@/pages/donor/ZakatInput.vue'),
   },
   {
+    path: '/hibah',
+    name: 'Hibah',
+    component: () => import('@/pages/donor/HibahInput.vue'),
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
