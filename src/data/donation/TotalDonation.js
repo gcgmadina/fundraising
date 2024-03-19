@@ -19,9 +19,8 @@ export const totalJumatan = createResource({
   auto: true,
   realtime: true,
   transform(data) {
-      let [d, m, y] = get_date()
-      let lastFriday = get_last_friday()
-      const objData = {'title': 'Rp. ' + data, 'subtitle': "Donasi Jum'atan", 'content': lastFriday + ' ' + m + ' ' + y}
+      let [d, m, y] = formatDate(data[1])
+      const objData = {'title': 'Rp. ' + data[0], 'subtitle': "Donasi Jum'atan", 'content': d + " " + m + " " + y}
       cards.value.push(objData)
       return data;
   }
@@ -36,19 +35,24 @@ export function get_date() {
   return [d, m, y]
 }
 
+function formatDate(dateString) {
+  const months = [
+      "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  const dateParts = dateString.split("-");
+  const day = parseInt(dateParts[2], 10);
+  const monthIndex = parseInt(dateParts[1]) - 1;
+  const year = parseInt(dateParts[0]);
+
+  return [day, months[monthIndex], year]
+}
+
 export function get_last_friday() {
   let today = new Date();
   let lastFriday= today.getDate() - (today.getDay() - 5) - 7;
   return lastFriday
 }
 
-// const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-// var date = new Date(), y = date.getFullYear(), m = months[date.getMonth()], d = date.getDate();
-// var lastFriday= date.getDate() - (date.getDay() - 5) - 7;
-
 export const cards = ref([])
-
-// const cards = [
-//   { title: totalResource.data, subtitle: 'Total Donasi', content: '1 - ' + d + ' ' + m + ' ' + y },
-//   { title: totalJumatan.data, subtitle: "Donasi Jum'atan", content: lastFriday + ' ' + m + ' ' + y },
-// ];

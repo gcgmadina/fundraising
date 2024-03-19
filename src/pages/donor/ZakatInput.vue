@@ -14,7 +14,9 @@
           <ion-input v-model="nama" type="text" label="Nama" labelPlacement="floating"></ion-input>
         </ion-item>
 
-        <PhoneInput :v-model="phone"></PhoneInput>
+        <ion-item>
+          <PhoneInput v-model="phone"></PhoneInput>
+        </ion-item>
 
         <ion-item>
           <ion-input v-model="email" type="email" label="Email" labelPlacement="floating"></ion-input>

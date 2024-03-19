@@ -3,9 +3,9 @@
         <Header />
         <ion-content class="ion=padding">
             <ion-list>
-                <Ion-item>
-                    <ion-input v-model="tipeDonasi" label="Jenis Donasi:" value="Hibah" readonly="true"></ion-input>
-                </Ion-item>
+                <ion-item>
+                    <ion-input v-model="tipeDonasi" label="Jenis Donasi:" value="Kaffarat" :readonly="true"></ion-input>
+                </ion-item>
 
                 <ion-item>
                     <ion-input v-model="nama" type="text" label="Nama" labelPlacement="floating"></ion-input>
@@ -20,12 +20,19 @@
                 </ion-item>
 
                 <ion-item>
-                    <ion-input v-model="namaItem" type="text" label="Nama Barang" labelPlacement="floating"></ion-input>
+                    <ion-input v-model.number="jumlahUang" type="number" required label="Jumlah Donasi"
+                        labelPlacement="floating"></ion-input>
                 </ion-item>
 
                 <ion-item>
-                    <ion-input v-model.number="jumlahBarang" type="number" required label="Jumlah Barang"
-                        labelPlacement="floating"></ion-input>
+                    <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
+                        <ion-select-option value="cash">Cash</ion-select-option>
+                        <ion-select-option value="tf">Transfer Bank</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item v-if="metodePembayaran === 'tf'">
+                    <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input>
                 </ion-item>
 
                 <ion-button @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
@@ -45,25 +52,37 @@ import { createResource } from "frappe-ui"
 import { formatDateTime } from "@/data/DateUtils"
 import PhoneInput from "@/components/PhoneInput.vue"
 
-const tipeDonasi = ref('Hibah')
+const tipeDonasi = ref('Kaffarat')
 const nama = ref()
-const phone = ref('')
+const phone = ref()
 const email = ref()
-const tipeItem = ref('Barang')
-const namaItem = ref()
-const jumlahBarang = ref(0)
+const tipeItem = ref('Uang')
+const jumlahUang = ref(0)
+const metodePembayaran = ref('')
+const bank = ref('')
 const today = formatDateTime(new Date())
 const tanggal = ref(today)
 
 const isValidForm = computed(() => {
-    return namaItem.value && jumlahBarang.value
+    return jumlahUang.value && jumlahUang !== 0 && metodePembayaran.value
 })
 
 const submitForm = () => {
     if (isValidForm.value) {
+        // console.log('Form Summitted:', {
+        //     tipeDonasi: tipeDonasi.value,
+        //     nama: nama.value,
+        //     phone: phone.value,
+        //     email: email.value,
+        //     tipeItem: tipeItem.value,
+        //     jumlahUang: jumlahUang.value,
+        //     metodePembayaran: metodePembayaran.value,
+        //     bank: bank.value,
+        //     tanggal: tanggal.value
+        // })
         let postDonation = createResource({
             method: "POST",
-            url: "non_profit.api.fundraising.new_goods_donation",
+            url: "non_profit.api.fundraising.new_donation",
             params: {
                 donation_type: tipeDonasi.value,
                 fullname: nama.value,
@@ -71,8 +90,8 @@ const submitForm = () => {
                 donor: email.value,
                 item_type: tipeItem.value,
                 date: tanggal.value,
-                amount: jumlahBarang.value,
-                item: namaItem.value,
+                amount: jumlahUang.value,
+                mode_of_payment: metodePembayaran.value,
             },
             onSuccess: (response) => {
                 console.log(response);
@@ -80,10 +99,10 @@ const submitForm = () => {
             onError: (error) => {
                 console.log(error);
             }
-        })
+        });
         postDonation.reload();
     } else {
-        console.log('Form is not valid')
+        alert('Form tidak valid')
     }
 }
 </script>

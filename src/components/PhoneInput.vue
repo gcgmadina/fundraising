@@ -1,13 +1,12 @@
 <template>
-    <ion-item>
-        <ion-input :v-model="props.vModel" label="No. Telp." placeholder="+62-xxx xxxx xxxx" v-maskito="phoneOptions"
-            labelPlacement="floating"></ion-input>
-    </ion-item>
+    <ion-input :value="modelValue" @ionChange="onInputChange($event.target.value)" label="No. Telp." placeholder="+62-xxx xxxx xxxx" 
+    v-maskito="phoneOptions" labelPlacement="floating"></ion-input>
 </template>
 
 <script setup>
 import { IonInput, IonItem, IonList } from '@ionic/vue';
 import { maskito as vMaskito } from '@maskito/vue';
+import { defineProps, defineEmits } from 'vue';
 
 const phoneOptions = {
     mask: ['+', '6', '2', '-', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
@@ -22,6 +21,12 @@ const phoneOptions = {
 };
 
 const props = defineProps({
-    vModel: { type: String },
+  modelValue: String
 });
+
+const emit = defineEmits(['update:modelValue']);
+
+const onInputChange = (value) => {
+  emit('update:modelValue', value);
+};
 </script>

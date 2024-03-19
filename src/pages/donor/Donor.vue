@@ -75,7 +75,7 @@ const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: '/zakat' },
   { icon: InfaqIcon, label: 'Infaq', route: '/infaq' },
   { icon: HibahIcon, label: 'Hibah', route: '/hibah' },
-  { icon: FidyahIcon, label: 'Fidyah', route: '/fidyah' },
+  { icon: FidyahIcon, label: 'Kaffarat', route: '/kaffarat' },
   { icon: RegularIcon, label: 'Donatur', route: '/donatur-tetap' },
   { icon: DonasiKhususIcon, label: 'Donasi', route: '/donasi-khusus' },
 ];
