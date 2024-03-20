@@ -87,7 +87,7 @@ const toEventList = () => {
 };
 
 const toDonationList = () => {
-  router.push({ path: '/donation-list' });
+  router.push({ path: '/donation-event-list' });
 };
 </script>
 

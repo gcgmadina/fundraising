@@ -46,6 +46,11 @@ const routes = [
     component: () => import('@/pages/donor/ListEvent.vue'),
   },
   {
+    path: '/donation-event-list',
+    name: 'DonationEventList',
+    component: () => import('@/pages/donor/ListDonationEvent.vue'),
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
