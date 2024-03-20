@@ -21,6 +21,26 @@ export const eventResource = createResource({
 
 export const tenEvents = reactive([]);
 
+export const getEventScroll = () => {
+    let data_event = createResource({
+        url: "non_profit.api.fundraising.get_event_list",
+        realtime: true,
+        transform(data) {
+            let count = eventScrollData.length;
+            for (let i = 0; i < 5; i++) {
+                if (i + count < data.length)
+                    eventScrollData.push(data[i + count]);
+                else
+                    break;
+            }
+        }
+    })
+
+    data_event.reload();
+}
+
+export const eventScrollData = reactive([]);
+
 export const donationEvent = createResource({
     url: "non_profit.api.fundraising.get_donation_events",
     auto: true,

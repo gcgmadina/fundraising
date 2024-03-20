@@ -5,7 +5,7 @@
       <div class="event-section">
         <div class="event-header">
           <h2>Kegiatan</h2>
-          <button style="color: blue;">See more</button>
+          <button style="color: blue;" @click="toEventList">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
           <div class="card-container" v-for="(event, index) in tenEvents" :key="index">
@@ -37,7 +37,7 @@
       <div class="event-section">
         <div class="event-header">
           <h2>Donasi</h2>
-          <button style="color: blue;">See more</button>
+          <button style="color: blue;" @click="toDonationList">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
           <div class="card-container" v-for="(event, index) in tenDonationEvents" :key="index">
@@ -82,13 +82,13 @@ const menus = [
 
 const router = useRouter();
 
-console.log('router', router);
+const toEventList = () => {
+  router.push({ path: '/event-list' });
+};
 
-// const navigate = (route) => {
-//   router.push({ path: "/accountant" });
-//   // console.log('navigating to', router.currentRoute.value.path);
-//   // console.log(router);
-// };
+const toDonationList = () => {
+  router.push({ path: '/donation-list' });
+};
 </script>
 
 <style scoped>

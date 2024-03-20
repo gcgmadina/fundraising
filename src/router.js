@@ -41,6 +41,11 @@ const routes = [
     component: () => import('@/pages/donor/KaffaratInput.vue'),
   },
   {
+    path: '/event-list',
+    name: 'EventList',
+    component: () => import('@/pages/donor/ListEvent.vue'),
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
