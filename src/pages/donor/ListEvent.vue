@@ -8,7 +8,9 @@
                     :key="index"
                     :title="event.subject"
                     :subtitle="event.starts_on"
-                    :image="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'">                
+                    :image="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+                    :nextPage="'EventDetail'"
+                    :id="event.name">
                     </CarsListItem>
                 </ion-item>
             </ion-list>

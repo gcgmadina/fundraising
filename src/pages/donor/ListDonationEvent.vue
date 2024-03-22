@@ -3,9 +3,14 @@
         <Header></Header>
         <ion-content>
             <ion-list>
-                <ion-item v-for="(donation, index) in donationEventScrollData" :key="index">
-                    <CardListItem :title="donation.subject" :subtitle="donation.starts_on + ' - ' + donation.ends_on"
-                        :image="donation.thumbnail ? donation.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'">
+                <ion-item v-for="(donation, index) in donationEventScrollData">
+                    <CardListItem  
+                    :key="index" 
+                    :title="donation.subject" 
+                    :subtitle="donation.starts_on + ' - ' + donation.ends_on"
+                    :image="donation.thumbnail ? donation.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                    :nextPage="'EventDetail'"
+                    :id="donation.name">
                     </CardListItem>
                 </ion-item>
             </ion-list>

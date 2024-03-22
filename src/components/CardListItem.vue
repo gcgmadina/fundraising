@@ -17,11 +17,16 @@
 <script setup>
 import { defineProps } from 'vue';
 import { IonCard, IonCardSubtitle, IonCardTitle, IonButton, IonImg } from '@ionic/vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
   title: { required: true },
   subtitle: { required: true },
   image: { required: true },
+  nextPage: { required: true },
+  id: { required: true }
 });
 
 const openDetail = () => {
@@ -30,6 +35,7 @@ const openDetail = () => {
     subtitle: props.subtitle,
     image: props.image
   });
+  router.push({ name: props.nextPage, params: { id: props.id } });
 };
 </script>
 

@@ -43,10 +43,12 @@
         </div>
         <div class="overflow-x-auto flex flex-row">
           <div class="card-container" v-for="(event, index) in tenDonationEvents" :key="index">
-            <ImageCard :title="event.subject"
-            :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
-            :content="event.starts_on + ' - ' + event.ends_on">
-            </ImageCard>
+            <router-link :to="{ name: 'EventDetail', params: { id: event.name }}">
+              <ImageCard :title="event.subject"
+              :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+              :content="event.starts_on + ' - ' + event.ends_on">
+              </ImageCard>
+            </router-link>
           </div>
         </div>
       </div>

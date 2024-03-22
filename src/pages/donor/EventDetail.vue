@@ -9,8 +9,8 @@
                 <img alt="Silhouette of mountains" :src="event.thumbnail" class="w-full h-auto"/>
                 <div class="p-4 border-b-2 border-gray-500">
                     <h1 class="font-bold">{{ event.subject }}</h1>
-                    <p class="text-gray-500">{{ event.starts_on }}</p>
-                    <p class="text-gray-500">{{ event.ends_on }}</p>
+                    <p class="text-gray-500">Mulai: {{ event.starts_on }}</p>
+                    <p v-if="event.ends_on" class="text-gray-500">Sampai: {{ event.ends_on }}</p>
                 </div>
                 <div class="p-4">
                     <h4 class="font-bold mb-5">Deskripsi Kegiatan</h4>
