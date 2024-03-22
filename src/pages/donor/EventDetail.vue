@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <Header/>
+        <Header :showBackButton="true"/>
         <ion-content>
             <!-- Skeleton Screen untuk Thumbnail dengan Tailwind CSS -->
             <div v-if="loading" class="w-full h-48 bg-gray-300 animate-pulse"></div>
@@ -45,7 +45,7 @@ const eventDetail = createResource({
     transform(data) {
         event.value = data;
         loading.value = false; // Data telah dimuat
-        console.log(data);
+        // console.log(data);
     }
 });
 
