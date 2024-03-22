@@ -17,38 +17,53 @@ const routes = [
   },
   {
     path: '/donor',
-    name: 'Donor',
-    component: () => import('@/pages/donor/Donor.vue'),
-  },
-  {
-    path: '/infaq',
-    name: 'Infaq',
-    component: () => import('@/pages/donor/InfaqInput.vue'),
-  },
-  {
-    path: '/zakat',
-    name: 'Zakat',
-    component: () => import('@/pages/donor/ZakatInput.vue'),
-  },
-  {
-    path: '/hibah',
-    name: 'Hibah',
-    component: () => import('@/pages/donor/HibahInput.vue'),
-  },
-  {
-    path: '/kaffarat',
-    name: 'Kaffarat',
-    component: () => import('@/pages/donor/KaffaratInput.vue'),
-  },
-  {
-    path: '/event-list',
-    name: 'EventList',
-    component: () => import('@/pages/donor/ListEvent.vue'),
-  },
-  {
-    path: '/donation-event-list',
-    name: 'DonationEventList',
-    component: () => import('@/pages/donor/ListDonationEvent.vue'),
+    children: [
+      {
+        path: '',
+        name: 'DonorHome',
+        component: () => import('@/pages/donor/Donor.vue'),
+      },
+      {
+        path: '/infaq',
+        name: 'Infaq',
+        component: () => import('@/pages/donor/InfaqInput.vue'),
+      },
+      {
+        path: '/zakat',
+        name: 'Zakat',
+        component: () => import('@/pages/donor/ZakatInput.vue'),
+      },
+      {
+        path: '/hibah',
+        name: 'Hibah',
+        component: () => import('@/pages/donor/HibahInput.vue'),
+      },
+      {
+        path: '/kaffarat',
+        name: 'Kaffarat',
+        component: () => import('@/pages/donor/KaffaratInput.vue'),
+      },
+      {
+        path: '/event',
+        children: [
+          {
+            path: '',
+            name: 'EventList',
+            component: () => import('@/pages/donor/ListEvent.vue'),
+          },
+          {
+            path: ':id',
+            name: 'EventDetail',
+            component: () => import('@/pages/donor/EventDetail.vue'),
+          },
+        ],
+      },
+      {
+        path: '/donation',
+        name: 'Donation',
+        component: () => import('@/pages/donor/ListDonationEvent.vue'),
+      },
+    ],
   },
   {
     name: 'Login',
