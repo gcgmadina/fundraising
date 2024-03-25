@@ -16,6 +16,9 @@
                     <h4 class="font-bold mb-5">Deskripsi Kegiatan</h4>
                     <p v-html="event.description" class="my-4"></p>
                 </div>
+                <div v-if="event.event_category == 'Donation'" class="px-2">
+                    <ion-button expand="block" @click="navigate">Donasi Sekarang</ion-button>
+                </div>
             </div>
         </ion-content>
         <Footer/>
@@ -23,12 +26,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
 import { createResource } from 'frappe-ui';
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent, IonButton } from '@ionic/vue';
 
 const router = useRouter();
 const event = ref({ thumbnail: '' });
@@ -52,4 +55,8 @@ const eventDetail = createResource({
 onMounted(() => {
     eventDetail.reload();
 });
+
+const navigate = () => {
+    router.push({ name: 'SpecificDonation', params: { id: event.name } });
+};
 </script>

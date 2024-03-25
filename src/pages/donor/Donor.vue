@@ -80,8 +80,6 @@ const menus = [
   { icon: InfaqIcon, label: 'Infaq', route: '/infaq' },
   { icon: HibahIcon, label: 'Hibah', route: '/hibah' },
   { icon: FidyahIcon, label: 'Kaffarat', route: '/kaffarat' },
-  { icon: RegularIcon, label: 'Donatur', route: '/donatur-tetap' },
-  { icon: DonasiKhususIcon, label: 'Donasi', route: '/donasi-khusus' },
 ];
 
 const router = useRouter();

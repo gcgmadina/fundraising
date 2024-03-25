@@ -60,8 +60,18 @@ const routes = [
       },
       {
         path: '/donation',
-        name: 'Donation',
-        component: () => import('@/pages/donor/ListDonationEvent.vue'),
+        children: [
+          {
+            path: '',
+            name: 'Donation',
+            component: () => import('@/pages/donor/ListDonationEvent.vue'),
+          },
+          {
+            path: 'specific-donation/:id',
+            name: 'SpecificDonation',
+            component: () => import('@/pages/donor/SpecificDonationInput.vue'),
+          },
+        ],
       },      
     ],
   },
