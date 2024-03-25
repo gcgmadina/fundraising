@@ -21,8 +21,6 @@ const props = defineProps({
         default: false
     }
 });
-
-console.log(props.showBackButton);
 </script>
 
 <style scoped>

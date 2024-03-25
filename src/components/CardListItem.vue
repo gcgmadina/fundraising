@@ -1,14 +1,18 @@
 <template>
-  <ion-card class="flex flex-row-reverse flex-auto justify-between items-center">
-    <div class="title-section w-3/5 items-center">
+  <ion-card class="flex flex-row-reverse flex-auto justify-around items-center">
+    <div v-if="props.status">
+      status
+    </div>
+
+    <div class="title-section items-center w-3/5">
       <ion-card-title>{{ props.title }}</ion-card-title>
       <div class="flex flex-auto justify-between items-center">
         <ion-card-subtitle>{{ props.subtitle }}</ion-card-subtitle>
-        <ion-button expand="block" @click="openDetail">Detail</ion-button>
+        <ion-button expand="block" @click="openDetail" size="small">Detail</ion-button>
       </div>
     </div>
 
-    <div class="image-section flex items-center w-2/5">
+    <div v-if="props.image" class="image-section flex items-center w-2/5">
       <ion-img :src="props.image" class="card-image"></ion-img>
     </div>
   </ion-card>
@@ -24,9 +28,10 @@ const router = useRouter();
 const props = defineProps({
   title: { required: true },
   subtitle: { required: true },
-  image: { required: true },
-  nextPage: { required: true },
-  id: { required: true }
+  image: { required: false },
+  nextPage: { required: false },
+  id: { required: false },
+  status: { required: false }
 });
 
 const openDetail = () => {

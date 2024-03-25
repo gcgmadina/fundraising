@@ -62,8 +62,13 @@ const routes = [
         path: '/donation',
         name: 'Donation',
         component: () => import('@/pages/donor/ListDonationEvent.vue'),
-      },
+      },      
     ],
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: () => import('@/pages/donor/History.vue'),
   },
   {
     name: 'Login',

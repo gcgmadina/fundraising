@@ -20,13 +20,14 @@ import { IonFooter, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import HomeIcon from "@/components/icons/HomeIcon.svg"
 import QRIcon from "@/components/icons/QRIcon.svg"
+import HistoryIcon from "@/components/icons/HistoryIcon.svg"
 import AccountIcon from "@/components/icons/AccountIcon.svg"
 
 // Data untuk menu
 const menus = [
     { icon: HomeIcon, label: 'Beranda', route: '/donor/' },
     // { icon: ZakatIcon, label: 'Kegiatan', route: '/donor/kegiatan' },
-    { icon: QRIcon, label: 'Donasi', route: '/donor/donasi' }, 
+    { icon: HistoryIcon, label: 'History', route: '/history' }, 
     // { icon: ZakatIcon, label: 'Laporan', route: '/donor/laporan' }, 
     { icon: AccountIcon, label: 'Akun', route: '/donor/akun' }, 
 ];
