@@ -38,7 +38,7 @@
       </div>
       <div class="event-section">
         <div class="event-header">
-          <h2>Donasi</h2>
+          <h2>Penggalangan Dana</h2>
           <button style="color: blue;" @click="toDonationList">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">

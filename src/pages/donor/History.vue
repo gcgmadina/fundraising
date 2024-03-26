@@ -7,7 +7,7 @@
                 :key="index"
                 :title="UserDonation.donation_type"
                 :subtitle="UserDonation.item_type == 'Uang' ? 'Rp ' + UserDonation.amount : UserDonation.item_name + ': '  + UserDonation.item_amount"
-                :status="'status'"/>
+                :status="UserDonation.docstatus"/>
             </ion-list>
             <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
@@ -28,8 +28,6 @@ import { ref, onMounted } from 'vue'
 import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 
 const loadDisabled = ref(false);
-
-console.log(userDonationResource.data);
 
 const loadData = (event) => {
     setTimeout(() => {

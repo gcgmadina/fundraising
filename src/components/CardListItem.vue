@@ -1,7 +1,7 @@
 <template>
   <ion-card class="flex flex-row-reverse flex-auto justify-around items-center">
     <div v-if="props.status">
-      status
+      {{ props.status }}
     </div>
 
     <div class="title-section items-center w-3/5">
