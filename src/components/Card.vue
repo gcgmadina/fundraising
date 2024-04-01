@@ -22,9 +22,3 @@ const props = defineProps({
 });
 
 </script>
-
-<style scoped>
-    ion-card {
-        width: 100%;
-    }  
-</style>

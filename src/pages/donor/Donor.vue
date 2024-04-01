@@ -8,7 +8,7 @@
           <button style="color: blue;" @click="toEventList">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="(event, index) in tenEvents" :key="index">
+          <div class="card-image-container" v-for="(event, index) in tenEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
               :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
@@ -27,14 +27,14 @@
           :route="menu.route"
         ></MenuButton>
       </div>
-      <div class="donation-report">
-        <Card 
-          v-for="(card, index) in cards" 
-          :key="index"
-          :title="card.title" 
-          :subtitle="card.subtitle" 
-          :content="card.content"
-        ></Card>
+      <div class="donation-report flex overflow-x-auto">
+        <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
+          <Card 
+            :title="card.title" 
+            :subtitle="card.subtitle" 
+            :content="card.content"
+          ></Card>
+        </div>
       </div>
       <div class="event-section">
         <div class="event-header">
@@ -42,7 +42,7 @@
           <button style="color: blue;" @click="toDonationList">See more</button>
         </div>
         <div class="overflow-x-auto flex flex-row">
-          <div class="card-container" v-for="(event, index) in tenDonationEvents" :key="index">
+          <div class="card-image-container" v-for="(event, index) in tenDonationEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
               :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
@@ -60,7 +60,7 @@
 <script setup>
 import { ref, onMounted, onBeforeMount } from "vue"
 import { useRouter } from 'vue-router';
-import { totalResource, totalJumatan, cards } from "@/data/donation/TotalDonation"
+import { cards } from "@/data/donation/TotalDonation"
 import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import ZakatIcon from "@/components/icons/ZakatIcon.svg"
@@ -112,9 +112,13 @@ const toDonationList = () => {
   padding: 0 1.5rem;
 }
 
-.card-container {
+.card-image-container {
   flex: 0 0 auto; /* Tambahkan ini untuk menghindari perubahan lebar */
   width: 300px;
   height: auto;
+}
+
+.card-container {
+  width: 190px;
 }
 </style>
