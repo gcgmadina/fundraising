@@ -19,6 +19,7 @@
                     <ion-input v-model="email" type="email" label="Email" labelPlacement="floating"></ion-input>
                 </ion-item>
 
+                <InputAmount @amount-selected="updateAmount" />
                 <ion-item>
                     <ion-input v-model.number="jumlahUang" type="number" required label="Jumlah Donasi"
                         labelPlacement="floating"></ion-input>
@@ -51,6 +52,7 @@ import Footer from "@/components/donor/Footer.vue"
 import { createResource } from "frappe-ui"
 import { formatDateTime } from "@/data/DateUtils"
 import PhoneInput from "@/components/PhoneInput.vue"
+import InputAmount from "@/components/InputAmount.vue"
 
 const tipeDonasi = ref('Kaffarat')
 const nama = ref()
@@ -62,6 +64,10 @@ const metodePembayaran = ref('')
 const bank = ref('')
 const today = formatDateTime(new Date())
 const tanggal = ref(today)
+
+const updateAmount = (amount) => {
+    jumlahUang.value = amount
+}
 
 const isValidForm = computed(() => {
     return jumlahUang.value && jumlahUang !== 0 && metodePembayaran.value

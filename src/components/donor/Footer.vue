@@ -22,6 +22,7 @@ import HomeIcon from "@/components/icons/HomeIcon.svg"
 import QRIcon from "@/components/icons/QRIcon.svg"
 import HistoryIcon from "@/components/icons/HistoryIcon.svg"
 import AccountIcon from "@/components/icons/AccountIcon.svg"
+import EventIcon from "@/components/icons/EventIcon.svg"
 
 // Data untuk menu
 const menus = [
@@ -29,7 +30,8 @@ const menus = [
     // { icon: ZakatIcon, label: 'Kegiatan', route: '/donor/kegiatan' },
     { icon: HistoryIcon, label: 'History', route: '/history' }, 
     // { icon: ZakatIcon, label: 'Laporan', route: '/donor/laporan' }, 
-    { icon: AccountIcon, label: 'Akun', route: '/donor/akun' }, 
+    { icon: EventIcon, label: 'Kegiatan', route: '/event-input' },
+    { icon: AccountIcon, label: 'Akun', route: '/account' }, 
 ];
 </script>
 

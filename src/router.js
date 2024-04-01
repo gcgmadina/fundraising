@@ -12,8 +12,17 @@ const routes = [
   },
   {
     path: '/accountant',
-    name: 'Accountant',
-    component: () => import('@/pages/accountant/Accountant.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Accountant',
+      },
+      {
+        path: '/event-input',
+        name: 'EventInput',
+        component: () => import('@/pages/accountant/EventInput.vue'),
+      },
+    ],
   },
   {
     path: '/donor',
@@ -81,6 +90,16 @@ const routes = [
     component: () => import('@/pages/donor/History.vue'),
   },
   {
+    path: '/account',
+    name: 'Account',
+    component: () => import('@/pages/Account.vue'),
+  },
+  {
+    path: '/upload-file',
+    name: 'UploadFile',
+    component: () => import('@/pages/UploadFile.vue'),
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
@@ -101,7 +120,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.name === 'Login' && isLoggedIn) {
-    next({ name: 'Home' })
+    next({ name: 'Donor' })
     // next({name: 'Accountant'})
   } else if (to.name !== 'Login' && !isLoggedIn) {
     next({ name: 'Login' })
