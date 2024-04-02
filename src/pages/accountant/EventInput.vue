@@ -19,8 +19,7 @@
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <ion-label v-if="!startsOn">Mulai (belum dipilih)</ion-label>
-                    <ion-label v-else>Mulai</ion-label>
+                    <ion-label>Mulai</ion-label>
                     <ion-datetime-button datetime="startsOn"></ion-datetime-button>
 
                     <ion-modal :keep-contents-mounted="true">
@@ -28,18 +27,13 @@
                     </ion-modal>
                 </ion-item>
                 <ion-item>
-                    <ion-label v-if="!endsOn">Selesai (belum dipilih)</ion-label>
-                    <ion-label v-else>Selesai</ion-label>
+                    <ion-label>Selesai</ion-label>
                     <ion-datetime-button datetime="endsOn"></ion-datetime-button>
 
                     <ion-modal :keep-contents-mounted="true">
                         <ion-datetime v-model="endsOn" id="endsOn"></ion-datetime>
                     </ion-modal>
                 </ion-item>
-                <!-- <ion-item>
-                    <ion-input type="file" @change="handleFileChange" accept="image/*" label="Gambar Kegiatan"
-                        label-placement="floating"></ion-input>
-                </ion-item> -->
                 <ion-item>
                     <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction" @success="onSuccess">
                         <template v-slot="{
@@ -85,19 +79,20 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
 import { formatDateTime } from "@/data/DateUtils";
 import { createResource, fileToBase64, FileUploader, Button } from "frappe-ui"
-// import FileUploader from './FileUploader.vue'
+import moment from 'moment'
 
 const subject = ref('')
 const eventCategory = ref('')
 const eventType = ref('')
-const startsOn = ref()
+const today = new Date()
+const startsOn = ref(moment(today).format('YYYY-MM-DDTHH:mm'))
+// const startsOn = ref()
 const endsOn = ref()
 const status = ref('')
 const image = ref()
 let base64;
 let start;
 let end;
-console.log(startsOn.value);
 
 const validateFileFunction = (fileObject) => { }
 const onSuccess = (file) => {
@@ -112,33 +107,27 @@ const isValidForm = computed(() => {
 
 const submitForm = () => {
     if (isValidForm.value) {
-        console.log('subject', subject.value);
-        console.log('eventCategory', eventCategory.value);
-        console.log('eventType', eventType.value);
-        console.log('startsOn', startsOn.value);
-        console.log('endsOn', endsOn.value);
-        console.log('status', status.value);
-        console.log('image', image.value);
-        // let postEvent = createResource({
-        //     method: 'POST',
-        //     url: 'non_profit.api.fundraising.new_event',
-        //     params: {
-        //         subject: subject.value,
-        //         event_category: eventCategory.value,
-        //         event_type: eventType.value,
-        //         starts_on: startsOn.value,
-        //         ends_on: endsOn.value,
-        //         status: status.value,
-        //         thumbnail: image.value,
-        //     },
-        //     onSuccess: (response) => {
-        //         console.log(response);
-        //     },
-        //     onError: (error) => {
-        //         console.log(error);
-        //     }
-        // })
-        // postEvent.reload();
+        console.log('startsOn ', startsOn.value)
+        let postEvent = createResource({
+            method: 'POST',
+            url: 'non_profit.api.fundraising.new_event',
+            params: {
+                subject: subject.value,
+                event_category: eventCategory.value,
+                event_type: eventType.value,
+                starts_on: startsOn.value,
+                ends_on: endsOn.value,
+                status: status.value,
+                thumbnail: image.value,
+            },
+            onSuccess: (response) => {
+                console.log(response);
+            },
+            onError: (error) => {
+                console.log(error);
+            }
+        })
+        postEvent.reload();
     } else {
         console.log('Form is not valid. Please fill in all required fields.');
     }

@@ -87,18 +87,23 @@ const routes = [
   },
   {
     path: '/history',
-    name: 'History',
-    component: () => import('@/pages/donor/History.vue'),
+    children: [
+      {
+        path: '',
+        name: 'History',
+        component: () => import('@/pages/donor/History.vue'),
+      },
+      {
+        path: ':id',
+        name: 'DonationDetail',
+        component: () => import('@/pages/donor/DonationDetail.vue'),
+      },
+    ],
   },
   {
     path: '/account',
     name: 'Account',
     component: () => import('@/pages/Account.vue'),
-  },
-  {
-    path: '/upload-file',
-    name: 'UploadFile',
-    component: () => import('@/pages/UploadFile.vue'),
   },
   {
     name: 'Login',

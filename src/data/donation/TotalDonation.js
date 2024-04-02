@@ -68,10 +68,11 @@ export const getDonationByType = createResource({
         continue
       }
 
+      let day
       if (d != 1)
-        d = '1 - ' + d
+        day = '1 - ' + d
 
-      const objData = { 'title': 'Rp. ' + data[i], 'subtitle': i, 'content': d + ' ' + m + ' ' + y }
+      const objData = { 'title': 'Rp. ' + data[i], 'subtitle': i, 'content': day + ' ' + m + ' ' + y }
       cards.value.push(objData)
     }
     return data;

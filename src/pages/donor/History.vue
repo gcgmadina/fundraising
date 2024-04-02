@@ -7,7 +7,9 @@
                 :key="index"
                 :title="UserDonation.donation_type"
                 :subtitle="UserDonation.item_type == 'Uang' ? 'Rp ' + UserDonation.amount : UserDonation.item_name + ': '  + UserDonation.item_amount"
-                :status="UserDonation.docstatus"/>
+                :status="UserDonation.docstatus"
+                :nextPage="'DonationDetail'"
+                :id="UserDonation.name"/>
             </ion-list>
             <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
