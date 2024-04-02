@@ -61,7 +61,7 @@ export const getDonationByType = createResource({
   realtime: true,
   transform(data) {
     // console.log(data)
-    const [d, m, y] = get_date()
+    let [d, m, y] = get_date()
     for (let i in data) {
       // console.log(i, " ", data[i])
       if (data[i] == 0 && i != "Jum'atan") {
