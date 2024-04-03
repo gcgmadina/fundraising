@@ -1,6 +1,6 @@
 <template>
   <ion-card class="flex flex-row-reverse flex-auto justify-around items-center">
-    <div v-if="props.status">
+    <div v-if="props.status" class="w-1/5">
       {{ props.status }}
     </div>
 
