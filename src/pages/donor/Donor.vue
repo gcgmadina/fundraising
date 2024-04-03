@@ -11,7 +11,7 @@
           <div class="card-image-container" v-for="(event, index) in tenEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
-              :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+              :thumbnail="event.event_thumbnail?event.event_thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
               :content="event.starts_on">
               </ImageCard>
             </router-link>
@@ -45,7 +45,7 @@
           <div class="card-image-container" v-for="(event, index) in tenDonationEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
-              :thumbnail="event.thumbnail?event.thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+              :thumbnail="event.event_thumbnail?event.event_thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
               :content="event.starts_on + ' - ' + event.ends_on">
               </ImageCard>
             </router-link>

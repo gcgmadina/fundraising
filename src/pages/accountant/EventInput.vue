@@ -8,8 +8,8 @@
                 </ion-item>
                 <ion-item>
                     <ion-select v-model="eventCategory" label="Kategori">
-                        <ion-select-option value="Event">Kegiatan</ion-select-option>
-                        <ion-select-option value="Donation">Penggalangan Dana</ion-select-option>
+                        <ion-select-option value=0>Kegiatan</ion-select-option>
+                        <ion-select-option value=1>Penggalangan Dana</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
@@ -104,28 +104,29 @@ const isValidForm = computed(() => {
 
 const submitForm = () => {
     if (isValidForm.value) {
-        console.log('startsOn ', startsOn.value)
-        console.log('image ', image.value)  
-        // let postEvent = createResource({
-        //     method: 'POST',
-        //     url: 'non_profit.api.fundraising.new_event',
-        //     params: {
-        //         subject: subject.value,
-        //         event_category: eventCategory.value,
-        //         event_type: eventType.value,
-        //         starts_on: startsOn.value,
-        //         ends_on: endsOn.value,
-        //         status: status.value,
-        //         thumbnail: image.value,
-        //     },
-        //     onSuccess: (response) => {
-        //         console.log(response);
-        //     },
-        //     onError: (error) => {
-        //         console.log(error);
-        //     }
-        // })
-        // postEvent.reload();
+        // console.log('startsOn ', startsOn.value)
+        // console.log('image ', image.value)  
+        let postEvent = createResource({
+            method: 'POST',
+            url: 'non_profit.api.fundraising.new_event',
+            params: {
+                subject: subject.value,
+                event_category: 'Event',
+                event_type: eventType.value,
+                starts_on: startsOn.value,
+                ends_on: endsOn.value,
+                status: status.value,
+                thumbnail: image.value,
+                is_donation_event: eventCategory.value
+            },
+            onSuccess: (response) => {
+                console.log(response);
+            },
+            onError: (error) => {
+                console.log(error);
+            }
+        })
+        postEvent.reload();
     } else {
         console.log('Form is not valid. Please fill in all required fields.');
     }
