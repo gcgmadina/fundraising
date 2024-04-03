@@ -7,13 +7,13 @@
                     <ion-input v-model="subject" label="Nama Kegiatan" label-placement="floating"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-select v-model="eventCategory" label="Kategori Kegiatan">
+                    <ion-select v-model="eventCategory" label="Kategori">
                         <ion-select-option value="Event">Kegiatan</ion-select-option>
                         <ion-select-option value="Donation">Penggalangan Dana</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <ion-select v-model="eventType" label="Tipe Kegiatan">
+                    <ion-select v-model="eventType" label="Tipe">
                         <ion-select-option value="Private">Tertutup</ion-select-option>
                         <ion-select-option value="Public">Publik</ion-select-option>
                     </ion-select>
@@ -50,17 +50,14 @@
                             <Button @click="openFileSelector" :loading="uploading">
                                 {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                             </Button>
-                            <div v-if="uploaded">
-                                <p>{{ image }}</p>
-                            </div>
-                            <div v-else>
-                                <p>Belum ada gambar</p>
+                            <div v-if="uploaded" class="my-4">
+                                <img :src="image" alt="Preview Image" style="max-width: 200px; max-height: 200px;">
                             </div>
                         </template>
                     </FileUploader>
                 </ion-item>
                 <ion-item>
-                    <ion-select v-model="status" label="Status Kegiatan">
+                    <ion-select v-model="status" label="Status">
                         <ion-select-option value="Open">Akan Dilaksanakan</ion-select-option>
                         <ion-select-option value="Completed">Selesai</ion-select-option>
                     </ion-select>
@@ -108,26 +105,27 @@ const isValidForm = computed(() => {
 const submitForm = () => {
     if (isValidForm.value) {
         console.log('startsOn ', startsOn.value)
-        let postEvent = createResource({
-            method: 'POST',
-            url: 'non_profit.api.fundraising.new_event',
-            params: {
-                subject: subject.value,
-                event_category: eventCategory.value,
-                event_type: eventType.value,
-                starts_on: startsOn.value,
-                ends_on: endsOn.value,
-                status: status.value,
-                thumbnail: image.value,
-            },
-            onSuccess: (response) => {
-                console.log(response);
-            },
-            onError: (error) => {
-                console.log(error);
-            }
-        })
-        postEvent.reload();
+        console.log('image ', image.value)  
+        // let postEvent = createResource({
+        //     method: 'POST',
+        //     url: 'non_profit.api.fundraising.new_event',
+        //     params: {
+        //         subject: subject.value,
+        //         event_category: eventCategory.value,
+        //         event_type: eventType.value,
+        //         starts_on: startsOn.value,
+        //         ends_on: endsOn.value,
+        //         status: status.value,
+        //         thumbnail: image.value,
+        //     },
+        //     onSuccess: (response) => {
+        //         console.log(response);
+        //     },
+        //     onError: (error) => {
+        //         console.log(error);
+        //     }
+        // })
+        // postEvent.reload();
     } else {
         console.log('Form is not valid. Please fill in all required fields.');
     }
