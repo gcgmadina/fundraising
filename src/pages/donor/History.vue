@@ -7,7 +7,7 @@
                 :key="index"
                 :title="UserDonation.donation_type"
                 :subtitle="UserDonation.item_type == 'Uang' ? 'Rp ' + UserDonation.amount : UserDonation.item_name + ': '  + UserDonation.item_amount"
-                :status="UserDonation.evidance_of_transfer ? 'Donasi berhasil' : (UserDonation.docstatus === 0 && UserDonation.evidance_of_transfer ? 'Menunggu verifikasi' : (UserDonation.docstatus === 1 && UserDonation.evidance_of_transfer ? 'Donasi berhasil' : 'Menunggu bukti transfer'))"
+                :status="UserDonation.evidance_of_transfer ? (UserDonation.docstatus === 0 ? 'Menunggu verifikasi' : 'Donasi Berhasil') : 'Menunggu bukti transfer'"
                 :nextPage="'DonationDetail'"
                 :id="UserDonation.name"/>
             </ion-list>
