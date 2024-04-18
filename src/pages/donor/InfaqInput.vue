@@ -49,7 +49,7 @@ import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime,
 import Header from "@/components/Header.vue";
 import Footer from "@/components/donor/Footer.vue";
 import { createResource } from "frappe-ui"
-import { formatDateTime } from "@/data/DateUtils";
+import { formatDate } from "@/data/DateUtils";
 import PhoneInput from "@/components/PhoneInput.vue";
 import InputAmount from "@/components/InputAmount.vue";
 
@@ -58,7 +58,7 @@ const nama = ref();
 const phone = ref('');
 const email = ref();
 const tipeItem = ref('Uang');
-const today = formatDateTime(new Date());
+const today = formatDate(new Date());
 const tanggal = ref(today);
 const jumlahUang = ref(null);
 const metodePembayaran = ref('');

@@ -5,3 +5,8 @@ export function formatDateTime(date) {
     // console.log(formattedDate.month());
     return formattedDate;
 }
+
+export function formatDate(date) {
+    const formattedDate = moment(date).format('YYYY-MM-DD');
+    return formattedDate;
+}

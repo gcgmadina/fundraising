@@ -5,18 +5,18 @@
             <div v-if="loading" class="w-full h-48 bg-gray-300 animate-pulse"></div>
             <div v-else class="w-full h-auto">
                 <div class="thanks-section text-center mx-2">
-                        <template v-if="!donation.evidance_of_transfer">
-                            <h1>Kirim Bukti Transfermu</h1>
-                            <p>Kirim bukti transfer untuk memverifikasi donasimu</p>
-                        </template>
-                        <template v-else-if="donation.docstatus === 0 && donation.evidance_of_transfer">
-                            <h1>Menunggu Verifikasi</h1>
-                            <p>Donasi Anda sedang diverifikasi oleh admin kami</p>
-                        </template>
-                        <template v-else-if="donation.docstatus === 1 && donation.evidance_of_transfer">
-                            <h1>Terimakasih</h1>
-                            <p>Donasi Anda telah kami terima dan akan segera disalurkan</p>
-                        </template>
+                    <template v-if="!donation.evidance_of_transfer">
+                        <h1>Kirim Bukti Transfermu</h1>
+                        <p>Kirim bukti transfer untuk memverifikasi donasimu</p>
+                    </template>
+                    <template v-else-if="donation.docstatus === 0 && donation.evidance_of_transfer">
+                        <h1>Menunggu Verifikasi</h1>
+                        <p>Donasi Anda sedang diverifikasi oleh admin kami</p>
+                    </template>
+                    <template v-else-if="donation.docstatus === 1 && donation.evidance_of_transfer">
+                        <h1>Terimakasih</h1>
+                        <p>Donasi Anda telah kami terima dan akan segera disalurkan</p>
+                    </template>
                 </div>
                 <div class="border rounded-lg border-gray-900 mx-2 my-6 p-4 shadow-gray-700 shadow-lg">
                     <div class="grid grid-cols-2 mb-2">
