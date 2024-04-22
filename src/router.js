@@ -125,29 +125,26 @@ let router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   let isLoggedIn = session.isLoggedIn
-  let user = inject('$user')
   try {
-    await userResource.promise
+    if (isLoggedIn) {
+      await userResource.reload()
+    } 
   } catch (error) {
     isLoggedIn = false
   }
 
   if (to.meta.auth && !isLoggedIn) {
-    next({ name: 'Login' })
-  } else if (to.meta.roles && !to.meta.roles.includes(user.role)) {
-    next({ name: 'Home' })
+    next({ name: 'Login' });
+  } else if (to.meta.roles && userResource.data && userResource.data.roles) {
+    const hasRequiredRole = to.meta.roles.some(role => userResource.data.roles.includes(role));
+    if (!hasRequiredRole) {
+      next({ name: 'Home' });
+    } else {
+      next();
+    }
   } else {
-    next()
+    next();
   }
-
-  // if (to.name === 'Login' && isLoggedIn) {
-  //   next({ name: 'Donor' })
-  //   // next({name: 'Accountant'})
-  // } else if (to.name !== 'Login' && !isLoggedIn) {
-  //   next({ name: 'Login' })
-  // } else {
-  //   next()
-  // }
 })
 
 export default router
