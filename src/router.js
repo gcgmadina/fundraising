@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "@ionic/vue-router"
 
 import { session } from './data/session'
 import { userResource } from '@/data/user'
+import { inject } from 'vue'  
 
 const routes = [
   {
@@ -12,16 +13,20 @@ const routes = [
     component: () => import('@/pages/Home.vue'),
   },
   {
-    path: '/accountant',
+    path: '/secretary',
     children: [
       {
         path: '',
-        name: 'Accountant',
+        name: 'secretary',
       },
       {
         path: '/event-input',
         name: 'EventInput',
-        component: () => import('@/pages/accountant/EventInput.vue'),
+        component: () => import('@/pages/secretary/EventInput.vue'),
+        meta: { 
+          auth: true,
+          roles: ['Non Profit Secretary']
+        },
       },
     ],
   },
@@ -87,6 +92,7 @@ const routes = [
   },
   {
     path: '/history',
+    meta: { auth: true },
     children: [
       {
         path: '',
@@ -119,20 +125,29 @@ let router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   let isLoggedIn = session.isLoggedIn
+  let user = inject('$user')
   try {
     await userResource.promise
   } catch (error) {
     isLoggedIn = false
   }
 
-  if (to.name === 'Login' && isLoggedIn) {
-    next({ name: 'Donor' })
-    // next({name: 'Accountant'})
-  } else if (to.name !== 'Login' && !isLoggedIn) {
+  if (to.meta.auth && !isLoggedIn) {
     next({ name: 'Login' })
+  } else if (to.meta.roles && !to.meta.roles.includes(user.role)) {
+    next({ name: 'Home' })
   } else {
     next()
   }
+
+  // if (to.name === 'Login' && isLoggedIn) {
+  //   next({ name: 'Donor' })
+  //   // next({name: 'Accountant'})
+  // } else if (to.name !== 'Login' && !isLoggedIn) {
+  //   next({ name: 'Login' })
+  // } else {
+  //   next()
+  // }
 })
 
 export default router

@@ -2,7 +2,7 @@ import router from '@/router'
 import { createResource } from 'frappe-ui'
 
 export const userResource = createResource({
-  url: 'frappe.auth.get_logged_user',
+  url: 'non_profit.api.fundraising.get_user_info',
   cache: 'User',
   onError(error) {
     if (error && error.exc_type === 'AuthenticationError') {

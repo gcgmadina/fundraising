@@ -14,6 +14,8 @@ import {
   frappeRequest,
   resourcesPlugin,
 } from 'frappe-ui'
+import { session } from './data/session'
+import { userResource } from './data/user'
 
 let app = createApp(App)
 
@@ -26,5 +28,8 @@ app.use(resourcesPlugin)
 app.component('Button', Button)
 app.component('Card', Card)
 app.component('Input', Input)
+
+app.provide("$session", session)
+app.provide("$user", userResource)
 
 app.mount('#app')

@@ -17,7 +17,8 @@
         
                 <div class="flex flex-row space-x-2 mt-4">
                     <Button @click="showDialog = true">Open Dialog</Button>
-                    <Button @click="session.logout.submit()">Logout</Button>
+                    <Button v-if="session.isLoggedIn" @click="session.logout.submit()">Logout</Button>
+                    <Button v-else @click="router.push({path: '/account/login'})">Login</Button>
                 </div>
         
                 <!-- Dialog -->
@@ -29,13 +30,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+import { useRouter } from 'vue-router'
 import { Dialog } from 'frappe-ui'
 import { createResource } from 'frappe-ui'
 import { session } from '../data/session'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
 import { IonPage, IonContent, IonButton } from '@ionic/vue'
+
+const router = useRouter()
 
 const ping = createResource({
     url: 'ping',
