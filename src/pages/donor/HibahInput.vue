@@ -38,12 +38,15 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime, IonSelect, IonSelectOption, IonButton } from '@ionic/vue'
 import Header from "@/components/Header.vue"
 import Footer from "@/components/donor/Footer.vue"
 import { createResource } from "frappe-ui"
 import { formatDate } from "@/data/DateUtils"
 import PhoneInput from "@/components/PhoneInput.vue"
+
+const router = useRouter()
 
 const tipeDonasi = ref('Hibah')
 const nama = ref()
@@ -76,6 +79,7 @@ const submitForm = () => {
             },
             onSuccess: (response) => {
                 console.log(response);
+                router.push({ name: 'DonationDetail', params: { id: response } });
             },
             onError: (error) => {
                 console.log(error);

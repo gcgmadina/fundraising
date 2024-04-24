@@ -46,6 +46,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime, IonSelect, IonSelectOption, IonButton } from '@ionic/vue'
 import Header from "@/components/Header.vue"
 import Footer from "@/components/donor/Footer.vue"
@@ -53,6 +54,8 @@ import { createResource } from "frappe-ui"
 import { formatDate } from "@/data/DateUtils"
 import PhoneInput from "@/components/PhoneInput.vue"
 import InputAmount from "@/components/InputAmount.vue"
+
+const router = useRouter()
 
 const tipeDonasi = ref('Kaffarat')
 const nama = ref()
@@ -75,17 +78,6 @@ const isValidForm = computed(() => {
 
 const submitForm = () => {
     if (isValidForm.value) {
-        // console.log('Form Summitted:', {
-        //     tipeDonasi: tipeDonasi.value,
-        //     nama: nama.value,
-        //     phone: phone.value,
-        //     email: email.value,
-        //     tipeItem: tipeItem.value,
-        //     jumlahUang: jumlahUang.value,
-        //     metodePembayaran: metodePembayaran.value,
-        //     bank: bank.value,
-        //     tanggal: tanggal.value
-        // })
         let postDonation = createResource({
             method: "POST",
             url: "non_profit.api.fundraising.new_donation",
@@ -101,6 +93,7 @@ const submitForm = () => {
             },
             onSuccess: (response) => {
                 console.log(response);
+                router.push({ name: 'DonationDetail', params: { id: response } });
             },
             onError: (error) => {
                 console.log(error);

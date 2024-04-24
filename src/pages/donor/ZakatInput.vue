@@ -64,6 +64,7 @@
 
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
 import Header from "@/components/Header.vue";
 import Footer from "@/components/donor/Footer.vue";
@@ -71,6 +72,8 @@ import { formatDate } from "@/data/DateUtils";
 import PhoneInput from "@/components/PhoneInput.vue";
 import { createResource } from "frappe-ui";
 import InputAmount from "@/components/InputAmount.vue";
+
+const router = useRouter();
 
 const tipeDonasi = ref('');
 const nama = ref();
@@ -99,16 +102,6 @@ const updateAmount = (amount) => {
 
 const submitForm = () => {
   if (isValidForm.value) {
-    console.log('Form submitted:', {
-      nama: nama.value,
-      phone: phone.value,
-      email: email.value,
-      tanggal: tanggal.value,
-      jumlahUang: jumlahUang.value,
-      metodePembayaran: metodePembayaran.value,
-      tipeItem: tipeItem.value,
-      typeof_tipeItem: typeof (tipeItem.value),
-    });
     if (tipeItem.value == "Uang") {
       console.log('Submitting form with Uang');
       let postDonation = createResource({
@@ -126,6 +119,7 @@ const submitForm = () => {
         },
         onSuccess: (response) => {
           console.log(response);
+          router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {
           console.log(error);
@@ -149,6 +143,7 @@ const submitForm = () => {
         },
         onSuccess: (response) => {
           console.log(response);
+          router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {
           console.log(error);
