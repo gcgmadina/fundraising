@@ -1,13 +1,14 @@
 import { createResource } from "frappe-ui"
 import { reactive, ref } from 'vue'
 import { session } from '@/data/session'
+import { userResource } from "../user"
 
 export const userDonationResource = () => {
     let data_user_donation = createResource({
         url: "non_profit.api.fundraising.get_user_donations",
         realtime: true,
         params: {
-            user: session.user
+            user: userResource
         },
         transform(data) {
             let count = userDonationData.length;
