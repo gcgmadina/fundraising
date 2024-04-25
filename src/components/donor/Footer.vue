@@ -2,37 +2,20 @@
     <ion-footer>
         <ion-toolbar>
             <div class="menu-button-list">
-                <MenuButton 
-                    :icon="HomeIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Beranda'"
-                    :route=" '/donor/' "
-                ></MenuButton>
-                <MenuButton
-                    :icon="HistoryIcon"
-                    :buttonsize=" 'small' "
-                    :label="'History'"
-                    :route=" '/history' "
-                ></MenuButton>
-                <MenuButton v-if="user.data && user.data.roles && user.data.roles.includes('Non Profit Secretary')"
-                    :icon="EventIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Kegiatan'"
-                    :route=" '/event-input' "
-                ></MenuButton>
-                <MenuButton
-                    :icon="AccountIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Akun'"
-                    :route=" '/account' "
-                ></MenuButton>
+            <MenuButton
+                v-for="menu in menus"
+                :key="menu.route"
+                :icon="menu.icon"
+                :buttonsize=" 'small' "
+                :label="menu.label"
+                :route="menu.route"
+            ></MenuButton>
             </div>
         </ion-toolbar>
     </ion-footer>
 </template>
 
 <script setup>
-import { inject } from "vue"
 import { IonFooter, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import HomeIcon from "@/components/icons/HomeIcon.svg"
@@ -41,7 +24,15 @@ import HistoryIcon from "@/components/icons/HistoryIcon.svg"
 import AccountIcon from "@/components/icons/AccountIcon.svg"
 import EventIcon from "@/components/icons/EventIcon.svg"
 
-const user = inject('$user')
+// Data untuk menu
+const menus = [
+    { icon: HomeIcon, label: 'Beranda', route: '/donor/' },
+    // { icon: ZakatIcon, label: 'Kegiatan', route: '/donor/kegiatan' },
+    { icon: HistoryIcon, label: 'History', route: '/history' }, 
+    // { icon: ZakatIcon, label: 'Laporan', route: '/donor/laporan' }, 
+    { icon: EventIcon, label: 'Kegiatan', route: '/event-input' },
+    { icon: AccountIcon, label: 'Akun', route: '/account' }, 
+];
 </script>
 
 <style scoped>
