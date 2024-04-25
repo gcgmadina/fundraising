@@ -62,8 +62,12 @@
                         <ion-select-option value="Completed">Selesai</ion-select-option>
                     </ion-select>
                 </ion-item>
+                <div class="flex flex-col items-start ml-6">
+                    <label for="deskripsi" class="mb-2">Deskripsi:</label>
+                    <textarea class="mb-2" id="deskripsi" v-model="description" cols="30" rows="10"></textarea>
+                </div>
             </ion-list>
-            <ion-button @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
+            <ion-button class="ml-6" @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
         </ion-content>
         <Footer />
     </ion-page>
@@ -71,12 +75,15 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { IonPage, IonContent, IonList, IonItem, IonInput, IonSelect, IonSelectOption, IonDatetime, IonDatetimeButton, IonModal, IonLabel, IonButton } from '@ionic/vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
 import { formatDateTime } from "@/data/DateUtils";
 import { createResource, fileToBase64, FileUploader, Button } from "frappe-ui"
 import moment from 'moment'
+
+const router = useRouter()
 
 const subject = ref('')
 const eventCategory = ref('')
@@ -87,6 +94,7 @@ const startsOn = ref(moment(today).format('YYYY-MM-DDTHH:mm'))
 const endsOn = ref()
 const status = ref('')
 const image = ref()
+const description = ref("")
 let base64;
 let start;
 let end;
@@ -117,10 +125,12 @@ const submitForm = () => {
                 ends_on: endsOn.value,
                 status: status.value,
                 thumbnail: image.value,
-                is_donation_event: eventCategory.value
+                is_donation_event: eventCategory.value,
+                description: description.value
             },
             onSuccess: (response) => {
                 console.log(response);
+                router.push({ name: "EventDetail", params: { id: response}});
             },
             onError: (error) => {
                 console.log(error);

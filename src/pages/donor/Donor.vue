@@ -27,13 +27,16 @@
           :route="menu.route"
         ></MenuButton>
       </div>
-      <div class="donation-report flex overflow-x-auto">
-        <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
-          <Card 
-            :title="card.title" 
-            :subtitle="card.subtitle" 
-            :content="card.content"
-          ></Card>
+      <div class="accumulate-donation">
+        <h2 class="px-6 py-0">Akumulasi Donasi</h2>
+        <div class="donation-report flex overflow-x-auto">
+          <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
+            <Card 
+              :title="card.title" 
+              :subtitle="card.subtitle" 
+              :content="card.content"
+            ></Card>
+          </div>
         </div>
       </div>
       <div class="event-section">
