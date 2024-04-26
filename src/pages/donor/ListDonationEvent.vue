@@ -8,7 +8,7 @@
                     :key="index" 
                     :title="donation.subject" 
                     :subtitle="donation.starts_on + ' - ' + donation.ends_on"
-                    :image="donation.thumbnail ? donation.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                    :image="donation.event_thumbnail ? donation.event_thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
                     :nextPage="'EventDetail'"
                     :id="donation.name">
                     </CardListItem>

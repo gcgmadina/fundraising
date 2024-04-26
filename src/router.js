@@ -14,6 +14,10 @@ const routes = [
   },
   {
     path: '/secretary',
+    meta: { 
+      auth: true,
+      roles: ['Non Profit Secretary']
+    },
     children: [
       {
         path: '',
@@ -23,10 +27,6 @@ const routes = [
         path: '/event-input',
         name: 'EventInput',
         component: () => import('@/pages/secretary/EventInput.vue'),
-        meta: { 
-          auth: true,
-          roles: ['Non Profit Secretary']
-        },
       },
     ],
   },
