@@ -25,11 +25,13 @@
                             trigger="administrasi" side="top" aligment="center" animated="false"
                             :is-open="popoverOpen" :event="event" @didDismiss="popoverOpen == false">
                     <ion-content class="ion-padding">
-                        <h4 class="my-4" v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
-                        <h4 class="my-4">Inventaris</h4>
-                        <router-link :to="{ name: 'EventInput' }" @click.native="closePopover">
-                            <h4 class="my-4" v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
-                        </router-link>
+                        <h4 class="my-4" @click="toAccounting"
+                            v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
+                        
+                        <h4 class="my-4" @click="toInventaris">Inventaris</h4>
+                        
+                        <h4 class="my-4" @click="toEventInput"
+                            v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
                     </ion-content>
                 </ion-popover>
 
@@ -46,6 +48,7 @@
 
 <script setup>
 import { inject, ref } from "vue"
+import { useRouter } from "vue-router"
 import { IonFooter, IonToolbar, IonButton, IonIcon, IonContent, IonPopover } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import HomeIcon from "@/components/icons/HomeIcon.svg"
@@ -57,6 +60,7 @@ import EventIcon from "@/components/icons/EventIcon.svg"
 const user = inject('$user')
 // console.log(user)
 const session = inject('$session')
+const router = useRouter()
 
 const popoverOpen = ref(false);
 let event = null;
@@ -66,8 +70,19 @@ const openPopover = (e) => {
   popoverOpen.value = true;
 };
 
-const closePopover = () => {
-  popoverOpen.value = false;
+const toEventInput = () => {
+    popoverOpen.value = false;
+    router.push({ name: 'EventInput' });
+};
+
+const toInventaris = () => {
+    popoverOpen.value = false;
+    window.location.pathname = 'app/stock';
+};
+
+const toAccounting = () => {
+    popoverOpen.value = false;
+    window.location.pathname = 'app/accounting';
 };
 </script>
 
