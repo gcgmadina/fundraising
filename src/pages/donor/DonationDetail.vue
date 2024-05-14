@@ -56,16 +56,16 @@
                         <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction"
                             @success="onSuccess">
                             <template v-slot="{
-            file,
-            uploading,
-            progress,
-            uploaded,
-            message,
-            error,
-            total,
-            success,
-            openFileSelector,
-        }" class="flex flex-row justify-between">
+                                file,
+                                uploading,
+                                progress,
+                                uploaded,
+                                message,
+                                error,
+                                total,
+                                success,
+                                openFileSelector,
+                            }" class="flex flex-row justify-between">
                                 <Button @click="openFileSelector" :loading="uploading">
                                     {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                                 </Button>
@@ -73,17 +73,25 @@
                         </FileUploader>
                     </div>
                 </div>
+                <div v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'">
+                    <div v-if="donation.evidance_of_transfer && donation.docstatus === 0">
+                        <ion-button expand="block" @click="submitDonation">Validasi Donasi</ion-button>
+                    </div>
+                    <div v-if="donation.docstatus === 1">
+                        <ion-button expand="block" @click="createPaymentEntry">Buat Entry</ion-button>
+                    </div>
+                </div>
             </div>
         </ion-content>
-        <footer />
+        <Footer/>
     </ion-page>
 </template>
 
 <script setup>
-import { IonPage, IonContent } from '@ionic/vue';
+import { IonPage, IonContent, IonButton } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { createResource, FileUploader, Button } from 'frappe-ui';
 import { formatDateTime } from '@/data/DateUtils';
@@ -93,6 +101,8 @@ moment.locale('id')
 const router = useRouter();
 const donation = ref({});
 const loading = ref(true);
+const user = inject('$user');
+const session = inject('$session');
 
 const validateFileFunction = (fileObject) => { }
 const onSuccess = async (file) => {
@@ -108,6 +118,38 @@ const onSuccess = async (file) => {
         }
     });
     postFile.reload();
+    window.location.reload();
+}
+
+const submitDonation = async () => {
+    let postFile = createResource({
+        method: "POST",
+        url: "non_profit.api.fundraising.submit_donation",
+        params: {
+            donation_id: router.currentRoute.value.params.id
+        },
+        transform(data) {
+            console.log(data);
+        }
+    });
+    postFile.reload();
+    window.location.reload();
+}
+
+const createPaymentEntry = async () => {
+    let postFile = createResource({
+        method: "POST",
+        url: "non_profit.non_profit.custom_doctype.payment_entry.get_donation_payment_entry",
+        params: {
+            dt: 'Donation',
+            dn: router.currentRoute.value.params.id
+        },
+        transform(data) {
+            console.log(data);
+        }
+    });
+    postFile.reload();
+    // window.location.reload();
 }
 
 const donationDetail = createResource({

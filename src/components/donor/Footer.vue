@@ -82,7 +82,8 @@ const toInventaris = () => {
 
 const toAccounting = () => {
     popoverOpen.value = false;
-    window.location.pathname = 'app/accounting';
+    // window.location.pathname = 'app/accounting';
+    router.push({ name: 'accountant' });
 };
 </script>
 

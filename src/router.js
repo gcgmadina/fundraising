@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "@ionic/vue-router"
 import { session } from './data/session'
 import { userResource } from '@/data/user'
 import { inject } from 'vue'  
+import BankAccountDetail from "./pages/accountant/BankAccountDetail.vue"
 
 const routes = [
   {
@@ -27,6 +28,35 @@ const routes = [
         path: '/event-input',
         name: 'EventInput',
         component: () => import('@/pages/secretary/EventInput.vue'),
+      },
+    ],
+  },
+  {
+    path: '/accountant',
+    meta: { 
+      auth: true,
+      roles: ['Non Profit Accounting']
+    },
+    children: [
+      {
+        path: '',
+        name: 'accountant',
+        component: () => import('@/pages/accountant/AccountantMenu.vue'),
+      },
+      {
+        path: '/bank-account',
+        name: 'BankAccount',
+        component: () => import('@/pages/accountant/BankAccountList.vue'),
+      },
+      {
+        path: 'bank-account-detail/:id',
+        name: 'BankAccountDetail',
+        component: () => import('@/pages/accountant/BankAccountDetail.vue')
+      },
+      {
+        path: '/add-bank-account',
+        name: 'AddBankAccount',
+        component: () => import('@/pages/accountant/AddBankAccount.vue'),
       },
     ],
   },
