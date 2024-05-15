@@ -26,3 +26,41 @@ const bankAccountResource = createResource({
 });
 
 export const bankAccountList = reactive([]);
+
+export function getBankById(bankId) {
+    return createResource({
+        method: "GET",
+        url: "non_profit.api.fundraising.get_bank_account_by_id",
+        auto: true,
+        realtime: true,
+        params: {
+            bank_account_id: bankId
+        },
+        transform(data) {
+            return data;
+        }
+    });
+}
+
+export function editBankAccount(bankAccount) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.edit_bank_account",
+            auto: true,
+            realtime: true,
+            params: {
+                bank_account: bankAccount
+            },
+            onSuccess: (response) => {
+                console.log("Successfully edited bank account:", response);
+                resolve(response);
+            },
+            onError: (error) => {
+                console.error("Error editing bank account:", error);
+                reject(error);
+            }
+        });
+        resource.reload();  // Memastikan resource di-reload setelah inisialisasi
+    });
+}

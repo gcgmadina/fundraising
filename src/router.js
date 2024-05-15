@@ -4,7 +4,6 @@ import { createRouter, createWebHistory } from "@ionic/vue-router"
 import { session } from './data/session'
 import { userResource } from '@/data/user'
 import { inject } from 'vue'  
-import BankAccountDetail from "./pages/accountant/BankAccountDetail.vue"
 
 const routes = [
   {
@@ -51,12 +50,14 @@ const routes = [
       {
         path: 'bank-account-detail/:id',
         name: 'BankAccountDetail',
-        component: () => import('@/pages/accountant/BankAccountDetail.vue')
+        component: () => import('@/pages/accountant/BankAccount.vue'),
+        props: router => ({ mode: 'edit', id:router.params.id }),
       },
       {
         path: '/add-bank-account',
         name: 'AddBankAccount',
-        component: () => import('@/pages/accountant/AddBankAccount.vue'),
+        component: () => import('@/pages/accountant/BankAccount.vue'),
+        props: { mode: 'add' }
       },
     ],
   },

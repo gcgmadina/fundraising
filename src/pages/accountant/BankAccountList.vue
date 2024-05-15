@@ -5,7 +5,7 @@
             <ion-list>
                 <ion-card v-for="account in bankAccountList" :key="account.id" @click="goToDetailPage(account.name)">
                     <ion-card-header>
-                        {{ account.name }}
+                        {{ account.account_name }} - {{ account.bank }}
                     </ion-card-header>
                 </ion-card>
             </ion-list>

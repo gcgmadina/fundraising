@@ -28,12 +28,17 @@
         <ion-item>
           <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
             <ion-select-option value="cash">Cash</ion-select-option>
-            <ion-select-option value="tf">Transfer Bank</ion-select-option>
+            <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
           </ion-select>
         </ion-item>
 
-        <ion-item v-if="metodePembayaran === 'tf'">
-          <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input>
+        <ion-item v-if="metodePembayaran === 'Wire Transfer'">
+          <!-- <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input> -->
+          <ion-select v-model="bank" label="Pilih Bank">
+            <ion-select-option v-for="account in bankAccountList" :key="account.id" :value="account.name">
+              {{ account.account_name }}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
 
         <ion-button @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
@@ -53,6 +58,7 @@ import { createResource } from "frappe-ui"
 import { formatDate } from "@/data/DateUtils";
 import PhoneInput from "@/components/PhoneInput.vue";
 import InputAmount from "@/components/InputAmount.vue";
+import { bankAccountList } from "@/data/accounting/BankList";
 
 const router = useRouter();
 
@@ -77,28 +83,54 @@ const updateAmount = (amount) => {
 
 const submitForm = () => {
   if (isValidForm.value) {
-    let postDonation = createResource({
-      method: "POST",
-      url: "non_profit.api.fundraising.new_donation",
-      params: {
-        donation_type: tipeDonasi.value,
-        fullname: nama.value,
-        phone: phone.value,
-        donor: email.value,
-        item_type: tipeItem.value,
-        date: tanggal.value,
-        amount: jumlahUang.value,
-        mode_of_payment: metodePembayaran.value,
-      },
-      onSuccess: (response) => {
-        console.log(response);
-        router.push({ name: 'DonationDetail', params: { id: response } });
-      },
-      onError: (error) => {
-        console.log(error);
-      }
-    });
-    postDonation.reload();
+    if ( metodePembayaran.value === 'cash' ) {
+      let postDonation = createResource({
+        method: "POST",
+        url: "non_profit.api.fundraising.new_donation",
+        params: {
+          donation_type: tipeDonasi.value,
+          fullname: nama.value,
+          phone: phone.value,
+          donor: email.value,
+          item_type: tipeItem.value,
+          date: tanggal.value,
+          amount: jumlahUang.value,
+          mode_of_payment: metodePembayaran.value,
+        },
+        onSuccess: (response) => {
+          console.log(response);
+          router.push({ name: 'DonationDetail', params: { id: response } });
+        },
+        onError: (error) => {
+          console.log(error);
+        }
+      });
+      postDonation.reload();
+    } else if ( metodePembayaran.value === 'Wire Transfer' ) {
+      let postDonation = createResource({
+        method: "POST",
+        url: "non_profit.api.fundraising.new_donation",
+        params: {
+          donation_type: tipeDonasi.value,
+          fullname: nama.value,
+          phone: phone.value,
+          donor: email.value,
+          item_type: tipeItem.value,
+          date: tanggal.value,
+          amount: jumlahUang.value,
+          mode_of_payment: metodePembayaran.value,
+          bank: bank.value,
+        },
+        onSuccess: (response) => {
+          console.log(response);
+          router.push({ name: 'DonationDetail', params: { id: response } });
+        },
+        onError: (error) => {
+          console.log(error);
+        }
+      });
+      postDonation.reload();
+    }
   } else {
     console.log('Form is not valid. Please fill in all required fields.');
   }
