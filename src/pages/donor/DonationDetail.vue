@@ -77,7 +77,7 @@
                     <div v-if="donation.evidance_of_transfer && donation.docstatus === 0">
                         <ion-button expand="block" @click="submitDonation">Validasi Donasi</ion-button>
                     </div>
-                    <div v-if="donation.docstatus === 1">
+                    <div v-if="donation.docstatus === 1 && donation.item_type === 'Uang'">
                         <ion-button expand="block" @click="newPaymentEntry">Buat Entry</ion-button>
                     </div>
                 </div>
