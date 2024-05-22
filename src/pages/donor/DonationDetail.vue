@@ -78,7 +78,7 @@
                         <ion-button expand="block" @click="submitDonation">Validasi Donasi</ion-button>
                     </div>
                     <div v-if="donation.docstatus === 1">
-                        <ion-button expand="block" @click="createPaymentEntry">Buat Entry</ion-button>
+                        <ion-button expand="block" @click="newPaymentEntry">Buat Entry</ion-button>
                     </div>
                 </div>
             </div>
@@ -96,6 +96,7 @@ import { useRouter } from 'vue-router';
 import { createResource, FileUploader, Button } from 'frappe-ui';
 import { formatDateTime } from '@/data/DateUtils';
 import moment from 'moment';
+import { createPaymentEntry } from '@/data/accounting/PaymentEntry';
 
 moment.locale('id')
 const router = useRouter();
@@ -136,20 +137,15 @@ const submitDonation = async () => {
     window.location.reload();
 }
 
-const createPaymentEntry = async () => {
-    let postFile = createResource({
-        method: "POST",
-        url: "non_profit.non_profit.custom_doctype.payment_entry.get_donation_payment_entry",
-        params: {
-            dt: 'Donation',
-            dn: router.currentRoute.value.params.id
-        },
-        transform(data) {
-            console.log(data);
-        }
-    });
-    postFile.reload();
-    // window.location.reload();
+const newPaymentEntry = async () => {
+    createPaymentEntry(router.currentRoute.value.params.id)
+      .then(paymentData => {
+          console.log("Payment Entry Created: ", paymentData);
+          // Anda dapat melakukan navigasi atau tindakan lain di sini
+      })
+      .catch(error => {
+          console.error("Failed to create payment entry: ", error);
+      });
 }
 
 const donationDetail = createResource({

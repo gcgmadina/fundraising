@@ -59,6 +59,16 @@ const routes = [
         component: () => import('@/pages/accountant/BankAccount.vue'),
         props: { mode: 'add' }
       },
+      {
+        path: '/payment-entry',
+        name: 'PaymentEntry',
+        component: () => import('@/pages/accountant/PaymentEntryList.vue'),
+      },
+      {
+        path: 'add-payment-entry',
+        name: 'AddPaymentEntry',
+        component: () => import('@/pages/accountant/AddPaymentEntry.vue'),
+      },
     ],
   },
   {

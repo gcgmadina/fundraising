@@ -7,16 +7,24 @@
                     <ion-card-header>
                         <div class="flex flex-auto justify-between items-center">
                             <ion-card-subtitle>Rekening Bank</ion-card-subtitle>
-                            <ion-icon :icon="GreaterThan"/>
+                            <ion-icon :icon="GreaterThan" />
                         </div>
                     </ion-card-header>
-                </ion-card>            
+                </ion-card>
             </router-link>
+            <ion-card @click="toPaymentEntryList">
+                <ion-card-header>
+                    <div class="flex flex-auto justify-between items-center">
+                        <ion-card-subtitle>Payment Entry</ion-card-subtitle>
+                        <ion-icon :icon="GreaterThan" />
+                    </div>
+                </ion-card-header>
+            </ion-card>
             <ion-card @click="toAccounting">
                 <ion-card-header>
                     <div class="flex flex-auto justify-between items-center">
                         <ion-card-subtitle>Lainnya</ion-card-subtitle>
-                        <ion-icon :icon="GreaterThan"/>
+                        <ion-icon :icon="GreaterThan" />
                     </div>
                 </ion-card-header>
             </ion-card>
@@ -31,5 +39,9 @@ import GreaterThan from '@/components/icons/greater-than.svg';
 
 const toAccounting = () => {
     window.location.pathname = 'app/accounting';
+};
+
+const toPaymentEntryList = () => {
+    window.location.pathname = 'app/payment-entry';
 };
 </script>
