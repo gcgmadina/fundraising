@@ -60,14 +60,14 @@ const routes = [
         props: { mode: 'add' }
       },
       {
-        path: '/payment-entry',
-        name: 'PaymentEntry',
-        component: () => import('@/pages/accountant/PaymentEntryList.vue'),
+        path: '/expenses/:name',
+        name: 'Expenses',
+        component: () => import('@/pages/accountant/ExpenseList.vue'),
       },
       {
-        path: 'add-payment-entry',
-        name: 'AddPaymentEntry',
-        component: () => import('@/pages/accountant/AddPaymentEntry.vue'),
+        path: '/add-expense/:name',
+        name: 'AddExpense',
+        component: () => import('@/pages/accountant/ExpenseInput.vue'),
       },
     ],
   },
