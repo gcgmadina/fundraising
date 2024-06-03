@@ -40,6 +40,11 @@ const routes = [
         component: () => import('@/pages/secretary/ItemList.vue'),
       },
       {
+        path: '/assets-category',
+        name: 'AssetsCategory',
+        component: () => import('@/pages/secretary/AssetCategoryList.vue'),
+      },
+      {
         path: '/add-item/:group',
         name: 'AddItem',
         component: () => import('@/pages/secretary/ItemInput.vue'),

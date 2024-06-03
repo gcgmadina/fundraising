@@ -55,6 +55,60 @@ export function deleteItemGroups(item_groups) {
     });
 }
 
+export const assetCategoryResource = createResource({
+    url: "non_profit.api.fundraising.get_asset_category",
+    auto: true,
+    transform(data) {
+        for (let i in data) {
+            assetCategoryList.push(data[i]);
+        }
+    }
+});
+
+export const assetCategoryList = reactive([]);
+
+export function addAssetCategory(asset_category) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.add_asset_category",
+            params: {
+                asset_category: asset_category,
+            },
+            onSuccess: (data) => {
+                console.log("New asset category created:", data);
+                resolve(data);
+            },
+            onError: (error) => {
+                console.error("Error creating new asset category:", error);
+                reject(error);
+            },
+        });
+        resource.reload();
+    });
+}
+
+export function deleteAssetCategories(asset_categories) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.delete_asset_categories",
+            params: {
+                asset_categories: asset_categories,
+            },
+            onSuccess: (data) => {
+                console.log("Asset category deleted:", data);
+                resolve(data);
+            },
+            onError: (error) => {
+                console.error("Error deleting asset category:", error);
+                reject(error);
+            },
+        });
+        resource.reload();
+    });
+}
+
 export const itemResource = (item_group) => {
     let data_items = createResource({
         url: "non_profit.api.fundraising.get_item_by_group",
