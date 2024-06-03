@@ -77,7 +77,7 @@ const toEventInput = () => {
 
 const toInventaris = () => {
     popoverOpen.value = false;
-    window.location.pathname = 'app/stock';
+    router.push({ name: 'secretary' });
 };
 
 const toAccounting = () => {

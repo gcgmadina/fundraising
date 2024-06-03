@@ -22,11 +22,27 @@ const routes = [
       {
         path: '',
         name: 'secretary',
+        component: () => import('@/pages/secretary/SecretaryMenu.vue'),
       },
       {
         path: '/event-input',
         name: 'EventInput',
         component: () => import('@/pages/secretary/EventInput.vue'),
+      },
+      {
+        path: '/item-group',
+        name: 'ItemGroups',
+        component: () => import('@/pages/secretary/ItemGroupList.vue'),
+      },
+      {
+        path: '/items/:group',
+        name: 'Items',
+        component: () => import('@/pages/secretary/ItemList.vue'),
+      },
+      {
+        path: '/add-item/:group',
+        name: 'AddItem',
+        component: () => import('@/pages/secretary/ItemInput.vue'),
       },
     ],
   },
