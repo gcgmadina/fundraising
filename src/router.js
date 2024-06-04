@@ -35,9 +35,10 @@ const routes = [
         component: () => import('@/pages/secretary/ItemGroupList.vue'),
       },
       {
-        path: '/items/:group',
+        path: '/items/:group/:assetCategory?',
         name: 'Items',
         component: () => import('@/pages/secretary/ItemList.vue'),
+        props: true,
       },
       {
         path: '/assets-category',
@@ -45,9 +46,10 @@ const routes = [
         component: () => import('@/pages/secretary/AssetCategoryList.vue'),
       },
       {
-        path: '/add-item/:group',
+        path: '/add-item/:group/:assetCategory?',
         name: 'AddItem',
         component: () => import('@/pages/secretary/ItemInput.vue'),
+        props: true,
       },
     ],
   },

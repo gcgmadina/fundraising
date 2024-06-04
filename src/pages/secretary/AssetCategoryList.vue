@@ -127,7 +127,7 @@ const deleteSelectedCategories = () => {
 }
 
 const viewCategory = (category) => {
-    router.push(`/category/${category.name}`)
+    router.push({ name: 'Items', params: { group: 'Aset Tetap', assetCategory: category.name } })
 }
 
 const isSelected = (category) => {
