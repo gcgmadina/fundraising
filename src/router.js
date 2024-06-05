@@ -51,6 +51,11 @@ const routes = [
         component: () => import('@/pages/secretary/ItemInput.vue'),
         props: true,
       },
+      {
+        path: '/purchaseHistory',
+        name: 'PurchaseHistory',
+        component: () => import('@/pages/secretary/PurchaseReceiptList.vue'),
+      }
     ],
   },
   {

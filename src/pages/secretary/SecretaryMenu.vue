@@ -13,14 +13,16 @@
                     </ion-card-header>
                 </ion-card>
             </router-link>
-            <ion-card>
-                <ion-card-header>
-                    <div class="flex flex-auto justify-between items-center">
-                        <ion-card-subtitle>Pembelian Barang</ion-card-subtitle>
-                        <ion-icon :icon="GreaterThan" />
-                    </div>
-                </ion-card-header>
-            </ion-card>
+            <router-link :to="{ name: 'PurchaseHistory' }">
+                <ion-card>
+                    <ion-card-header>
+                        <div class="flex flex-auto justify-between items-center">
+                            <ion-card-subtitle>Pembelian Barang</ion-card-subtitle>
+                            <ion-icon :icon="GreaterThan" />
+                        </div>
+                    </ion-card-header>
+                </ion-card>
+            </router-link>
             <h6 class="mx-6 mb-0">Lainnya</h6>
             <ion-card @click="toStock">
                 <ion-card-header>
