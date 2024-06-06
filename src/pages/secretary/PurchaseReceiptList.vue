@@ -1,10 +1,10 @@
 <template>
     <ion-page>
-        <Header/>
+        <Header :showBackButton="true"/>
         <ion-content>
             <h1 class="text-center my-4">Riwayat Pembelian Barang</h1>
             <ion-list>
-                <ion-card v-for="pr in purchaseReceiptScrollData" :key="pr.name">
+                <ion-card v-for="pr in purchaseReceiptScrollData" :key="pr.name" @click="purchaseReceiptDetail(pr.name)">
                     <ion-card-header class="flex flex-row">
                         <div class="flex flex-auto flex-col mx-4">
                             <ion-card-title>{{ pr.posting_date }}</ion-card-title>
@@ -35,6 +35,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const router = useRouter()
 const loadDisabled = ref(false);
+
+const purchaseReceiptDetail = (name) => {
+    router.push({ name: 'PurchaseReceipt', params: { id: name } })
+}
 
 const getStatus = (status) => {
     if (status === "Completed") {

@@ -55,6 +55,11 @@ const routes = [
         path: '/purchaseHistory',
         name: 'PurchaseHistory',
         component: () => import('@/pages/secretary/PurchaseReceiptList.vue'),
+      },
+      {
+        path: '/purchaseReceipt/:id',
+        name: 'PurchaseReceipt',
+        component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
       }
     ],
   },
