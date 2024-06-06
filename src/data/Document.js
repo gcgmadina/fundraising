@@ -23,3 +23,70 @@ export function deleteDocument(doctype, docname) {
         });
     });
 }
+
+export function getDocumentById(doctype, docname) {
+    return new Promise((resolve, reject) => {
+        createResource({
+            method: "GET",
+            url: "non_profit.api.fundraising.get_document",
+            auto: true,
+            realtime: true,
+            params: {
+                doctype: doctype,
+                docname: docname
+            },
+            transform(data) {
+                resolve(data);
+            },
+            error(error) {
+                reject(error);
+            }
+        });
+    });
+}
+
+export function cancelDocument(doctype, docname) {
+    return new Promise((resolve, reject) => {
+        createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.cancel_document",
+            auto: true,
+            realtime: true,
+            params: {
+                doctype: doctype,
+                docname: docname
+            },
+            onSuccess: (response) => {
+                console.log("Successfully cancelled document:", response);
+                resolve(response);
+            },
+            onError: (error) => {
+                console.error("Error cancelling document:", error);
+                reject(error);
+            }
+        });
+    });
+}
+
+export function submitDocument(doctype, docname) {
+    return new Promise((resolve, reject) => {
+        createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.submit_document",
+            auto: true,
+            realtime: true,
+            params: {
+                doctype: doctype,
+                docname: docname
+            },
+            onSuccess: (response) => {
+                console.log("Successfully submitted document:", response);
+                resolve(response);
+            },
+            onError: (error) => {
+                console.error("Error submitting document:", error);
+                reject(error);
+            }
+        });
+    });
+}
