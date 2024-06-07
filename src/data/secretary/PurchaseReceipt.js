@@ -20,3 +20,24 @@ export const getPurchaseReceiptScroll = () => {
 }
 
 export const purchaseReceiptScrollData = reactive([]);
+
+export function addPurchaseReceipt(items) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: "POST",
+            url: "non_profit.api.fundraising.add_purchase_receipt",
+            params: {
+                items: items,
+            },
+            onSuccess: (data) => {
+                console.log("New purchase receipt created:", data);
+                resolve(data);
+            },
+            onError: (error) => {
+                console.error("Error creating new purchase receipt:", error);
+                reject(error);
+            },
+        });
+        resource.reload();
+    });
+}

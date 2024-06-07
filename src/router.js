@@ -60,6 +60,11 @@ const routes = [
         path: '/purchaseReceipt/:id',
         name: 'PurchaseReceipt',
         component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
+      },
+      {
+        path: 'add-purchase-receipt',
+        name: 'addPurchaseReceipt',
+        component: () => import('@/pages/secretary/PurchaseReceiptInput.vue')
       }
     ],
   },

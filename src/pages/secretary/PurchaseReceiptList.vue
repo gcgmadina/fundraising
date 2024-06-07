@@ -21,6 +21,9 @@
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </ion-content>
+        <ion-button @click="addPurchaseReceipt" color="primary">
+            Tambah Daftar Pembelian
+        </ion-button>
         <Footer/>
     </ion-page>
 </template>
@@ -69,4 +72,8 @@ const loadData = (event) => {
 onMounted(() => {
     getPurchaseReceiptScroll();
 });
+
+const addPurchaseReceipt = () => {
+    router.push({ name: 'addPurchaseReceipt' })
+}
 </script>

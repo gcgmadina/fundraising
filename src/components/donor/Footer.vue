@@ -18,7 +18,7 @@
                             id="administrasi" fill="clear" size="small" @click="openPopover($event)">
                     <div class="custom-button flex flex-col items-center"> 
                         <ion-icon :icon="EventIcon" size="large" ></ion-icon> 
-                        <div class="menuname">Kegiatan</div>
+                        <div class="menuname">Administrasi</div>
                     </div>
                 </ion-button>
                 <ion-popover v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'"

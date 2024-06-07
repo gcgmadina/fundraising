@@ -109,17 +109,18 @@ export function deleteAssetCategories(asset_categories) {
     });
 }
 
-export const itemResource = (item_group, asset_category = null) => {
-    let params = {
-        item_group: item_group
-    };
+export const itemResource = (item_group = null, asset_category = null) => {
+    let params = {};
+    if (item_group) {
+        params.item_group = item_group;
+    }
 
     if (item_group === "Aset Tetap" && asset_category) {
         params.asset_category = asset_category;
     }
 
     let data_items = createResource({
-        url: "non_profit.api.fundraising.get_item_by_group",
+        url: "non_profit.api.fundraising.get_item",
         params: params,
         transform(data) {
             console.log(data);
