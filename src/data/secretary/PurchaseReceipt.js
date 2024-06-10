@@ -7,6 +7,7 @@ export const getPurchaseReceiptScroll = () => {
         realtime: true,
         transform(data) {
             let count = purchaseReceiptScrollData.length;
+            purchaseReceiptDataLength.value = data.length;
             for (let i = 0; i < 5; i++) {
                 if (i + count < data.length)
                     purchaseReceiptScrollData.push(data[i + count]);
@@ -20,6 +21,7 @@ export const getPurchaseReceiptScroll = () => {
 }
 
 export const purchaseReceiptScrollData = reactive([]);
+export const purchaseReceiptDataLength = ref(0);
 
 export function addPurchaseReceipt(items) {
     return new Promise((resolve, reject) => {

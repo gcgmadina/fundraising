@@ -33,7 +33,7 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
 import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 import { useRouter } from 'vue-router'
-import { getPurchaseReceiptScroll, purchaseReceiptScrollData } from '@/data/secretary/PurchaseReceipt'
+import { getPurchaseReceiptScroll, purchaseReceiptScrollData, purchaseReceiptDataLength } from '@/data/secretary/PurchaseReceipt'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const router = useRouter()
@@ -57,12 +57,12 @@ const getStatus = (status) => {
 
 const loadData = (event) => {
     setTimeout(() => {
-        if ( purchaseReceiptScrollData.length >= purchaseReceiptScrollData.length ) {
+        if ( purchaseReceiptScrollData.length >= purchaseReceiptDataLength ) {
             loadDisabled.value = true;
             event.target.complete();
         }
         else {
-            getPurchaseReceipt();
+            getPurchaseReceiptScroll();
             loadDisabled.value = false;
             event.target.complete();
         }
