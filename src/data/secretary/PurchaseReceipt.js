@@ -4,6 +4,7 @@ import { reactive, ref } from 'vue'
 export const getPurchaseReceiptScroll = () => {
     let data_purchase_receipt = createResource({
         url: "non_profit.api.fundraising.get_purchase_receipt",
+        auto: true,
         realtime: true,
         transform(data) {
             let count = purchaseReceiptScrollData.length;
@@ -14,6 +15,7 @@ export const getPurchaseReceiptScroll = () => {
                 else
                     break;
             }
+            return data;
         }
     })
 

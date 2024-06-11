@@ -57,7 +57,7 @@ const getStatus = (status) => {
 
 const loadData = (event) => {
     setTimeout(() => {
-        if ( purchaseReceiptScrollData.length >= purchaseReceiptDataLength ) {
+        if ( purchaseReceiptScrollData.length >= purchaseReceiptDataLength.value ) {
             loadDisabled.value = true;
             event.target.complete();
         }

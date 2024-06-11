@@ -56,9 +56,9 @@ onMounted(() => {
     itemResource();
 });
 
-onUnmounted(() => {
-    router.go();
-});
+// onUnmounted(() => {
+//     router.go();
+// });
 
 const addItem = () => {
     items.value.push({ item_code: '', qty: null, rate: null });
