@@ -13,7 +13,7 @@
                     </ion-card-header>
                 </ion-card>
             </router-link>
-            <router-link :to="{ name: 'PurchaseHistory' }">
+            <router-link :to="{ name: 'addPurchaseReceipt' }">
                 <ion-card>
                     <ion-card-header>
                         <div class="flex flex-auto justify-between items-center">

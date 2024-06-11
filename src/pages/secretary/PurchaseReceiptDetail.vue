@@ -24,9 +24,9 @@
                 </ion-card-content>
             </ion-card>
         </ion-content>
-        <ion-button v-if="pr.docstatus === 0" color="danger" @click="showDeleteModal = true">Delete Purchase Receipt</ion-button>
+        <ion-button v-if="pr.docstatus === 0" color="danger" @click="showDeleteModal = true">Hapus Pengajuan</ion-button>
         <ion-button v-if="pr.docstatus === 0" @click="showSubmitModal = true">Ajukan Pembelian</ion-button>
-        <ion-button v-if="pr.docstatus === 1" color="danger" @click="showCancelModal = true">Batalkan Pembelian</ion-button>
+        <ion-button v-if="pr.docstatus === 1 && pr.status == 'To Bill'" color="danger" @click="showCancelModal = true">Batalkan Pembelian</ion-button>
         <Footer/>
 
         <!-- Delete Modal -->
@@ -60,7 +60,7 @@
                 <p class="mb-4">Apakah Anda yakin ingin membatalkan bukti pembelian ini?</p>
                 <div class="flex justify-end space-x-4">
                     <ion-button color="danger" @click="cancelPurchaseReceipt(router.currentRoute.value.params.id)">Batalkan</ion-button>
-                    <ion-button @click="showCancelModal = false">Batal</ion-button>
+                    <ion-button @click="showCancelModal = false">Tutup</ion-button>
                 </div>
             </div>
         </div>

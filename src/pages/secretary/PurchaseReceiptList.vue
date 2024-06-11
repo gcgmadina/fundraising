@@ -44,11 +44,11 @@ const purchaseReceiptDetail = (name) => {
 }
 
 const getStatus = (status) => {
-    if (status === "Completed") {
+    if (status === "Disetujui") {
         return "success";
-    } else if (status === "Cancelled") {
+    } else if (status === "Dibatalkan") {
         return "danger";
-    } else if (status === "To Bill") {
+    } else if (status === "Diajukan") {
         return "primary";
     } else {
         return "warning";

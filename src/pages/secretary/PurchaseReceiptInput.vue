@@ -5,7 +5,7 @@
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <div v-for="(item, index) in items" :key="index" class="item-form space-y-2 mb-4">
                     <ion-item>
-                        <ion-select v-model="item.item_code" label="Nama Item" labelPlacement="floating">
+                        <ion-select v-model="item.item_code" label="Nama Barang" labelPlacement="floating">
                             <ion-select-option v-for="item in itemList" :value="item.name">{{ item.name
                                 }}</ion-select-option>
                         </ion-select>
@@ -19,10 +19,10 @@
                             labelPlacement="floating"></ion-input>
                     </ion-item>
                     <ion-button v-if="items.length > 1" @click="removeItem(index)" expand="block" color="danger">Hapus
-                        Item</ion-button>
+                        Barang</ion-button>
                 </div>
-                <ion-button @click="addItem" expand="block">Tambah Item</ion-button>
-                <ion-button type="submit" expand="block" :disabled="isSubmitDisabled">Simpan</ion-button>
+                <ion-button @click="addItem" expand="block">Tambah Barang</ion-button>
+                <ion-button type="submit" expand="block" :disabled="isSubmitDisabled">Simpan &#38; Ajukan</ion-button>
             </form>
             <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                 <div class="bg-white p-6 rounded shadow-lg text-center">
@@ -32,6 +32,9 @@
                 </div>
             </div>
         </ion-content>
+        <div>
+            <ion-button @click="router.push({name: 'PurchaseHistory'})" expand="block">Riwayat Pembelian</ion-button>
+        </div>
         <Footer />
     </ion-page>
 </template>
