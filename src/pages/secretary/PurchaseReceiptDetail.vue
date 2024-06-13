@@ -24,9 +24,11 @@
                 </ion-card-content>
             </ion-card>
         </ion-content>
-        <ion-button v-if="pr.docstatus === 0" color="danger" @click="showDeleteModal = true">Hapus Pengajuan</ion-button>
-        <ion-button v-if="pr.docstatus === 0" @click="showSubmitModal = true">Ajukan Pembelian</ion-button>
-        <ion-button v-if="pr.docstatus === 1 && pr.status == 'To Bill'" color="danger" @click="showCancelModal = true">Batalkan Pembelian</ion-button>
+        <ion-button v-if="pr.docstatus === 0 && props.mode === 'history'" color="danger" @click="showDeleteModal = true">Hapus Pengajuan</ion-button>
+        <ion-button v-if="pr.docstatus === 0 && props.mode === 'history'" @click="showSubmitModal = true">Ajukan Pembelian</ion-button>
+        <ion-button v-if="pr.docstatus === 1 && pr.status == 'To Bill' && props.mode === 'history'" color="danger" @click="showCancelModal = true">Batalkan Pembelian</ion-button>
+        <ion-button v-if="pr.docstatus === 1 && pr.status == 'To Bill' && props.mode === 'approve'" color="success" @click="showModeOfPaymentModal = true">Setujui</ion-button>
+        <ion-button v-if="pr.docstatus === 1 && pr.status == 'To Bill' && props.mode === 'approve'" color="danger" @click="showRejectModal = true">Tolak Pengajuan</ion-button>
         <Footer/>
 
         <!-- Delete Modal -->
@@ -64,22 +66,71 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mode of Payment Modal -->
+        <div v-if="showModeOfPaymentModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+                <h2 class="text-xl font-semibold mb-4">Metode Pembayaran</h2>
+                <p class="mb-4">Dibayar menggunakan tabungan</p>
+                <ion-radio-group v-model="modeOfPayment" >
+                    <ion-radio value="Wire Transfer" label-placement="end">Bank</ion-radio><br/>
+                    <ion-radio value="Cash" label-placement="end">Kas</ion-radio>
+                </ion-radio-group>
+                <div class="flex justify-end space-x-4">
+                    <ion-button @click="toApproveModal">Lanjut</ion-button>
+                    <ion-button @click="showModeOfPaymentModal = false">Tutup</ion-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Approve Modal -->
+        <div v-if="showApproveModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+                <h2 class="text-xl font-semibold mb-4">Konfirmasi Persetujuan</h2>
+                <p class="mb-4">Apakah anda yakin untuk menyetujui pembelian ini?</p>
+                <div class="flex justify-end space-x-4">
+                    <ion-button color="success" @click="approvePurchaseReceipt(router.currentRoute.value.params.id)">Setujui</ion-button>
+                    <ion-button @click="showApproveMOdal = false">Tutup</ion-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reject Modal -->
+        <div v-if="showRejectModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+                <h2 class="text-xl font-semibold mb-4">Konfirmasi Penolakan</h2>
+                <p class="mb-4">Apakah anda yakin untuk menolak pembelian ini?</p>
+                <div class="flex justify-end space-x-4">
+                    <ion-button color="danger" @click="cancelPurchaseReceipt(router.currentRoute.value.params.id)">Tolak</ion-button>
+                    <ion-button @click="showRejectModal = false">Tutup</ion-button>
+                </div>
+            </div>
+        </div>
     </ion-page>
 </template>
 
 <script setup>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
-import { IonContent, IonPage, IonCard, IonCardHeader, IonCardTitle, IonLabel, IonItem, IonList, IonCardContent, IonButton } from '@ionic/vue'
+import { IonContent, IonPage, IonCard, IonCardHeader, IonCardTitle, IonLabel, IonItem, IonList, IonCardContent, IonButton, IonRadio, IonRadioGroup } from '@ionic/vue'
 import { useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
 import { getDocumentById, cancelDocument, submitDocument, deleteDocument } from '@/data/Document'
+import { createInvoiceFromPurchaseReceipt } from '@/data/accounting/PurchaseInvoice'
+
+const props = defineProps({
+    mode: String
+});
 
 const router = useRouter()
 const pr = ref({});
 const showDeleteModal = ref(false);
 const showSubmitModal = ref(false);
 const showCancelModal = ref(false);
+const showModeOfPaymentModal = ref(false);
+const showApproveModal = ref(false);
+const showRejectModal = ref(false);
+const modeOfPayment = ref();
 
 onMounted(() => {
     getDocumentById("Purchase Receipt", router.currentRoute.value.params.id).then(response => {
@@ -111,11 +162,35 @@ const submitPurchaseReceipt = (name) => {
 
 const cancelPurchaseReceipt = (name) => {
     cancelDocument("Purchase Receipt", name).then(() => {
-        router.push({ name: 'PurchaseHistory' });
+        if (props.mode === 'approve') {
+            router.push({ name: 'PurchaseToApprove' });
+        } else {
+            router.push({ name: 'PurchaseHistory' });
+        }
     }).catch(error => {
         console.error("Failed to cancel purchase receipt:", error);
     }).finally(() => {
         showCancelModal.value = false;
+    });
+}
+
+const toApproveModal = () => {
+    showModeOfPaymentModal.value = false;
+    showApproveModal.value = true;
+}
+
+const approvePurchaseReceipt = (name) => {
+    createInvoiceFromPurchaseReceipt(name, modeOfPayment.value).then((response) => {
+        if (props.mode === 'approve') {
+            router.push({ name: 'PurchaseToApprove' });
+        } else {
+            router.push({ name: 'PurchaseHistory' });
+        }
+        console.log("Purchase Invoice created:", response);
+    }).catch(error => {
+        console.error("Failed to approve purchase receipt:", error);
+    }).finally(() => {
+        showApproveModal.value = false;
     });
 }
 </script>

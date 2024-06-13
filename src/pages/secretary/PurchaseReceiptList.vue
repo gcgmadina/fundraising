@@ -21,9 +21,6 @@
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </ion-content>
-        <ion-button @click="addPurchaseReceipt" color="primary">
-            Tambah Daftar Pembelian
-        </ion-button>
         <Footer/>
     </ion-page>
 </template>
@@ -34,13 +31,25 @@ import Footer from '@/components/donor/Footer.vue'
 import { IonContent, IonPage, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import { getPurchaseReceiptScroll, purchaseReceiptScrollData, purchaseReceiptDataLength } from '@/data/secretary/PurchaseReceipt'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
+
+const props = defineProps({
+    mode: String
+});
 
 const router = useRouter()
 const loadDisabled = ref(false);
 
 const purchaseReceiptDetail = (name) => {
-    router.push({ name: 'PurchaseReceipt', params: { id: name } })
+    // router.push({ name: 'PurchaseReceipt', params: { id: name } })
+    if (props.mode == "history"){
+        router.push({ name: 'PurchaseReceipt', params: { id: name } })
+        // console.log(props.mode)
+    }
+    else if (props.mode == "approve"){
+        router.push({ name: 'PurchaseDetail', params: { id: name } })
+        // console.log(props.mode)
+    }
 }
 
 const getStatus = (status) => {
@@ -72,8 +81,4 @@ const loadData = (event) => {
 onMounted(() => {
     getPurchaseReceiptScroll();
 });
-
-const addPurchaseReceipt = () => {
-    router.push({ name: 'addPurchaseReceipt' })
-}
 </script>

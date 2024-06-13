@@ -11,7 +11,7 @@
                 <MenuButton
                     :icon="HistoryIcon"
                     :buttonsize=" 'small' "
-                    :label="'History'"
+                    :label="'Riwayat'"
                     :route=" '/history' "
                 ></MenuButton>
                 <ion-button v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'" 

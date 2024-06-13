@@ -13,6 +13,17 @@
                     </ion-card-header>
                 </ion-card>
             </router-link>
+            <h6 class="mx-6 mb-0">Pembelian</h6>
+            <router-link :to="{ name: 'PurchaseToApprove' }">
+                <ion-card>
+                    <ion-card-header>
+                        <div class="flex flex-auto justify-between items-center">
+                            <ion-card-subtitle>Daftar Pembelian</ion-card-subtitle>
+                            <ion-icon :icon="GreaterThan" />
+                        </div>
+                    </ion-card-header>
+                </ion-card>
+            </router-link>
             <h6 class="mx-6 mb-0">Pengeluaran</h6>
             <ion-card @click="toExpenseList('Pembayaran Listrik')">
                 <ion-card-header>

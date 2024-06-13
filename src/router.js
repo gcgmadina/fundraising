@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from "@ionic/vue-router"
 
 import { session } from './data/session'
 import { userResource } from '@/data/user'
-import { inject } from 'vue'  
+import { inject } from 'vue'
 
 const routes = [
   {
@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: '/secretary',
-    meta: { 
+    meta: {
       auth: true,
       roles: ['Non Profit Secretary']
     },
@@ -25,41 +25,43 @@ const routes = [
         component: () => import('@/pages/secretary/SecretaryMenu.vue'),
       },
       {
-        path: '/event-input',
+        path: 'event-input',
         name: 'EventInput',
         component: () => import('@/pages/secretary/EventInput.vue'),
       },
       {
-        path: '/item-group',
+        path: 'item-group',
         name: 'ItemGroups',
         component: () => import('@/pages/secretary/ItemGroupList.vue'),
       },
       {
-        path: '/items/:group/:assetCategory?',
+        path: 'items/:group/:assetCategory?',
         name: 'Items',
         component: () => import('@/pages/secretary/ItemList.vue'),
         props: true,
       },
       {
-        path: '/assets-category',
+        path: 'assets-category',
         name: 'AssetsCategory',
         component: () => import('@/pages/secretary/AssetCategoryList.vue'),
       },
       {
-        path: '/add-item/:group/:assetCategory?',
+        path: 'add-item/:group/:assetCategory?',
         name: 'AddItem',
         component: () => import('@/pages/secretary/ItemInput.vue'),
         props: true,
       },
       {
-        path: '/purchaseHistory',
+        path: 'purchaseHistory',
         name: 'PurchaseHistory',
         component: () => import('@/pages/secretary/PurchaseReceiptList.vue'),
+        props: { mode: 'history' },
       },
       {
-        path: '/purchaseReceipt/:id',
+        path: 'purchaseReceipt/:id',
         name: 'PurchaseReceipt',
         component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
+        props: { mode: 'history' },
       },
       {
         path: 'add-purchase-receipt',
@@ -70,7 +72,7 @@ const routes = [
   },
   {
     path: '/accountant',
-    meta: { 
+    meta: {
       auth: true,
       roles: ['Non Profit Accounting']
     },
@@ -81,7 +83,7 @@ const routes = [
         component: () => import('@/pages/accountant/AccountantMenu.vue'),
       },
       {
-        path: '/bank-account',
+        path: 'bank-account',
         name: 'BankAccount',
         component: () => import('@/pages/accountant/BankAccountList.vue'),
       },
@@ -89,23 +91,35 @@ const routes = [
         path: 'bank-account-detail/:id',
         name: 'BankAccountDetail',
         component: () => import('@/pages/accountant/BankAccount.vue'),
-        props: router => ({ mode: 'edit', id:router.params.id }),
+        props: router => ({ mode: 'edit', id: router.params.id }),
       },
       {
-        path: '/add-bank-account',
+        path: 'add-bank-account',
         name: 'AddBankAccount',
         component: () => import('@/pages/accountant/BankAccount.vue'),
         props: { mode: 'add' }
       },
       {
-        path: '/expenses/:name',
+        path: 'expenses/:name',
         name: 'Expenses',
         component: () => import('@/pages/accountant/ExpenseList.vue'),
       },
       {
-        path: '/add-expense/:name',
+        path: 'add-expense/:name',
         name: 'AddExpense',
         component: () => import('@/pages/accountant/ExpenseInput.vue'),
+      },
+      {
+        path: 'purchase-to-approve',
+        name: 'PurchaseToApprove',
+        component: () => import('@/pages/secretary/PurchaseReceiptList.vue'),
+        props: { mode: 'approve' },
+      },
+      {
+        path: 'purchase-detail/:id',
+        name: 'PurchaseDetail',
+        component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
+        props: { mode: 'approve' },
       },
     ],
   },
@@ -166,7 +180,7 @@ const routes = [
             component: () => import('@/pages/donor/SpecificDonationInput.vue'),
           },
         ],
-      },      
+      },
     ],
   },
   {
@@ -207,7 +221,7 @@ router.beforeEach(async (to, from, next) => {
   try {
     if (isLoggedIn) {
       await userResource.reload()
-    } 
+    }
   } catch (error) {
     isLoggedIn = false
   }
