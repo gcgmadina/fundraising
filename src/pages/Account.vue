@@ -1,28 +1,28 @@
 <template>
     <ion-page>
         <Header />
-        <ion-content>
-            <div class="max-w-3xl py-12 mx-auto">
-                <h2 class="font-bold text-lg text-gray-600 mb-4">
-                    Welcome {{ session.user }}!
-                </h2>
-        
-                <Button icon-left="code" @click="ping.fetch" :loading="ping.loading">
-                    Click to send 'ping' request
-                </Button>
+        <ion-content class="ion-padding flex items-center justify-center h-full">
+            <div class="text-center">
+                <!-- Foto Profil -->
+                <div class="w-24 h-24 overflow-hidden rounded-full mx-auto mb-4">
+                    <img :src="user.data.user_image" alt="Profile Picture" class="object-cover w-full h-full" />
+                </div>
+
+                <!-- Nama Lengkap -->
+                <h2 class="text-xl font-semibold mb-2">{{ user.data.full_name }}</h2>
+
+                <!-- Email -->
+                <p class="text-gray-500 mb-4">{{ user.data.email }}</p>
+
+                <!-- Tombol Login dan Logout -->
                 <div>
-                    {{ ping.data }}
+                    <IonButton v-if="!session.isLoggedIn" @click="router.push({path: '/account/login'})">
+                        Login
+                    </IonButton>
+                    <IonButton v-else @click="session.logout.submit()">
+                        Logout
+                    </IonButton>
                 </div>
-                <pre>{{ ping }}</pre>
-        
-                <div class="flex flex-row space-x-2 mt-4">
-                    <Button @click="showDialog = true">Open Dialog</Button>
-                    <Button v-if="session.isLoggedIn" @click="session.logout.submit()">Logout</Button>
-                    <Button v-else @click="router.push({path: '/account/login'})">Login</Button>
-                </div>
-        
-                <!-- Dialog -->
-                <Dialog title="Title" v-model="showDialog"> Dialog content </Dialog>
             </div>
         </ion-content>
         <Footer />
@@ -30,23 +30,13 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue'
-import { useRouter } from 'vue-router'
-import { Dialog } from 'frappe-ui'
-import { createResource } from 'frappe-ui'
-import { session } from '../data/session'
-import Header from '@/components/Header.vue'
-import Footer from '@/components/donor/Footer.vue'
-import { IonPage, IonContent, IonButton } from '@ionic/vue'
+import { IonPage, IonContent, IonButton } from '@ionic/vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/donor/Footer.vue';
+import { ref, inject, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
-
-const ping = createResource({
-    url: 'ping',
-    auto: true,
-})
-
-// console.log(session.user)
-
-const showDialog = ref(false)
+const router = useRouter();
+const user = inject('$user');
+const session = inject('$session');
 </script>

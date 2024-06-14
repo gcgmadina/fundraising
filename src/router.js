@@ -226,7 +226,9 @@ router.beforeEach(async (to, from, next) => {
     isLoggedIn = false
   }
 
-  if (to.meta.auth && !isLoggedIn) {
+  if (to.name === 'Account' && !isLoggedIn) {
+    next({ name: 'Login' });
+  } else if (to.meta.auth && !isLoggedIn) {
     next({ name: 'Login' });
   } else if (to.meta.roles && userResource.data && userResource.data.roles) {
     const hasRequiredRole = to.meta.roles.some(role => userResource.data.roles.includes(role));
