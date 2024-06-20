@@ -132,27 +132,27 @@ const routes = [
         component: () => import('@/pages/donor/Donor.vue'),
       },
       {
-        path: '/infaq',
+        path: 'infaq',
         name: 'Infaq',
         component: () => import('@/pages/donor/InfaqInput.vue'),
       },
       {
-        path: '/zakat',
+        path: 'zakat',
         name: 'Zakat',
         component: () => import('@/pages/donor/ZakatInput.vue'),
       },
       {
-        path: '/hibah',
+        path: 'hibah',
         name: 'Hibah',
         component: () => import('@/pages/donor/HibahInput.vue'),
       },
       {
-        path: '/kaffarat',
+        path: 'kaffarat',
         name: 'Kaffarat',
         component: () => import('@/pages/donor/KaffaratInput.vue'),
       },
       {
-        path: '/event',
+        path: 'event',
         children: [
           {
             path: '',
@@ -167,7 +167,7 @@ const routes = [
         ],
       },
       {
-        path: '/donation',
+        path: 'donation',
         children: [
           {
             path: '',

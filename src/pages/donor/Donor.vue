@@ -79,10 +79,10 @@ import Header from "../../components/Header.vue"
 import { eventResource, tenEvents, tenDonationEvents } from "@/data/event/EventList"
 
 const menus = [
-  { icon: ZakatIcon, label: 'Zakat', route: '/zakat' },
-  { icon: InfaqIcon, label: 'Infaq', route: '/infaq' },
-  { icon: HibahIcon, label: 'Hibah', route: '/hibah' },
-  { icon: FidyahIcon, label: 'Kaffarat', route: '/kaffarat' },
+  { icon: ZakatIcon, label: 'Zakat', route: 'Zakat' },
+  { icon: InfaqIcon, label: 'Infaq', route: 'Infaq' },
+  { icon: HibahIcon, label: 'Hibah', route: 'Hibah' },
+  { icon: FidyahIcon, label: 'Kaffarat', route: 'Kaffarat' },
 ];
 
 const router = useRouter();

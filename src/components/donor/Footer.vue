@@ -6,13 +6,13 @@
                     :icon="HomeIcon"
                     :buttonsize=" 'small' "
                     :label="'Beranda'"
-                    :route=" '/donor/' "
+                    :route=" 'DonorHome' "
                 ></MenuButton>
                 <MenuButton
                     :icon="HistoryIcon"
                     :buttonsize=" 'small' "
                     :label="'Riwayat'"
-                    :route=" '/history' "
+                    :route=" 'History' "
                 ></MenuButton>
                 <ion-button v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'" 
                             id="administrasi" fill="clear" size="small" @click="openPopover($event)">
@@ -39,7 +39,7 @@
                     :icon="AccountIcon"
                     :buttonsize=" 'small' "
                     :label="'Akun'"
-                    :route=" '/account' "
+                    :route=" 'Account' "
                 ></MenuButton>
             </div>
         </ion-toolbar>
