@@ -99,6 +99,7 @@ const submitForm = () => {
         },
         onSuccess: (response) => {
           console.log(response);
+          console.log(typeof response);
           router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {
@@ -123,6 +124,7 @@ const submitForm = () => {
         },
         onSuccess: (response) => {
           console.log(response);
+          console.log(typeof response);
           router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {

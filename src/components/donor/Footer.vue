@@ -1,73 +1,59 @@
 <template>
     <ion-footer>
         <ion-toolbar>
-            <div class="menu-button-list">
-                <MenuButton 
-                    :icon="HomeIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Beranda'"
-                    :route=" 'DonorHome' "
-                ></MenuButton>
-                <MenuButton
-                    :icon="HistoryIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Riwayat'"
-                    :route=" 'History' "
-                ></MenuButton>
-                <ion-button v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'" 
-                            id="administrasi" fill="clear" size="small" @click="openPopover($event)">
-                    <div class="custom-button flex flex-col items-center"> 
-                        <ion-icon :icon="EventIcon" size="large" ></ion-icon> 
-                        <div class="menuname">Administrasi</div>
-                    </div>
-                </ion-button>
-                <ion-popover v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'"
-                            trigger="administrasi" side="top" aligment="center" animated="false"
-                            :is-open="popoverOpen" :event="event" @didDismiss="popoverOpen == false">
-                    <ion-content class="ion-padding">
-                        <h4 class="my-4" @click="toAccounting"
-                            v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
-                        
-                        <h4 class="my-4" @click="toInventaris">Inventaris</h4>
-                        
-                        <h4 class="my-4" @click="toEventInput"
-                            v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
-                    </ion-content>
-                </ion-popover>
-
-                <MenuButton
-                    :icon="AccountIcon"
-                    :buttonsize=" 'small' "
-                    :label="'Akun'"
-                    :route=" 'Account' "
-                ></MenuButton>
+            <div class="menu-button-list flex justify-between items-center w-full">
+                <div >
+                    <MenuButton :icon="HomeIcon" :label="'Beranda'" :route="'DonorHome'"></MenuButton>
+                </div>
+                <div >
+                    <MenuButton :icon="HistoryIcon" :label="'Riwayat'" :route="'History'"></MenuButton>
+                </div>
+                <div 
+                    v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'">
+                    <button @click="openPopover" id="administrasi"
+                        class="flex flex-col items-center w-full p-2 hover:bg-gray-100 transition-colors duration-200">
+                        <div class="w-full flex justify-center items-center mb-1">
+                            <svg v-html="EventIcon" class="w-6 h-6"></svg>
+                        </div>
+                        <span class="text-xs">Administrasi</span>
+                    </button>
+                    <ion-popover trigger="administrasi" side="top" alignment="center" animated="false"
+                        :is-open="popoverOpen" @didDismiss="popoverOpen = false">
+                        <ion-content class="ion-padding">
+                            <h4 class="my-4 cursor-pointer" @click="toAccounting"
+                                v-if="user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
+                            <h4 class="my-4 cursor-pointer" @click="toInventaris">Inventaris</h4>
+                            <h4 class="my-4 cursor-pointer" @click="toEventInput"
+                                v-if="user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
+                        </ion-content>
+                    </ion-popover>
+                </div>
+                <div >
+                    <MenuButton :icon="AccountIcon" :label="'Akun'" :route="'Account'"></MenuButton>
+                </div>
             </div>
         </ion-toolbar>
     </ion-footer>
 </template>
 
 <script setup>
-import { inject, ref } from "vue"
-import { useRouter } from "vue-router"
-import { IonFooter, IonToolbar, IonButton, IonIcon, IonContent, IonPopover } from "@ionic/vue"
-import MenuButton from "@/components/MenuButton.vue"
-import HomeIcon from "@/components/icons/HomeIcon.svg"
-import QRIcon from "@/components/icons/QRIcon.svg"
-import HistoryIcon from "@/components/icons/HistoryIcon.svg"
-import AccountIcon from "@/components/icons/AccountIcon.svg"
-import EventIcon from "@/components/icons/EventIcon.svg"
+import { ref, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { IonFooter, IonToolbar, IonContent, IonPopover } from '@ionic/vue';
+import MenuButton from '@/components/MenuButton.vue';
+import HomeIcon from '@/components/icons/HomeIcon.svg?raw';
+import HistoryIcon from '@/components/icons/HistoryIcon.svg?raw';
+import AccountIcon from '@/components/icons/AccountIcon.svg?raw';
+import EventIcon from '@/components/icons/EventIcon.svg?raw';
 
-const user = inject('$user')
-// console.log(user)
-const session = inject('$session')
-const router = useRouter()
+const user = inject('$user');
+const session = inject('$session');
+const router = useRouter();
 
 const popoverOpen = ref(false);
-let event = null;
 
-const openPopover = (e) => {
-  event = e;
-  popoverOpen.value = true;
+const openPopover = () => {
+    popoverOpen.value = !popoverOpen.value;
 };
 
 const toEventInput = () => {
@@ -82,14 +68,15 @@ const toInventaris = () => {
 
 const toAccounting = () => {
     popoverOpen.value = false;
-    // window.location.pathname = 'app/accounting';
     router.push({ name: 'accountant' });
 };
 </script>
 
 <style scoped>
-MenuButton {
-    margin: 0;
+.menu-button-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .custom-button {

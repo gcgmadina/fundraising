@@ -1,46 +1,27 @@
-<!-- components/MenuButton.vue -->
 <template>
-  <!-- <ion-button size="large" fill="clear" @click="navigate"> -->
-  <ion-button :size="props.buttonsize" fill="clear" @click="navigate">
-    <div class="custom-button">
-      <ion-icon :icon="props.icon" size="large"></ion-icon>
-      <div class="menuname">{{ props.label }}</div>
+  <button @click="navigate" class="flex flex-col items-center p-2 hover:bg-gray-100 transition-colors duration-200">
+    <div class="w-full flex justify-center items-center mb-1">
+      <svg v-html="icon" class="w-6 h-6"></svg>
     </div>
-  </ion-button>
+    <span class="text-xs">{{ props.label }}</span>
+  </button>
 </template>
 
 <script setup>
-import { IonButton, IonIcon } from '@ionic/vue';
-import { useRouter } from 'vue-router';
-
 const props = defineProps({
   icon: { type: String, required: true },
-  buttonsize: { type: String, default: 'large' },
   label: { type: String, required: true },
   route: { type: String, required: true },
 });
 
+import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const navigate = () => {
-  console.log('navigating to', props.route);
-  console.log('Button clicked');
   router.push({ name: props.route });
 };
 </script>
 
 <style scoped>
-ion-button{
-  margin: 3px;
-}
-.custom-button {
-  width: min-content;
-  margin: 3px;
-  flex-direction: column;
-  justify-content: center;
-}
-
-ion-icon {
-  margin-bottom: 10px;
-}
+/* Here you can add any additional scoped styles if needed */
 </style>

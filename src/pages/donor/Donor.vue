@@ -11,21 +11,21 @@
           <div class="card-image-container" v-for="(event, index) in tenEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
-              :thumbnail="event.event_thumbnail?event.event_thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+              :thumbnail="event.event_thumbnail ? event.event_thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
               :content="event.starts_on">
               </ImageCard>
             </router-link>
           </div>
         </div>
       </div>
-      <div class="menu-button-list">
-        <MenuButton
-          v-for="menu in menus"
-          :key="menu.route"
-          :icon="menu.icon"
-          :label="menu.label"
-          :route="menu.route"
-        ></MenuButton>
+      <div class="menu-button-list flex justify-around items-center w-full mt-6">
+        <div v-for="menu in menus" :key="menu.route">
+          <MenuButton
+            :icon="menu.icon"
+            :label="menu.label"
+            :route="menu.route"
+          ></MenuButton>
+        </div>
       </div>
       <div class="accumulate-donation">
         <h2 class="px-6 py-0">Akumulasi Donasi</h2>
@@ -48,7 +48,7 @@
           <div class="card-image-container" v-for="(event, index) in tenDonationEvents" :key="index">
             <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
               <ImageCard :title="event.subject"
-              :thumbnail="event.event_thumbnail?event.event_thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
+              :thumbnail="event.event_thumbnail ? event.event_thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
               :content="event.starts_on + ' - ' + event.ends_on">
               </ImageCard>
             </router-link>
@@ -66,12 +66,12 @@ import { useRouter } from 'vue-router';
 import { cards } from "@/data/donation/TotalDonation"
 import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
-import ZakatIcon from "@/components/icons/ZakatIcon.svg"
-import InfaqIcon from "@/components/icons/InfaqIcon.svg"
-import HibahIcon from "@/components/icons/HibahIcon.svg"
-import FidyahIcon from "@/components/icons/FidyahIcon.svg"
-import RegularIcon from "@/components/icons/RegularIcon.svg"
-import DonasiKhususIcon from "@/components/icons/DonasiKhususIcon.svg"
+import ZakatIcon from "@/components/icons/ZakatIcon.svg?raw"
+import InfaqIcon from "@/components/icons/InfaqIcon.svg?raw"
+import HibahIcon from "@/components/icons/HibahIcon.svg?raw"
+import FidyahIcon from "@/components/icons/FidyahIcon.svg?raw"
+import RegularIcon from "@/components/icons/RegularIcon.svg?raw"
+import DonasiKhususIcon from "@/components/icons/DonasiKhususIcon.svg?raw"
 import Card from "@/components/Card.vue"
 import Footer from "@/components/donor/Footer.vue"
 import ImageCard from "../../components/ImageCard.vue"
@@ -88,16 +88,16 @@ const menus = [
 const router = useRouter();
 
 const toEventList = () => {
-  router.push({ path: '/event' });
+  router.push({ name: 'EventList' });
 };
 
 const toDonationList = () => {
-  router.push({ path: '/donation' });
+  router.push({ name: 'Donation' });
 };
 </script>
 
 <style scoped>
-.donation-report{
+.donation-report {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -116,7 +116,7 @@ const toDonationList = () => {
 }
 
 .card-image-container {
-  flex: 0 0 auto; /* Tambahkan ini untuk menghindari perubahan lebar */
+  flex: 0 0 auto; 
   width: 300px;
   height: auto;
 }
