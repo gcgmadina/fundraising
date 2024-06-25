@@ -56,16 +56,16 @@
                         <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction"
                             @success="onSuccess">
                             <template v-slot="{
-                                file,
-                                uploading,
-                                progress,
-                                uploaded,
-                                message,
-                                error,
-                                total,
-                                success,
-                                openFileSelector,
-                            }" class="flex flex-row justify-between">
+            file,
+            uploading,
+            progress,
+            uploaded,
+            message,
+            error,
+            total,
+            success,
+            openFileSelector,
+        }" class="flex flex-row justify-between">
                                 <Button @click="openFileSelector" :loading="uploading">
                                     {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                                 </Button>
@@ -75,15 +75,21 @@
                 </div>
                 <div v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'">
                     <div v-if="donation.evidance_of_transfer && donation.docstatus === 0">
-                        <ion-button expand="block" @click="submitDonation">Validasi Donasi</ion-button>
-                    </div>
-                    <div v-if="donation.docstatus === 1 && donation.item_type === 'Uang'">
-                        <ion-button expand="block" @click="newPaymentEntry">Buat Entry</ion-button>
+                        <ion-button expand="block" @click="newPaymentEntry">Validasi Donasi</ion-button>
                     </div>
                 </div>
             </div>
         </ion-content>
-        <Footer/>
+        <Footer />
+
+        <!-- Modal for success message -->
+        <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
+                <h2 class="text-xl font-bold mb-4">Donasi Berhasil Divalidasi</h2>
+                <p>Donasi Anda telah berhasil diterima dan divalidasi.</p>
+                <ion-button class="mt-4" @click="closeModal">Tutup</ion-button>
+            </div>
+        </div>
     </ion-page>
 </template>
 
@@ -97,6 +103,7 @@ import { createResource, FileUploader, Button } from 'frappe-ui';
 import { formatDateTime } from '@/data/DateUtils';
 import moment from 'moment';
 import { createPaymentEntry } from '@/data/accounting/PaymentEntry';
+import { submitDocument } from '@/data/Document';
 
 moment.locale('id')
 const router = useRouter();
@@ -104,6 +111,7 @@ const donation = ref({});
 const loading = ref(true);
 const user = inject('$user');
 const session = inject('$session');
+const isModalOpen = ref(false);
 
 const validateFileFunction = (fileObject) => { }
 const onSuccess = async (file) => {
@@ -122,30 +130,31 @@ const onSuccess = async (file) => {
     window.location.reload();
 }
 
-const submitDonation = async () => {
-    let postFile = createResource({
-        method: "POST",
-        url: "non_profit.api.fundraising.submit_donation",
-        params: {
-            donation_id: router.currentRoute.value.params.id
-        },
-        transform(data) {
-            console.log(data);
-        }
-    });
-    postFile.reload();
-    window.location.reload();
+const newPaymentEntry = async () => {
+    submitDocument("Donation", router.currentRoute.value.params.id)
+        .then(data => {
+            console.log("Donation Submitted: ", data);
+            // Anda dapat melakukan navigasi atau tindakan lain di sini
+        })
+        .catch(error => {
+            console.error("Failed to submit donation: ", error);
+        });
+
+    createPaymentEntry(router.currentRoute.value.params.id)
+        .then(paymentData => {
+            console.log("Payment Entry Created: ", paymentData);
+            // Anda dapat melakukan navigasi atau tindakan lain di sini
+        })
+        .catch(error => {
+            console.error("Failed to create payment entry: ", error);
+        });
+
+    isModalOpen.value = true;
 }
 
-const newPaymentEntry = async () => {
-    createPaymentEntry(router.currentRoute.value.params.id)
-      .then(paymentData => {
-          console.log("Payment Entry Created: ", paymentData);
-          // Anda dapat melakukan navigasi atau tindakan lain di sini
-      })
-      .catch(error => {
-          console.error("Failed to create payment entry: ", error);
-      });
+const closeModal = () => {
+    isModalOpen.value = false;
+    router.push({ name: 'History' });
 }
 
 const donationDetail = createResource({
