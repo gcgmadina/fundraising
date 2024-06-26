@@ -72,8 +72,22 @@ export const getDonationByType = createResource({
       if (d != 1)
         day = '1 - ' + d
 
-      const objData = { 'title': 'Rp. ' + data[i], 'subtitle': i, 'content': day + ' ' + m + ' ' + y }
-      cards.value.push(objData)
+      let objData;
+      if (i === "Hibah") {
+        objData = {
+          'title': data[i] + ' Orang',
+          'subtitle': i,
+          'content': day + ' ' + m + ' ' + y
+        };
+      } else {
+        objData = {
+          'title': 'Rp. ' + data[i],
+          'subtitle': i,
+          'content': day + ' ' + m + ' ' + y
+        };
+      }
+
+      cards.value.push(objData);
     }
     return data;
   }
