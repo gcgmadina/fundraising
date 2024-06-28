@@ -5,9 +5,9 @@
             <ion-list>
                 <CardListItem v-for="UserDonation, index in userDonationData"
                 :key="index"
-                :title="UserDonation.donation_type"
-                :subtitle="UserDonation.item_type == 'Uang' ? 'Rp ' + UserDonation.amount : UserDonation.item_name + ': '  + UserDonation.item_amount"
-                :status="UserDonation.evidance_of_transfer ? (UserDonation.docstatus === 0 ? 'Menunggu verifikasi' : 'Donasi Berhasil') : 'Menunggu bukti transfer'"
+                :title="UserDonation.fullname"
+                :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp ' + UserDonation.amount : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
+                :status="UserDonation.status"
                 :nextPage="'DonationDetail'"
                 :id="UserDonation.name"/>
             </ion-list>

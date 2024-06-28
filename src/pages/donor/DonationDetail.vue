@@ -23,28 +23,22 @@
                         <div>Tanggal:</div>
                         <div class="pl-10">{{ formatDateTime(donation.creation) }}</div>
                     </div>
-                    <div class="grid grid-cols-2 mb-2">
+                    <div v-if="donation.item_type === 'Uang'" class="grid grid-cols-2 mb-2">
                         <div>Metode Pembayaran:</div>
                         <div class="pl-10">{{ donation.mode_of_payment }}</div>
                     </div>
                     <div class="grid grid-cols-2 mb-2">
                         <div>Status:</div>
-                        <div class="pl-10">
-                            <template v-if="!donation.evidance_of_transfer">
-                                Menunggu bukti transfer
-                            </template>
-                            <template v-else-if="donation.docstatus === 0 && donation.evidance_of_transfer">
-                                Menunggu verifikasi
-                            </template>
-                            <template v-else-if="donation.docstatus === 1 && donation.evidance_of_transfer">
-                                Donasi berhasil
-                            </template>
-                        </div>
+                        <div class="pl-10"> {{ donation.status }} </div>
                     </div>
                 </div>
-                <div class="flex justify-between mx-16 my-8">
+                <div v-if="donation.item_type === 'Uang'" class="flex justify-between mx-16 my-8">
                     <div>Total Donasi</div>
                     <div class="font-bold">Rp. {{ donation.amount }}</div>
+                </div>
+                <div v-else class="flex justify-between mx-16 my-8">
+                    <div>{{ donation.item_name }}:</div>
+                    <div class="font-bold">{{ donation.item_amount }}</div>
                 </div>
                 <div v-if="donation.evidance_of_transfer" class="flex justify-between mx-16 m-8">
                     <img :src="donation.evidance_of_transfer" alt="Preview Image"
