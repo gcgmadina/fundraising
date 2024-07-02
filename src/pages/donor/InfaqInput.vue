@@ -36,7 +36,7 @@
           <!-- <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input> -->
           <ion-select v-model="bank" label="Pilih Bank">
             <ion-select-option v-for="account in bankAccountList" :key="account.id" :value="account.name">
-              {{ account.account_name }}
+              {{ account.bank }}
             </ion-select-option>
           </ion-select>
         </ion-item>

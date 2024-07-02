@@ -46,7 +46,7 @@
           <ion-item v-if="metodePembayaran === 'Wire Transfer'">
             <ion-select v-model="bank" label="Pilih Bank">
               <ion-select-option v-for="account in bankAccountList" :key="account.id" :value="account.name">
-                {{ account.account_name }}
+                {{ account.bank }}
               </ion-select-option>
             </ion-select>
           </ion-item>

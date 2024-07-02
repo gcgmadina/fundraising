@@ -71,6 +71,8 @@ export const getDonationByType = createResource({
       let day
       if (d != 1)
         day = '1 - ' + d
+      else
+        day = d
 
       let objData;
       if (i === "Hibah") {
