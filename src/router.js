@@ -197,6 +197,11 @@ const routes = [
         name: 'DonationDetail',
         component: () => import('@/pages/donor/DonationDetail.vue'),
       },
+      {
+        path: ':donation_type',
+        name: 'HistoryWithType',
+        component: () => import('@/pages/donor/History.vue'),
+      }
     ],
   },
   {

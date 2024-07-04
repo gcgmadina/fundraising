@@ -20,8 +20,10 @@ export const totalJumatan = createResource({
   realtime: true,
   transform(data) {
     let [d, m, y] = formatDate(data[1])
-    const objData = { 'title': 'Rp. ' + data[0], 'subtitle': "Infaq Jum'at", 'content': d + " " + m + " " + y }
-    cards.value.push(objData)
+    if (data != null) {
+      const objData = { 'title': 'Rp. ' + data[0], 'subtitle': "Infaq Jum'at", 'content': d + " " + m + " " + y }
+      cards.value.push(objData)
+    }
     return data;
   }
 });

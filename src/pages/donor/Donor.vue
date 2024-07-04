@@ -37,7 +37,8 @@
         <h2 class="px-6 py-0">Akumulasi Donasi</h2>
         <div class="donation-report flex overflow-x-auto">
           <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
-            <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"></Card>
+            <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
+            @click="router.push({ name: 'HistoryWithType', params: { donation_type: card.subtitle } })"></Card>
           </div>
         </div>
       </div>

@@ -22,14 +22,17 @@
 
 <script setup>
 import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue';
-import { session } from '@/data/session'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 import Footer from '@/components/donor/Footer.vue'
 import Header from '@/components/Header.vue'
 import CardListItem from '@/components/CardListItem.vue'
-import { ref, onMounted } from 'vue'
-import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 
 const loadDisabled = ref(false);
+
+const route = useRoute();
+const donationType = route.params.donation_type || null;
 
 const loadData = (event) => {
     setTimeout(() => {
@@ -37,14 +40,14 @@ const loadData = (event) => {
             loadDisabled.value = true;
             event.target.complete();
         } else {
-            userDonationResource();
+            userDonationResource(donationType);
             loadDisabled.value = false;
             event.target.complete();
         }
     }, 500);
 }
 
-onMounted (() => {
-    userDonationResource();
+onMounted(() => {
+    userDonationResource(donationType);
 });
 </script>
