@@ -198,7 +198,7 @@ const routes = [
         component: () => import('@/pages/donor/DonationDetail.vue'),
       },
       {
-        path: ':donation_type',
+        path: 'tipe/:donation_type',
         name: 'HistoryWithType',
         component: () => import('@/pages/donor/History.vue'),
       }
