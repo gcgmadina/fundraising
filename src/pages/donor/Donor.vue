@@ -38,7 +38,7 @@
         <div class="donation-report flex overflow-x-auto">
           <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
             <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
-            @click="router.push({ name: 'HistoryWithType', params: { donation_type: card.subtitle } })"></Card>
+            @click="donationCard(card.subtitle)"></Card>
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
+import { ref, onMounted, inject } from "vue"
 import { useRouter } from 'vue-router';
 import { cards } from "@/data/donation/TotalDonation"
 import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
@@ -99,6 +99,8 @@ const menus = [
 ];
 
 const router = useRouter();
+const user = inject('$user');
+const session = inject('$session');
 
 const toEventList = () => {
   router.push({ name: 'EventList' });
@@ -136,6 +138,13 @@ const scrollRight = (carouselId) => {
     left: carousel.querySelector('.card-image-container').offsetWidth,
     behavior: 'smooth',
   });
+};
+
+const donationCard = (type) => {
+  if (session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Accounting')){
+    router.push({ name: 'HistoryWithType', params: { donation_type: type } });
+
+  }
 };
 
 onMounted(() => {

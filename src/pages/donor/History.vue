@@ -22,7 +22,7 @@
 
 <script setup>
 import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue';
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 import Footer from '@/components/donor/Footer.vue'
@@ -49,5 +49,9 @@ const loadData = (event) => {
 
 onMounted(() => {
     userDonationResource(donationType);
+});
+
+onUnmounted(() => {
+    window.location.reload();
 });
 </script>
