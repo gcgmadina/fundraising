@@ -2,6 +2,15 @@
     <ion-page>
         <Header :showBackButton="true" />
         <ion-content>
+            <h6 class="mx-6 mb-0">Laporan</h6>
+            <ion-card @click="openFilterModal">
+                <ion-card-header>
+                    <div class="flex flex-auto justify-between items-center">
+                        <ion-card-subtitle>Laporan Keuangan</ion-card-subtitle>
+                        <ion-icon :icon="GreaterThan" />
+                    </div>
+                </ion-card-header>
+            </ion-card>
             <h6 class="mx-6 mb-0">Rekening</h6>
             <router-link :to="{ name: 'BankAccount' }">
                 <ion-card>
@@ -47,7 +56,7 @@
                         <ion-card-subtitle>Honorarium Penceramah</ion-card-subtitle>
                         <ion-icon :icon="GreaterThan" />
                     </div>
-                </ion-card-header> 
+                </ion-card-header>
             </ion-card>
             <ion-card @click="toExpenseList('Biaya Kebersihan')">
                 <ion-card-header>
@@ -67,16 +76,49 @@
                 </ion-card-header>
             </ion-card>
         </ion-content>
+
+        <div v-if="filterModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
+                <h6 class="text-center">Pilih Rentang Laporan Keuangan</h6>
+                <ion-item>
+                    <ion-label>Dari</ion-label>
+                    <ion-datetime-button datetime="startsOn"></ion-datetime-button>
+
+                    <ion-modal :keep-contents-mounted="true">
+                        <ion-datetime v-model="startsOn" id="startsOn" presentation="date"></ion-datetime>
+                    </ion-modal>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Sampai</ion-label>
+                    <ion-datetime-button datetime="endsOn"></ion-datetime-button>
+
+                    <ion-modal :keep-contents-mounted="true">
+                        <ion-datetime v-model="endsOn" id="endsOn" presentation="date"></ion-datetime>
+                    </ion-modal>
+                </ion-item>
+                <div class="flex flex-row justify-end">
+                    <ion-button class="mt-4" color="success">Lanjut</ion-button>
+                    <ion-button class="mt-4" @click="filterModal = false">Tutup</ion-button>
+                </div>
+            </div>
+        </div>
     </ion-page>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonIcon } from '@ionic/vue';
+import { IonPage, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonIcon, IonLabel, IonDatetimeButton, IonDatetime, IonModal, IonButton, IonItem } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import GreaterThan from '@/components/icons/greater-than.svg';
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const router = useRouter();
+const filterModal = ref(false);
+const today = new Date();
+const lastMonth = new Date();
+lastMonth.setMonth(today.getMonth() - 1);
+const startsOn = ref(today.toISOString().substring(0, 10));
+const endsOn = ref(lastMonth.toISOString().substring(0, 10));
 
 const toAccounting = () => {
     window.location.pathname = 'app/accounting';
@@ -84,5 +126,9 @@ const toAccounting = () => {
 
 const toExpenseList = (expense) => {
     router.push({ name: 'Expenses', params: { name: expense } });
+};
+
+const openFilterModal = () => {
+    filterModal.value = true;
 };
 </script>
