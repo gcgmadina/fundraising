@@ -96,9 +96,12 @@
                         <ion-datetime v-model="endsOn" id="endsOn" presentation="date"></ion-datetime>
                     </ion-modal>
                 </ion-item>
-                <div class="flex flex-row justify-end">
-                    <ion-button class="mt-4" color="success">Lanjut</ion-button>
-                    <ion-button class="mt-4" @click="filterModal = false">Tutup</ion-button>
+                <div class="flex flex-col items-center">
+                    <p v-if="errorMessage" class="text-red-500 text-sm">{{ errorMessage }}</p>
+                    <div class="flex flex-row justify-end w-full">
+                        <ion-button class="mt-4" color="success" @click="setFilter(startsOn, endsOn)">Lanjut</ion-button>
+                        <ion-button class="mt-4" @click="filterModal = false">Tutup</ion-button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -111,14 +114,17 @@ import Header from '@/components/Header.vue';
 import GreaterThan from '@/components/icons/greater-than.svg';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { getReportData } from '@/data/accounting/Report';
+import { generatePDFReport } from '@/data/generatePDFReport';
 
 const router = useRouter();
 const filterModal = ref(false);
 const today = new Date();
 const lastMonth = new Date();
 lastMonth.setMonth(today.getMonth() - 1);
-const startsOn = ref(today.toISOString().substring(0, 10));
-const endsOn = ref(lastMonth.toISOString().substring(0, 10));
+const startsOn = ref(lastMonth.toISOString().substring(0, 10));
+const endsOn = ref(today.toISOString().substring(0, 10));
+const errorMessage = ref('');
 
 const toAccounting = () => {
     window.location.pathname = 'app/accounting';
@@ -130,5 +136,28 @@ const toExpenseList = (expense) => {
 
 const openFilterModal = () => {
     filterModal.value = true;
+};
+
+const setFilter = (start, end) => {
+    if (start > end) {
+        errorMessage.value = 'Tanggal mulai tidak boleh lebih dari tanggal selesai.';
+        return;
+    }
+
+    const filters = {
+        from_date: start,
+        to_date: end,
+    };
+    console.log("Filters:", filters);
+
+    getReportData(filters)
+        .then((response) => {
+            console.log("Report data:", response);
+            generatePDFReport(response, startsOn.value, endsOn.value);
+            filterModal.value = false;
+        })
+        .catch((error) => {
+            console.error("Error setting filter or fetching report data:", error);
+        });
 };
 </script>
