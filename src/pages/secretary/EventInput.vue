@@ -12,12 +12,12 @@
                         <ion-select-option value=1>Penggalangan Dana</ion-select-option>
                     </ion-select>
                 </ion-item>
-                <ion-item>
+                <!-- <ion-item>
                     <ion-select v-model="eventType" label="Tipe">
                         <ion-select-option value="Private">Tertutup</ion-select-option>
                         <ion-select-option value="Public">Publik</ion-select-option>
                     </ion-select>
-                </ion-item>
+                </ion-item> -->
                 <ion-item>
                     <ion-label>Mulai</ion-label>
                     <ion-datetime-button datetime="startsOn"></ion-datetime-button>
@@ -35,6 +35,7 @@
                     </ion-modal>
                 </ion-item>
                 <ion-item>
+                    <ion-label>Thumbnail</ion-label>
                     <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction" @success="onSuccess">
                         <template v-slot="{
                         file,
@@ -56,12 +57,12 @@
                         </template>
                     </FileUploader>
                 </ion-item>
-                <ion-item>
+                <!-- <ion-item>
                     <ion-select v-model="status" label="Status">
                         <ion-select-option value="Open">Akan Dilaksanakan</ion-select-option>
                         <ion-select-option value="Completed">Selesai</ion-select-option>
                     </ion-select>
-                </ion-item>
+                </ion-item> -->
                 <div class="flex flex-col items-start ml-6">
                     <label for="deskripsi" class="mb-2">Deskripsi:</label>
                     <textarea class="mb-2" id="deskripsi" v-model="description" cols="30" rows="10"></textarea>
@@ -87,12 +88,12 @@ const router = useRouter()
 
 const subject = ref('')
 const eventCategory = ref('')
-const eventType = ref('')
+const eventType = ref()
 const today = new Date()
 const startsOn = ref(moment(today).format('YYYY-MM-DDTHH:mm'))
 // const startsOn = ref()
 const endsOn = ref()
-const status = ref('')
+const status = ref()
 const image = ref()
 const description = ref("")
 let base64;
@@ -107,7 +108,7 @@ const onSuccess = (file) => {
 }
 
 const isValidForm = computed(() => {
-    return subject.value && eventCategory.value && eventType.value && startsOn.value;
+    return subject.value && eventCategory.value && startsOn.value;
 })
 
 const submitForm = () => {
