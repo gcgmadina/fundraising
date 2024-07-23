@@ -21,10 +21,8 @@
                     loadingText="Loading more data..."></ion-infinite-scroll-content>
             </ion-infinite-scroll>
         </ion-content>
-        <ion-footer class="px-5 py-2">
             <ion-button expand="block" @click="addExpense(router.currentRoute.value.params.name)">Buat Data {{
             router.currentRoute.value.params.name }}</ion-button>
-        </ion-footer>
         <Footer />
 
         <!-- Cancel Confirmation Modal -->

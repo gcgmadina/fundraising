@@ -20,6 +20,10 @@
                 </div>
                 <div class="border rounded-lg border-gray-900 mx-2 my-6 p-4 shadow-gray-700 shadow-lg">
                     <div class="grid grid-cols-2 mb-2">
+                        <div>Donatur:</div>
+                        <div class="pl-10">{{ donation.fullname }}</div>
+                    </div>
+                    <div class="grid grid-cols-2 mb-2">
                         <div>Tanggal:</div>
                         <div class="pl-10">{{ formatDateTime(donation.creation) }}</div>
                     </div>
@@ -78,9 +82,11 @@
 
         <!-- Modal for success message -->
         <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
-                <h2 class="text-xl font-bold mb-4">Donasi Berhasil Divalidasi</h2>
-                <p>Donasi Anda telah berhasil diterima dan divalidasi.</p>
+            <div class="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
+                <p>{{ validationSuccess }}</p>
+                <component :is="validationSuccess ? SuccessIcon : FailedIcon" class="w-20 h-20 mx-auto mb-4" />
+                <p v-if="validationSuccess" class="text-center text-2xl">Donasi Berhasil Divalidasi</p>
+                <p v-else class="text-center text-2xl">Gagal Memvalidasi Donasi</p>
                 <ion-button class="mt-4" @click="closeModal">Tutup</ion-button>
             </div>
         </div>
@@ -98,6 +104,8 @@ import { formatDateTime } from '@/data/DateUtils';
 import moment from 'moment';
 import { createPaymentEntry } from '@/data/accounting/PaymentEntry';
 import { submitDocument } from '@/data/Document';
+import SuccessIcon from '@/components/icons/SuccessIcon.vue';
+import FailedIcon from '@/components/icons/FailedIcon.vue';
 
 moment.locale('id')
 const router = useRouter();
@@ -106,6 +114,7 @@ const loading = ref(true);
 const user = inject('$user');
 const session = inject('$session');
 const isModalOpen = ref(false);
+const validationSuccess = ref(false);
 
 const validateFileFunction = (fileObject) => { }
 const onSuccess = async (file) => {
@@ -124,26 +133,30 @@ const onSuccess = async (file) => {
     window.location.reload();
 }
 
-const newPaymentEntry = async () => {
+const newPaymentEntry = () => {
     submitDocument("Donation", router.currentRoute.value.params.id)
         .then(data => {
             console.log("Donation Submitted: ", data);
-            // Anda dapat melakukan navigasi atau tindakan lain di sini
-        })
-        .catch(error => {
-            console.error("Failed to submit donation: ", error);
-        });
 
-    createPaymentEntry(router.currentRoute.value.params.id)
+            // Jika submitDocument berhasil, coba createPaymentEntry
+            return createPaymentEntry(router.currentRoute.value.params.id);
+        })
         .then(paymentData => {
+            validationSuccess.value = true;
+            console.log("validationSuccess: ", validationSuccess.value);
             console.log("Payment Entry Created: ", paymentData);
-            // Anda dapat melakukan navigasi atau tindakan lain di sini
         })
         .catch(error => {
-            console.error("Failed to create payment entry: ", error);
+            console.error("Failed to submit donation or create payment entry: ", error);
+            validationSuccess.value = false;
+        })
+        .finally(() => {
+            // Tampilkan modal jika validationSuccess telah ditentukan
+            if (validationSuccess) {
+                console.log("validationSuccess: ", validationSuccess.value);
+                isModalOpen.value = true;
+            }
         });
-
-    isModalOpen.value = true;
 }
 
 const closeModal = () => {
@@ -167,7 +180,7 @@ const donationDetail = createResource({
 // console.log(moment.locale('id'))
 onMounted(() => {
     // moment.locale('id-ID');
-    donationDetail.reload();
+    // donationDetail.reload();
     donation.creation = moment(donation.creation).format('D MMMM YYYY HH:mm');
 });
 </script>

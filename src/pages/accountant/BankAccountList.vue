@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <Header/>
+        <Header :showBackButton="true"/>
         <ion-content>
             <ion-list>
                 <ion-card v-for="account in bankAccountList" :key="account.id" @click="goToDetailPage(account.name)">
