@@ -152,6 +152,11 @@ const routes = [
         component: () => import('@/pages/donor/KaffaratInput.vue'),
       },
       {
+        path: ':id',
+        name: 'DonationDetail',
+        component: () => import('@/pages/donor/DonationDetail.vue'),
+      },
+      {
         path: 'event',
         children: [
           {
@@ -191,11 +196,6 @@ const routes = [
         path: '',
         name: 'History',
         component: () => import('@/pages/donor/History.vue'),
-      },
-      {
-        path: ':id',
-        name: 'DonationDetail',
-        component: () => import('@/pages/donor/DonationDetail.vue'),
       },
       {
         path: 'tipe/:donation_type',
