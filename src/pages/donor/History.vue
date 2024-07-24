@@ -8,8 +8,7 @@
                 :title="UserDonation.fullname"
                 :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp ' + UserDonation.amount : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
                 :status="UserDonation.status"
-                :nextPage="'DonationDetail'"
-                :id="UserDonation.name"/>
+                @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })"/>
             </ion-list>
             <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
@@ -23,7 +22,7 @@
 <script setup>
 import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue';
 import { onMounted, ref, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 import Footer from '@/components/donor/Footer.vue'
 import Header from '@/components/Header.vue'
@@ -32,6 +31,8 @@ import CardListItem from '@/components/CardListItem.vue'
 const loadDisabled = ref(false);
 
 const route = useRoute();
+const router = useRouter();
+
 const donationType = route.params.donation_type || null;
 
 const loadData = (event) => {

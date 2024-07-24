@@ -8,7 +8,6 @@
       <ion-card-title>{{ props.title }}</ion-card-title>
       <div class="flex flex-auto justify-between items-center">
         <ion-card-subtitle>{{ props.subtitle }}</ion-card-subtitle>
-        <ion-button expand="block" @click="openDetail" size="small">Detail</ion-button>
       </div>
     </div>
 
@@ -33,15 +32,6 @@ const props = defineProps({
   id: { required: false },
   status: { required: false }
 });
-
-const openDetail = () => {
-  console.log('Detail button clicked', {
-    title: props.title,
-    subtitle: props.subtitle,
-    image: props.image
-  });
-  router.push({ name: props.nextPage, params: { id: props.id } });
-};
 </script>
 
 <style scoped>
