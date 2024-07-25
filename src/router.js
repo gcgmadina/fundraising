@@ -214,6 +214,11 @@ const routes = [
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
   },
+  {
+    name: 'Register',
+    path: '/account/register',
+    component: () => import('@/pages/Register.vue'),
+  },
 ]
 
 let router = createRouter({

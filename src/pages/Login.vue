@@ -43,7 +43,7 @@
         </div>
         <div>
           <p class="text-sm text-center text-gray-600">Don't have an account?
-            <router-link to="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+            <router-link :to="{ name: 'Register' }" class="font-medium text-indigo-600 hover:text-indigo-500">
               Register
             </router-link>
           </p>
