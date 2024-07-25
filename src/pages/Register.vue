@@ -1,12 +1,12 @@
 <template>
     <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         <div class="w-full max-w-sm p-8 bg-white rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold text-center mb-4">Register to GCG Madina</h2>
+            <h2 class="text-2xl font-semibold text-center mb-4">Buat Akun</h2>
             <form class="space-y-6" @submit.prevent="submit">
                 <div>
                     <div class="mt-1">
                         <input v-model="fullname" id="fullname" name="fullname" type="text" required autocomplete="name"
-                            placeholder="Full Name"
+                            placeholder="Nama"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                     </div>
                 </div>
@@ -20,19 +20,26 @@
                 <div>
                     <button type="submit" :disabled="!formIsValid"
                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Register
+                        Daftar
                     </button>
                 </div>
             </form>
             <div class="mt-4 text-center">
                 <p class="text-sm">
-                    Already have an account?
+                    Sudah punya akun?
                     <router-link :to="{ name: 'Login' }" class="font-medium text-indigo-600 hover:text-indigo-500">
-                        Login</router-link>
+                        Masuk</router-link>
                 </p>
             </div>
-            <div v-if="notification" class="mt-4 text-center">
-                <p :class="notificationClass">{{ notification }}</p>
+            <div v-if="notification" class="mt-4">
+                <div v-if="notificationClass === 'success'" class="flex items-center bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    <SuccessIcon class="w-6 h-6 mr-2" />
+                    <span class="block sm:inline">{{ notification }}</span>
+                </div>
+                <div v-if="notificationClass === 'error'" class="flex items-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <FailedIcon class="w-6 h-6 mr-2" />
+                    <span class="block sm:inline">{{ notification }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -42,6 +49,8 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { registerUser } from '../data/user';
+import SuccessIcon from '@/components/icons/SuccessIcon.vue'; // Import SuccessIcon
+import FailedIcon from '@/components/icons/FailedIcon.vue'; // Import FailedIcon
 
 const fullname = ref('');
 const email = ref('');
@@ -56,18 +65,16 @@ const formIsValid = computed(() => {
 const router = useRouter();
 
 function submit() {
-    // Simulate a session register call
     console.log('Registering with:', { fullname: fullname.value, email: email.value });
-    // Add your registration logic here
     registerUser(email.value, fullname.value, redirect_to.value)
         .then((message) => {
             notification.value = message;
-            notificationClass.value = 'text-green-500';
+            notificationClass.value = 'success';
         })
         .catch((error) => {
             console.error('Error registering user:', error);
             notification.value = error.message;
-            notificationClass.value = 'text-red-500';
+            notificationClass.value = 'error';
         });
 }
 </script>

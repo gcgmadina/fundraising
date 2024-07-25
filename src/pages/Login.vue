@@ -7,7 +7,7 @@
 
         </router-link>
       </div>
-      <h2 class="text-2xl font-semibold text-center mb-4">Login to GCG Madina</h2>
+      <h2 class="text-2xl font-semibold text-center mb-4">Login</h2>
       <form class="space-y-6" @submit.prevent="submit">
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -32,19 +32,19 @@
         </div>
         <div class="flex items-center justify-between">
           <div class="text-sm">
-            <router-link to="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot Password</router-link>
+            <router-link to="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">Lupa Password</router-link>
           </div>
         </div>
         <div>
           <button type="submit" :disabled="session.login.loading"
             class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Login
+            Masuk
           </button>
         </div>
         <div>
-          <p class="text-sm text-center text-gray-600">Don't have an account?
+          <p class="text-sm text-center text-gray-600">Belum punya akun?
             <router-link :to="{ name: 'Register' }" class="font-medium text-indigo-600 hover:text-indigo-500">
-              Register
+              Daftar
             </router-link>
           </p>
         </div>
