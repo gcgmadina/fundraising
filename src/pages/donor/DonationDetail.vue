@@ -35,6 +35,11 @@
                         <div>Status:</div>
                         <div class="pl-10"> {{ donation.status }} </div>
                     </div>
+                    <div v-if="donation.status == 'Menunggu Bukti Pembayaran'" class="text-center my-4">
+                        <div v-if="donation.mode_of_payment == 'QRIS'">Scan QR di bawah</div>
+                        <div v-if="donation.mode_of_payment == 'Transfer Bank'">Transfer donasimu ke nomor rekening: {{donation.bank_account_no}}</div>
+                        <div>Lalu kirimkan bukti tranfermu</div>
+                    </div>                                                      
                 </div>
                 <div v-if="donation.item_type === 'Uang'" class="flex justify-between mx-16 my-8">
                     <div>Total Donasi</div>
@@ -54,22 +59,25 @@
                         <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction"
                             @success="onSuccess">
                             <template v-slot="{
-            file,
-            uploading,
-            progress,
-            uploaded,
-            message,
-            error,
-            total,
-            success,
-            openFileSelector,
-        }" class="flex flex-row justify-between">
+                                file,
+                                uploading,
+                                progress,
+                                uploaded,
+                                message,
+                                error,
+                                total,
+                                success,
+                                openFileSelector,
+                            }" class="flex flex-row justify-between">
                                 <Button @click="openFileSelector" :loading="uploading">
                                     {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                                 </Button>
                             </template>
                         </FileUploader>
                     </div>
+                </div>
+                <div v-if="donation.mode_of_payment == 'QRIS'" class="px-6">
+                    <img :src="qrImageUrl" alt="Gambar QRIS" class="mb-6 mx-auto">
                 </div>
                 <div v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'">
                     <div v-if="donation.evidance_of_transfer && donation.docstatus === 0">
@@ -106,6 +114,7 @@ import { createPaymentEntry } from '@/data/accounting/PaymentEntry';
 import { submitDocument } from '@/data/Document';
 import SuccessIcon from '@/components/icons/SuccessIcon.vue';
 import FailedIcon from '@/components/icons/FailedIcon.vue';
+import { get_donation_qr } from '@/data/accounting/DonationQR';
 
 moment.locale('id')
 const router = useRouter();
@@ -115,6 +124,7 @@ const user = inject('$user');
 const session = inject('$session');
 const isModalOpen = ref(false);
 const validationSuccess = ref(false);
+const qrImageUrl = ref(null);
 
 const validateFileFunction = (fileObject) => { }
 const onSuccess = async (file) => {
@@ -179,8 +189,12 @@ const donationDetail = createResource({
 });
 // console.log(moment.locale('id'))
 onMounted(() => {
-    // moment.locale('id-ID');
-    // donationDetail.reload();
-    donation.creation = moment(donation.creation).format('D MMMM YYYY HH:mm');
+    get_donation_qr()
+        .then((qrImage) => {
+            qrImageUrl.value = qrImage;  
+        })
+        .catch((error) => {
+            console.error("Error fetching QR image:", error);
+        });
 });
 </script>

@@ -9,7 +9,6 @@ export function get_donation_qr() {
             auto: true,
             transform(data) {
                 if (data["status"] === "success") {
-                    console.log("Donation QR:", data["qr_image"]);
                     resolve(data["qr_image"]);  // Resolve the promise with QR image URL
                 } else {
                     console.error("Error getting donation QR:", data["message"]);

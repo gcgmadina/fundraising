@@ -27,8 +27,9 @@
 
                 <ion-item>
                     <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
-                        <ion-select-option value="cash">Cash</ion-select-option>
-                        <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
+                        <!-- <ion-select-option value="cash">Cash</ion-select-option> -->
+                        <ion-select-option value="Wire Transfer" selected>Transfer Bank</ion-select-option>
+                        <ion-select-option v-if="qrImageUrl" value="QRIS">QRIS</ion-select-option>
                     </ion-select>
                 </ion-item>
 
@@ -59,6 +60,7 @@ import { formatDate } from "@/data/DateUtils"
 import PhoneInput from "@/components/PhoneInput.vue"
 import InputAmount from "@/components/InputAmount.vue"
 import { bankAccountList } from "@/data/accounting/BankList"
+import { get_donation_qr } from "@/data/accounting/DonationQR"
 
 const router = useRouter()
 
@@ -68,10 +70,11 @@ const phone = ref()
 const email = ref()
 const tipeItem = ref('Uang')
 const jumlahUang = ref(0)
-const metodePembayaran = ref('')
+const metodePembayaran = ref('Wire Transfer')
 const bank = ref('')
 const today = formatDate(new Date())
 const tanggal = ref(today)
+const qrImageUrl = ref()
 
 const updateAmount = (amount) => {
     jumlahUang.value = amount
@@ -139,4 +142,14 @@ const submitForm = () => {
         alert('Form tidak valid')
     }
 }
+
+onMounted(() => {
+    get_donation_qr()
+        .then((qrImage) => {
+            qrImageUrl.value = qrImage
+        })
+        .catch((error) => {
+            console.error("Error fetching QR image:", error)
+        })
+})
 </script>
