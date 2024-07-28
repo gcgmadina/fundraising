@@ -184,6 +184,11 @@ const routes = [
             name: 'SpecificDonation',
             component: () => import('@/pages/donor/SpecificDonationInput.vue'),
           },
+          {
+            path: 'donation-qr',
+            name: 'QR',
+            component: () => import('@/pages/donor/QRDonation.vue'),
+          },
         ],
       },
     ],
@@ -213,6 +218,11 @@ const routes = [
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
+  },
+  {
+    name: 'Register',
+    path: '/account/register',
+    component: () => import('@/pages/Register.vue'),
   },
 ]
 

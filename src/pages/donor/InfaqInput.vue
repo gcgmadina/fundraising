@@ -14,7 +14,7 @@
         <ion-item>
           <PhoneInput v-model="phone"></PhoneInput>
         </ion-item>
-        
+
         <ion-item>
           <ion-input v-model="email" type="email" label="Email" labelPlacement="floating"></ion-input>
         </ion-item>
@@ -27,13 +27,13 @@
 
         <ion-item>
           <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
-            <ion-select-option value="cash">Cash</ion-select-option>
+            <!-- <ion-select-option value="cash">Cash</ion-select-option> -->
             <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
+            <ion-select-option v-if="qrImageUrl" value="QRIS">QRIS</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item v-if="metodePembayaran === 'Wire Transfer'">
-          <!-- <ion-input v-model="bank" type="text" label="Pilih Bank" labelPlacement="floating"></ion-input> -->
           <ion-select v-model="bank" label="Pilih Bank">
             <ion-select-option v-for="account in bankAccountList" :key="account.id" :value="account.name">
               {{ account.bank }}
@@ -59,6 +59,7 @@ import { formatDate } from "@/data/DateUtils";
 import PhoneInput from "@/components/PhoneInput.vue";
 import InputAmount from "@/components/InputAmount.vue";
 import { bankAccountList } from "@/data/accounting/BankList";
+import { get_donation_qr } from "@/data/accounting/DonationQR";
 
 const router = useRouter();
 
@@ -70,8 +71,9 @@ const tipeItem = ref('Uang');
 const today = formatDate(new Date());
 const tanggal = ref(today);
 const jumlahUang = ref(null);
-const metodePembayaran = ref('');
+const metodePembayaran = ref('Wire Transfer');
 const bank = ref('');
+const qrImageUrl = ref();
 
 const isValidForm = computed(() => {
   return tanggal.value && jumlahUang.value !== null && metodePembayaran.value;
@@ -83,7 +85,7 @@ const updateAmount = (amount) => {
 
 const submitForm = () => {
   if (isValidForm.value) {
-    if ( metodePembayaran.value === 'cash' ) {
+    if (metodePembayaran.value === 'cash' || metodePembayaran.value === 'QRIS') {
       let postDonation = createResource({
         method: "POST",
         url: "non_profit.api.fundraising.new_donation",
@@ -98,8 +100,6 @@ const submitForm = () => {
           mode_of_payment: metodePembayaran.value,
         },
         onSuccess: (response) => {
-          console.log(response);
-          console.log(typeof response);
           router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {
@@ -107,7 +107,7 @@ const submitForm = () => {
         }
       });
       postDonation.reload();
-    } else if ( metodePembayaran.value === 'Wire Transfer' ) {
+    } else if (metodePembayaran.value === 'Wire Transfer') {
       let postDonation = createResource({
         method: "POST",
         url: "non_profit.api.fundraising.new_donation",
@@ -123,8 +123,6 @@ const submitForm = () => {
           bank: bank.value,
         },
         onSuccess: (response) => {
-          console.log(response);
-          console.log(typeof response);
           router.push({ name: 'DonationDetail', params: { id: response } });
         },
         onError: (error) => {
@@ -137,4 +135,14 @@ const submitForm = () => {
     console.log('Form is not valid. Please fill in all required fields.');
   }
 };
+
+onMounted(() => {
+  get_donation_qr()
+    .then((qrImage) => {
+      qrImageUrl.value = qrImage;  // Set the URL or base64 image data
+    })
+    .catch((error) => {
+      console.error("Error fetching QR image:", error);
+    });
+});
 </script>

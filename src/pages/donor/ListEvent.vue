@@ -9,8 +9,8 @@
                     :title="event.subject"
                     :subtitle="event.starts_on"
                     :image="event.event_thumbnail?event.event_thumbnail:'https://ionicframework.com/docs/img/demos/card-media.png'"
-                    :nextPage="'EventDetail'"
-                    :id="event.name">
+                    
+                    @click="router.push({ name: 'EventDetail', params: { id: event.name } })">
                     </CarsListItem>
                 </ion-item>
             </ion-list>
@@ -30,8 +30,10 @@ import Header from "@/components/Header.vue"
 import Footer from "@/components/donor/Footer.vue"
 import CarsListItem from "@/components/CardListItem.vue"
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const loadDisabled = ref(false);
+const router = useRouter();
 
 const loadData = (event) => {
     setTimeout(() => {

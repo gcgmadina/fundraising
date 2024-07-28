@@ -38,8 +38,9 @@
 
           <ion-item>
             <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
-              <ion-select-option value="cash">Cash</ion-select-option>
-              <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
+              <!-- <ion-select-option value="cash">Cash</ion-select-option> -->
+              <ion-select-option value="Wire Transfer" selected>Transfer Bank</ion-select-option>
+              <ion-select-option v-if="qrImageUrl" value="QRIS">QRIS</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -67,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, watchEffect } from 'vue';
+import { ref, computed, watch, watchEffect, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
 import Header from "@/components/Header.vue";
@@ -77,6 +78,7 @@ import PhoneInput from "@/components/PhoneInput.vue";
 import { createResource } from "frappe-ui";
 import InputAmount from "@/components/InputAmount.vue";
 import { bankAccountList } from "@/data/accounting/BankList";
+import { get_donation_qr } from "@/data/accounting/DonationQR";
 
 const router = useRouter();
 
@@ -88,10 +90,11 @@ const tipeItem = ref('Uang');
 const today = formatDate(new Date()); // Today's date in ISO format
 const tanggal = ref(today);
 const jumlahUang = ref(null);
-const metodePembayaran = ref('');
+const metodePembayaran = ref('Wire Transfer');
 const bank = ref('');
 const namaItem = ref('Beras');
 const jumlahBeras = ref('0');
+const qrImageUrl = ref();
 
 const isValidForm = computed(() => {
   if (tipeItem.value === 'Barang') {
@@ -201,5 +204,15 @@ watchEffect(() => {
     metodePembayaran.value = '';
     bank.value = '';
   }
+});
+
+onMounted(() => {
+  get_donation_qr()
+    .then((qrImage) => {
+      qrImageUrl.value = qrImage;
+    })
+    .catch((error) => {
+      console.error("Error fetching QR image:", error);
+    });
 });
 </script>
