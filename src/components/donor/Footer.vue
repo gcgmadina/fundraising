@@ -20,6 +20,18 @@
                 class="h-5 w-5" />
             <div>Riwayat</div>
         </ion-tab-button>
+        <ion-tab-button 
+            v-if="qrImageUrl && (!session.isLoggedIn || user.data.user_type === 'Website User')"
+            @click="router.push({ name: 'QR' })" :class="[
+            'text-xs bg-white space-y-1.5 transition active:scale-95',
+            currentRoute.name === 'QR'
+                ? 'border-green-600 text-green-600 font-bold'
+                : 'font-medium text-gray-700',
+        ]">
+            <component :is="QRIcon" :class="currentRoute.name === 'QR' ? 'text-green-600' : 'text-gray-700'"
+                class="h-5 w-5" />
+            <div>Donasi</div>
+        </ion-tab-button>
         <ion-tab-button
             v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'"
             @click="openPopover" id="administrasi" :class="[
@@ -53,13 +65,15 @@
 </template>
 
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, inject, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { IonTabBar, IonTabButton, IonContent, IonPopover } from '@ionic/vue';
 import HomeIcon from '@/components/icons/HomeIcon.vue';
 import HistoryIcon from '@/components/icons/HistoryIcon.vue';
 import AccountIcon from '@/components/icons/AccountIcon.vue';
 import EventIcon from '@/components/icons/EventIcon.vue';
+import QRIcon from '@/components/icons/QRIcon.vue';
+import { get_donation_qr } from '@/data/accounting/DonationQR';
 
 const user = inject('$user');
 const session = inject('$session');
@@ -67,6 +81,7 @@ const router = useRouter();
 const currentRoute = useRoute();
 
 const popoverOpen = ref(false);
+const qrImageUrl = ref();
 
 const openPopover = () => {
     popoverOpen.value = !popoverOpen.value;
@@ -86,4 +101,14 @@ const toAccounting = () => {
     popoverOpen.value = false;
     router.push({ name: 'accountant' });
 };
+
+onMounted(async () => {
+    get_donation_qr()
+    .then((qrImage) => {
+      qrImageUrl.value = qrImage;  // Set the URL or base64 image data
+    })
+    .catch((error) => {
+      console.error("Error fetching QR image:", error);
+    });
+});
 </script>

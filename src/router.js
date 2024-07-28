@@ -179,6 +179,11 @@ const routes = [
             name: 'SpecificDonation',
             component: () => import('@/pages/donor/SpecificDonationInput.vue'),
           },
+          {
+            path: 'donation-qr',
+            name: 'QR',
+            component: () => import('@/pages/donor/QRDonation.vue'),
+          },
         ],
       },
     ],
