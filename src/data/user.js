@@ -17,7 +17,7 @@ export function registerUser(email, full_name, redirect_url) {
       method: 'POST',
       url: 'frappe.core.doctype.user.user.sign_up',
       params: {
-        email : email,
+        email: email,
         full_name: full_name,
         redirect_to: redirect_url,
       },
@@ -36,3 +36,18 @@ export function registerUser(email, full_name, redirect_url) {
     resource.reload()
   })
 }
+
+export function forgotPassword(email) {
+  const resource = createResource({
+    method: 'POST',
+    url: 'frappe.core.doctype.user.user.reset_password',
+    params: {
+      user: email
+    },
+    transform(data) {
+      console.log(data)
+    }
+  });
+  resource.reload();
+}
+
