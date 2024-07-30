@@ -4,7 +4,11 @@
     <ion-content class="ion-padding">
       <ion-list>
         <IonItem>
-          <IonInput v-model="tipeDonasi" label="Jenis Donasi:" value="Infaq" readonly="true" aria-label=""></IonInput>
+          <!-- <IonInput v-model="tipeDonasi" label="Jenis Donasi:" value="Infaq" readonly="true" aria-label=""></IonInput> -->
+           <ion-select v-model="tipeDonasi" label="Jenis Donasi">
+            <ion-select-option value="Infaq">Infaq</ion-select-option>
+            <ion-select-option v-if="user.data.roles.includes('Non Profit Accounting')" value="Jumatan">Infaq Jum'at</ion-select-option>
+           </ion-select>
         </IonItem>
 
         <ion-item>
@@ -27,7 +31,7 @@
 
         <ion-item>
           <ion-select v-model="metodePembayaran" required label="Metode Pembayaran">
-            <!-- <ion-select-option value="cash">Cash</ion-select-option> -->
+            <ion-select-option v-if="tipeDonasi == 'Jumatan'" value="cash">Cash</ion-select-option>
             <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
             <ion-select-option v-if="qrImageUrl" value="QRIS">QRIS</ion-select-option>
           </ion-select>
@@ -49,7 +53,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonDatetime, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
 import Header from "@/components/Header.vue";
@@ -60,6 +64,9 @@ import PhoneInput from "@/components/PhoneInput.vue";
 import InputAmount from "@/components/InputAmount.vue";
 import { bankAccountList } from "@/data/accounting/BankList";
 import { get_donation_qr } from "@/data/accounting/DonationQR";
+
+const user = inject('$user');
+const session = inject('$session');
 
 const router = useRouter();
 
