@@ -7,7 +7,7 @@
           <!-- <IonInput v-model="tipeDonasi" label="Jenis Donasi:" value="Infaq" readonly="true" aria-label=""></IonInput> -->
            <ion-select v-model="tipeDonasi" label="Jenis Donasi">
             <ion-select-option value="Infaq">Infaq</ion-select-option>
-            <ion-select-option v-if="user.data.roles.includes('Non Profit Accounting')" value="Jumatan">Infaq Jum'at</ion-select-option>
+            <ion-select-option v-if="session.isLoggedIn && user.data && user.data.roles && user.data.roles.includes('Non Profit Accounting')" value="Jumatan">Infaq Jum'at</ion-select-option>
            </ion-select>
         </IonItem>
 

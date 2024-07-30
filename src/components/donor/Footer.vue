@@ -20,8 +20,7 @@
                 class="h-5 w-5" />
             <div>Riwayat</div>
         </ion-tab-button>
-        <ion-tab-button 
-            v-if="qrImageUrl && (!session.isLoggedIn || user.data.user_type === 'Website User')"
+        <ion-tab-button v-if="qrImageUrl && (!session.isLoggedIn || user.data.user_type === 'Website User')"
             @click="router.push({ name: 'QR' })" :class="[
             'text-xs bg-white space-y-1.5 transition active:scale-95',
             currentRoute.name === 'QR'
@@ -32,17 +31,15 @@
                 class="h-5 w-5" />
             <div>Donasi</div>
         </ion-tab-button>
-        <ion-tab-button
-            v-if="session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User'"
-            @click="openPopover" id="administrasi" :class="[
+        <ion-tab-button v-if="isAdmin" @click="openPopover" id="administrasi" :class="[
             'text-xs bg-white space-y-1.5 transition active:scale-95',
             'font-medium text-gray-700'
         ]">
             <component :is="EventIcon" class="h-5 w-5" />
             <div>Administrasi</div>
         </ion-tab-button>
-        <ion-popover trigger="administrasi" side="top" alignment="center" animated="false" :is-open="popoverOpen"
-            @didDismiss="popoverOpen = false">
+        <ion-popover v-if="isAdmin && popoverTriggerRendered" trigger="administrasi" side="top" alignment="center"
+            animated="false" :is-open="popoverOpen" @didDismiss="popoverOpen = false">
             <ion-content class="ion-padding">
                 <h4 class="my-4 cursor-pointer" @click="toAccounting"
                     v-if="user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
@@ -65,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, inject, onMounted } from 'vue';
+import { ref, inject, onMounted, nextTick } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { IonTabBar, IonTabButton, IonContent, IonPopover } from '@ionic/vue';
 import HomeIcon from '@/components/icons/HomeIcon.vue';
@@ -80,7 +77,9 @@ const session = inject('$session');
 const router = useRouter();
 const currentRoute = useRoute();
 
+const isAdmin = ref(false);
 const popoverOpen = ref(false);
+const popoverTriggerRendered = ref(false); // New ref to track rendering
 const qrImageUrl = ref();
 
 const openPopover = () => {
@@ -104,11 +103,19 @@ const toAccounting = () => {
 
 onMounted(async () => {
     get_donation_qr()
-    .then((qrImage) => {
-      qrImageUrl.value = qrImage;  // Set the URL or base64 image data
-    })
-    .catch((error) => {
-      console.error("Error fetching QR image:", error);
-    });
+        .then((qrImage) => {
+            qrImageUrl.value = qrImage;  // Set the URL or base64 image data
+        })
+        .catch((error) => {
+            console.error("Error fetching QR image:", error);
+        });
+
+    if (session.isLoggedIn && user.data && user.data.roles && user.data.user_type === 'System User') {
+        isAdmin.value = true;
+        // Ensure popoverTriggerRendered is set to true after next render
+        nextTick(() => {
+            popoverTriggerRendered.value = true;
+        });
+    }
 });
 </script>
