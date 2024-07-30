@@ -6,7 +6,7 @@
                 <CardListItem v-for="UserDonation, index in userDonationData"
                 :key="index"
                 :title="UserDonation.fullname"
-                :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp ' + UserDonation.amount : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
+                :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp.' + formatCurrency(UserDonation.amount) : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
                 :status="UserDonation.status"
                 @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })"/>
             </ion-list>
@@ -55,4 +55,8 @@ onMounted(() => {
 onUnmounted(() => {
     window.location.reload();
 });
+
+const formatCurrency = (value) => {
+    return value.toLocaleString('id-ID');
+}
 </script>

@@ -7,7 +7,7 @@
                 <ion-card v-for="(expense, index) in expensesData" :key="index"
                     class="flex justify-between items-center px-2 py-4">
                     <ion-card-header>
-                        <ion-card-title>{{ expense.debit_in_account_currency }}</ion-card-title>
+                        <ion-card-title>Rp. {{ formatCurrency (expense.debit_in_account_currency) }}</ion-card-title>
                         <ion-card-subtitle>{{ expense.posting_date }}</ion-card-subtitle>
                     </ion-card-header>
                     <ion-button v-if="expense.docstatus == 1" @click="openCancelConfirmation(expense)" shape="round"
@@ -91,4 +91,8 @@ onMounted(() => {
 onUnmounted(() => {
     window.location.reload()
 })
+
+const formatCurrency = (value) => {
+    return value.toLocaleString('id-ID');
+}
 </script>

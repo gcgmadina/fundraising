@@ -43,7 +43,7 @@
                 </div>
                 <div v-if="donation.item_type === 'Uang'" class="flex justify-between mx-16 my-8">
                     <div>Total Donasi</div>
-                    <div class="font-bold">Rp. {{ donation.amount }}</div>
+                    <div class="font-bold">Rp. {{ formatCurrency(donation.amount) }}</div>
                 </div>
                 <div v-else class="flex justify-between mx-16 my-8">
                     <div>{{ donation.item_name }}:</div>
@@ -197,4 +197,8 @@ onMounted(() => {
             console.error("Error fetching QR image:", error);
         });
 });
+
+const formatCurrency = (value) => {
+    return value.toLocaleString('id-ID');
+}
 </script>
