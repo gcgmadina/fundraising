@@ -95,7 +95,7 @@ const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: 'Zakat' },
   { icon: InfaqIcon, label: 'Infaq', route: 'Infaq' },
   { icon: HibahIcon, label: 'Hibah', route: 'Hibah' },
-  { icon: FidyahIcon, label: 'Kaffarat', route: 'Kaffarat' },
+  { icon: FidyahIcon, label: 'Fidyah', route: 'Fidyah' },
 ];
 
 const router = useRouter();

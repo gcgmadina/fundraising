@@ -147,9 +147,9 @@ const routes = [
         component: () => import('@/pages/donor/HibahInput.vue'),
       },
       {
-        path: 'kaffarat',
-        name: 'Kaffarat',
-        component: () => import('@/pages/donor/KaffaratInput.vue'),
+        path: 'fidyah',
+        name: 'Fidyah',
+        component: () => import('@/pages/donor/FidyahInput.vue'),
       },
       {
         path: 'event',
