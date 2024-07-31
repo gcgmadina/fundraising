@@ -28,7 +28,7 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/donor/Footer.vue";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import { getSurahContent } from "@/data/quran/Quran";
+import { getSurahContent } from "@/data/masjid/Quran";
 import NumberIcon from "@/components/icons/NumberIcon.vue";
 
 const route = useRoute();

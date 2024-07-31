@@ -34,7 +34,7 @@ import CardListItem from "@/components/CardListItem.vue";
 import NumberIcon from "@/components/icons/NumberIcon.vue";
 import { ref, onMounted, inject } from "vue";
 import { useRouter } from "vue-router";
-import { getSurahList } from "@/data/quran/Quran";
+import { getSurahList } from "@/data/masjid/Quran";
 
 const router = useRouter();
 const surahList = ref([]);
