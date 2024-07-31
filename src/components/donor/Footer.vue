@@ -31,6 +31,20 @@
                 class="h-5 w-5" />
             <div>Donasi</div>
         </ion-tab-button>
+        <ion-tab-button @click="openQuranPopover" id="quran" :class="[
+            'text-xs bg-white space-y-1.5 transition active:scale-95',
+            'font-medium text-gray-700'
+        ]">
+            <component :is="BookIcon" class="h-5 w-5" />
+            <div>Qur'an</div>
+        </ion-tab-button>
+        <ion-popover trigger="quran" side="top" alignment="center"
+            animated="false" :is-open="quranPopoverOpen" @didDismiss="quranPopoverOpen = false">
+            <ion-content class="ion-padding">
+                <h4 class="my-4 cursor-pointer">Qur'an</h4>
+                <h4 class="my-4 cursor-pointer">Dzikir</h4>
+            </ion-content>
+        </ion-popover>
         <ion-tab-button v-if="isAdmin" @click="openPopover" id="administrasi" :class="[
             'text-xs bg-white space-y-1.5 transition active:scale-95',
             'font-medium text-gray-700'
@@ -70,6 +84,7 @@ import HistoryIcon from '@/components/icons/HistoryIcon.vue';
 import AccountIcon from '@/components/icons/AccountIcon.vue';
 import EventIcon from '@/components/icons/EventIcon.vue';
 import QRIcon from '@/components/icons/QRIcon.vue';
+import BookIcon from '@/components/icons/BookIcon.vue';
 import { get_donation_qr } from '@/data/accounting/DonationQR';
 
 const user = inject('$user');
@@ -81,6 +96,7 @@ const isAdmin = ref(false);
 const popoverOpen = ref(false);
 const popoverTriggerRendered = ref(false); // New ref to track rendering
 const qrImageUrl = ref();
+const quranPopoverOpen = ref(false);
 
 const openPopover = () => {
     popoverOpen.value = !popoverOpen.value;
@@ -99,6 +115,10 @@ const toInventaris = () => {
 const toAccounting = () => {
     popoverOpen.value = false;
     router.push({ name: 'accountant' });
+};
+
+const openQuranPopover = () => {
+    quranPopoverOpen.value = !quranPopoverOpen.value;
 };
 
 onMounted(async () => {
