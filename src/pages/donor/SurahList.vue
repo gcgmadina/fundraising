@@ -3,7 +3,13 @@
         <Header />
         <ion-content>
             <ion-list v-for="(surah, index) in surahList" :key="index">
-                <CardListItem :title="surah.namaLatin" :subtitle="surah.arti" :status="true" :image="true">
+                <CardListItem 
+                    :title="surah.namaLatin" 
+                    :subtitle="surah.arti" 
+                    :status="true" 
+                    :image="true"
+                    @click="router.push({ name: 'Surah', params: { id: surah.nomor } })"
+                >
                     <template #status>
                         <div class="flex flex-col items-center">
                             <span class="text-lg font-semibold">{{ surah.nama }}</span>
@@ -27,8 +33,10 @@ import Footer from "@/components/donor/Footer.vue";
 import CardListItem from "@/components/CardListItem.vue";
 import NumberIcon from "@/components/icons/NumberIcon.vue";
 import { ref, onMounted, inject } from "vue";
+import { useRouter } from "vue-router";
 import { getSurahList } from "@/data/quran/Quran";
 
+const router = useRouter();
 const surahList = ref([]);
 
 const fetchSurahList = () => {

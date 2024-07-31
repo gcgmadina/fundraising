@@ -217,6 +217,11 @@ const routes = [
         name: 'SurahList',
         component: () => import('@/pages/donor/SurahList.vue'),
       },
+      {
+        path: ':id',
+        name: 'Surah',
+        component: () => import('@/pages/donor/Surah.vue'),
+      }
     ],
   },
   {
