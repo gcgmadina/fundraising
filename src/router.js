@@ -210,6 +210,16 @@ const routes = [
     ],
   },
   {
+    path: '/equran',
+    children: [
+      {
+        path: '',
+        name: 'SurahList',
+        component: () => import('@/pages/donor/SurahList.vue'),
+      },
+    ],
+  },
+  {
     path: '/account',
     name: 'Account',
     component: () => import('@/pages/Account.vue'),

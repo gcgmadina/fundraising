@@ -41,7 +41,7 @@
         <ion-popover trigger="quran" side="top" alignment="center"
             animated="false" :is-open="quranPopoverOpen" @didDismiss="quranPopoverOpen = false">
             <ion-content class="ion-padding">
-                <h4 class="my-4 cursor-pointer">Qur'an</h4>
+                <h4 class="my-4 cursor-pointer" @click="toSurahList">Qur'an</h4>
                 <h4 class="my-4 cursor-pointer">Dzikir</h4>
             </ion-content>
         </ion-popover>
@@ -119,6 +119,11 @@ const toAccounting = () => {
 
 const openQuranPopover = () => {
     quranPopoverOpen.value = !quranPopoverOpen.value;
+};
+
+const toSurahList = () => {
+    quranPopoverOpen.value = false;
+    router.push({ name: 'SurahList' });
 };
 
 onMounted(async () => {
