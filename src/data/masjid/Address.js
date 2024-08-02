@@ -30,8 +30,6 @@ export function searchCity(cityName) {
     return new Promise((resolve, reject) => {
         fetch(`${BASE_URL}/kota/cari/${encodeURIComponent(cityName)}`)
             .then(response => {
-                console.log("response 1: ", response);
-                console.log("cityName: ", cityName);
                 if (response.ok) {
                     return response.json();
                 } else {
@@ -40,7 +38,6 @@ export function searchCity(cityName) {
                 }
             })
             .then(data => {
-                console.log("data 1: ", data);
                 resolve(data.data);
             })
             .catch(error => {
@@ -101,7 +98,7 @@ export function getMosqueAddress() {
             url: 'non_profit.api.address.get_permanent_address',
             transform(data) {
                 if (data.status === 'success') {
-                    resolve(data.message);
+                    resolve(data.data[0]);
                 } else {
                     const error = new Error(data.message || "Gagal mendapatkan alamat masjid");
                     error.data = data;
