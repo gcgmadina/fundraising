@@ -2,6 +2,18 @@
     <ion-page>
         <Header :showBackButton="true" />
         <ion-content>
+            <h6 class="mx-6 mb-0">Profil Masjid</h6>
+            <router-link :to="{ name: 'Address' }">
+                <ion-card>
+                    <ion-card-header>
+                        <div class="flex flex-auto justify-between items-center">
+                            <ion-card-subtitle>Profil Masjid</ion-card-subtitle>
+                            <ion-icon :icon="GreaterThan" />
+                        </div>
+                    </ion-card-header>
+                </ion-card>
+
+            </router-link>
             <h6 class="mx-6 mb-0">Inventaris Masjid</h6>
             <router-link :to="{ name: 'ItemGroups' }">
                 <ion-card>

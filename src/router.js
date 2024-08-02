@@ -67,6 +67,11 @@ const routes = [
         path: 'add-purchase-receipt',
         name: 'addPurchaseReceipt',
         component: () => import('@/pages/secretary/PurchaseReceiptInput.vue')
+      },
+      {
+        path: 'address',
+        name: 'Address',
+        component: () => import('@/pages/secretary/AddressInput.vue'),
       }
     ],
   },
