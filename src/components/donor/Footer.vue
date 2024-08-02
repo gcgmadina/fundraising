@@ -42,7 +42,8 @@
             animated="false" :is-open="quranPopoverOpen" @didDismiss="quranPopoverOpen = false">
             <ion-content class="ion-padding">
                 <h4 class="my-4 cursor-pointer" @click="toSurahList">Qur'an</h4>
-                <h4 class="my-4 cursor-pointer">Dzikir</h4>
+                <h4 class="my-4 cursor-pointer" @click="toDzikirPagi">Dzikir Pagi</h4>
+                <h4 class="my-4 cursor-pointer" @click="toDzikirPetang">Dzikir Petang</h4>
             </ion-content>
         </ion-popover>
         <ion-tab-button v-if="isAdmin" @click="openPopover" id="administrasi" :class="[
@@ -56,8 +57,8 @@
             animated="false" :is-open="popoverOpen" @didDismiss="popoverOpen = false">
             <ion-content class="ion-padding">
                 <h4 class="my-4 cursor-pointer" @click="toAccounting"
-                    v-if="user.data.roles.includes('Non Profit Accounting')">Akuntansi</h4>
-                <h4 class="my-4 cursor-pointer" @click="toInventaris">Inventaris</h4>
+                    v-if="user.data.roles.includes('Non Profit Accounting')">Keuangan</h4>
+                <h4 class="my-4 cursor-pointer" @click="toInventaris">Administrasi</h4>
                 <h4 class="my-4 cursor-pointer" @click="toEventInput"
                     v-if="user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
             </ion-content>
@@ -124,6 +125,16 @@ const openQuranPopover = () => {
 const toSurahList = () => {
     quranPopoverOpen.value = false;
     router.push({ name: 'SurahList' });
+};
+
+const toDzikirPagi = () => {
+    quranPopoverOpen.value = false;
+    router.push({ name: 'DzikirPagi' });
+};
+
+const toDzikirPetang = () => {
+    quranPopoverOpen.value = false;
+    router.push({ name: 'DzikirPetang' });
 };
 
 onMounted(async () => {

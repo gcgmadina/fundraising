@@ -184,7 +184,6 @@ onMounted(() => {
   getMosqueAddress()
     .then((data) => {
       address.value = data;
-      console.log(address.value.city);
       return data.city
     })
     .then((city) => {
@@ -200,7 +199,6 @@ onMounted(() => {
       fetchPrayerSchedule(cityId)
         .then((data) => {
           schedule.value = scheduleNameTime(data.data.jadwal);
-          console.log(schedule.value);
         })
         .catch((error) => {
           console.error('Error fetching prayer schedule:', error);
