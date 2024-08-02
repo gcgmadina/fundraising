@@ -67,6 +67,11 @@ const routes = [
         path: 'add-purchase-receipt',
         name: 'addPurchaseReceipt',
         component: () => import('@/pages/secretary/PurchaseReceiptInput.vue')
+      },
+      {
+        path: 'address',
+        name: 'Address',
+        component: () => import('@/pages/secretary/AddressInput.vue'),
       }
     ],
   },
@@ -147,9 +152,9 @@ const routes = [
         component: () => import('@/pages/donor/HibahInput.vue'),
       },
       {
-        path: 'kaffarat',
-        name: 'Kaffarat',
-        component: () => import('@/pages/donor/KaffaratInput.vue'),
+        path: 'fidyah',
+        name: 'Fidyah',
+        component: () => import('@/pages/donor/FidyahInput.vue'),
       },
       {
         path: ':id',
@@ -210,6 +215,31 @@ const routes = [
     ],
   },
   {
+    path: '/equran',
+    children: [
+      {
+        path: '',
+        name: 'SurahList',
+        component: () => import('@/pages/donor/SurahList.vue'),
+      },
+      {
+        path: ':id',
+        name: 'Surah',
+        component: () => import('@/pages/donor/Surah.vue'),
+      },
+      {
+        path: 'dzikir-pagi',
+        name: 'DzikirPagi',
+        component: () => import('@/pages/donor/DzikirPagi.vue'),
+      },
+      {
+        path: 'dzikir-petang',
+        name: 'DzikirPetang',
+        component: () => import('@/pages/donor/DzikirPetang.vue'),
+      },
+    ],
+  },
+  {
     path: '/account',
     name: 'Account',
     component: () => import('@/pages/Account.vue'),
@@ -223,6 +253,11 @@ const routes = [
     name: 'Register',
     path: '/account/register',
     component: () => import('@/pages/Register.vue'),
+  },
+  {
+    name: 'ForgotPassword',
+    path: '/account/forgot-password',
+    component: () => import('@/pages/ForgotPassword.vue'),
   },
 ]
 

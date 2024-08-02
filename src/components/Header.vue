@@ -2,32 +2,33 @@
     <ion-header>
         <ion-toolbar>
             <ion-buttons slot="start" v-if="showBackButton">
-                <ion-back-button defaultHref="/"/>
+                <ion-back-button defaultHref="/" />
             </ion-buttons>
 
-            <img src="@/components/icons/WhatsApp_Image_2023-12-18_at_10.48.59_9397a2c2-removebg-preview (1).jpg"
-                alt="logo" />
+            <img v-if="!computedTitle"
+                src="@/components/icons/WhatsApp_Image_2023-12-18_at_10.48.59_9397a2c2-removebg-preview (1).jpg"
+                alt="logo" class="w-52 mx-auto block" />
+            <h1 v-else class="text-center w-full">{{ computedTitle }}</h1>
         </ion-toolbar>
     </ion-header>
 </template>
 
 <script setup>
 import { IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/vue';
-import { defineProps } from 'vue';
+import { defineProps, computed } from 'vue';
 
 const props = defineProps({
     showBackButton: {
         type: Boolean,
         default: false
+    },
+    title: {
+        type: String,
+        default: ''
     }
 });
-</script>
 
-<style scoped>
-img {
-    width: 200px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-}
-</style>
+const computedTitle = computed(() => {
+    return props.title || '';
+});
+</script>

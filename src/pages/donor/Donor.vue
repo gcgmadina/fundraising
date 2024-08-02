@@ -28,6 +28,19 @@
           </button>
         </div>
       </div>
+      <div id="Schedule-section" v-if="address">
+        <div class="event-header">
+          <h2>Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
+        </div>
+        <div class="prayer-schedule my-2">
+          <div v-for="(schedule, index) in schedule" :key="index" class="flex justify-center">
+            <div class="grid grid-cols-2 my-1 text-green-600">
+              <div>{{ schedule.waktu }}</div>
+              <div class="pl-10">{{ schedule.jam }} WIB</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="menu-button-list flex justify-around items-center w-full mt-6">
         <div v-for="menu in menus" :key="menu.route">
           <MenuButton :icon="menu.icon" :label="menu.label" :route="menu.route"></MenuButton>
@@ -38,7 +51,7 @@
         <div class="donation-report flex overflow-x-auto">
           <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
             <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
-            @click="donationCard(card.subtitle)"></Card>
+              @click="donationCard(card.subtitle)"></Card>
           </div>
         </div>
       </div>
@@ -90,17 +103,21 @@ import Header from "@/components/Header.vue"
 import { tenEvents, tenDonationEvents } from "@/data/event/EventList"
 import SmallerIcon from "@/components/icons/smaller-than.svg"
 import GreaterIcon from "@/components/icons/greater-than.svg"
+import { getMosqueAddress, searchCity, fetchPrayerSchedule } from "@/data/masjid/Address"
+import _ from 'lodash';
 
 const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: 'Zakat' },
   { icon: InfaqIcon, label: 'Infaq', route: 'Infaq' },
   { icon: HibahIcon, label: 'Hibah', route: 'Hibah' },
-  { icon: FidyahIcon, label: 'Kaffarat', route: 'Kaffarat' },
+  { icon: FidyahIcon, label: 'Fidyah', route: 'Fidyah' },
 ];
 
 const router = useRouter();
 const user = inject('$user');
 const session = inject('$session');
+const address = ref(null);
+const schedule = ref();
 
 const toEventList = () => {
   router.push({ name: 'EventList' });
@@ -141,10 +158,21 @@ const scrollRight = (carouselId) => {
 };
 
 const donationCard = (type) => {
-  if (session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Accounting')){
+  if (session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Accounting')) {
     router.push({ name: 'HistoryWithType', params: { donation_type: type } });
 
   }
+};
+
+const scheduleNameTime = (data) => {
+  return [
+    { waktu: 'Subuh', jam: data.subuh },
+    { waktu: 'Terbit', jam: data.terbit },
+    { waktu: 'Dzuhur', jam: data.dzuhur },
+    { waktu: 'Ashar', jam: data.ashar },
+    { waktu: 'Maghrib', jam: data.maghrib },
+    { waktu: 'Isya', jam: data.isya },
+  ];
 };
 
 onMounted(() => {
@@ -152,10 +180,41 @@ onMounted(() => {
   carousel2.value.addEventListener('scroll', () => updateArrows(carousel2, isAtStart2, isAtEnd2));
   updateArrows(carousel1, isAtStart1, isAtEnd1);
   updateArrows(carousel2, isAtStart2, isAtEnd2);
-});
+
+  getMosqueAddress()
+    .then((data) => {
+      address.value = data;
+      return data.city
+    })
+    .then((city) => {
+      return searchCity(city)
+        .then((data) => {
+          return data[0].id
+        })
+        .catch((error) => {
+          console.error('Error searching city:', error);
+        });
+    })
+    .then((cityId) => {
+      fetchPrayerSchedule(cityId)
+        .then((data) => {
+          schedule.value = scheduleNameTime(data.data.jadwal);
+        })
+        .catch((error) => {
+          console.error('Error fetching prayer schedule:', error);
+        });
+    })
+    .catch((error) => {
+      console.error('Error fetching mosque address:', error);
+    });
+})
 </script>
 
 <style scoped>
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 .donation-report {
   display: flex;
   flex-direction: row;

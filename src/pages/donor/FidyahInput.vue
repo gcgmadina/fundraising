@@ -4,7 +4,7 @@
         <ion-content class="ion=padding">
             <ion-list>
                 <ion-item>
-                    <ion-input v-model="tipeDonasi" label="Jenis Donasi:" value="Kaffarat" :readonly="true"></ion-input>
+                    <ion-input v-model="tipeDonasi" label="Jenis Donasi:" value="Fidyah" :readonly="true"></ion-input>
                 </ion-item>
 
                 <ion-item>
@@ -64,7 +64,7 @@ import { get_donation_qr } from "@/data/accounting/DonationQR"
 
 const router = useRouter()
 
-const tipeDonasi = ref('Kaffarat')
+const tipeDonasi = ref('Fidyah')
 const nama = ref()
 const phone = ref()
 const email = ref()

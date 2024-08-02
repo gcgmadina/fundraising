@@ -1,0 +1,157 @@
+<template>
+    <ion-page>
+        <Header/>
+        <ion-content class="ion-padding">
+            <h1 class="text-center">Bacaan Dzikir Petang Sesuai Sunnah</h1>
+            <p class="text-justify mb-2">Dilansir dari buku Dzikir Pagi dan Petang karya Ustaz Fadli Ramadhan, waktu terbaik membaca dzikir petang dapat dimulai dari selepas salat Ashar hingga waktu terbenamnya matahari. Ada pula yang berpendapat dzikir petang boleh diamalkan setelah terbenamnya matahari apabila terdapat uzur karena lebih baik dilakukan daripada meninggalkannya.</p>
+
+            <h2 class="font-bold">1. Taawudz</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ
+
+            </p>
+            <p class="ml-5">Artinya: "Aku berlindung kepada Allah dari godaan setan yang terkutuk."</p>
+
+            <h2 class="font-bold">2. Ayat Kursi</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                اَللّٰهُ لَآ اِلٰهَ اِلَّا هُوَۚ اَلْحَيُّ الْقَيُّوْمُ ەۚ لَا تَأْخُذُهٗ سِنَةٌ وَّلَا نَوْمٌۗ لَهٗ مَا فِى السَّمٰوٰتِ وَمَا فِى الْاَرْضِۗ مَنْ ذَا الَّذِيْ يَشْفَعُ عِنْدَهٗٓ اِلَّا بِاِذْنِهٖۗ يَعْلَمُ مَا بَيْنَ اَيْدِيْهِمْ وَمَا خَلْفَهُمْۚ وَلَا يُحِيْطُوْنَ بِشَيْءٍ مِّنْ عِلْمِهٖٓ اِلَّا بِمَا شَاۤءَۚ وَسِعَ كُرْسِيُّهُ السَّمٰوٰتِ وَالْاَرْضَۚ وَلَا يَـُٔوْدُهٗ حِفْظُهُمَاۚ وَهُوَ الْعَلِيُّ الْعَظِيْمُ ٢٥٥
+            </p>
+            <p class="ml-5">Artinya: "Allah, tidak ada tuhan selain Dia, Yang Mahahidup lagi terus-menerus mengurus (makhluk-Nya). Dia tidak dilanda oleh kantuk dan tidak (pula) oleh tidur. Milik-Nyalah apa yang ada di langit dan apa yang ada di bumi. Tidak ada yang dapat memberi syafaat di sisi-Nya tanpa izin-Nya. Dia mengetahui apa yang ada di hadapan mereka dan apa yang ada di belakang mereka. Mereka tidak mengetahui sesuatu apa pun dari ilmu-Nya, kecuali apa yang Dia kehendaki. Kursi-Nya (ilmu dan kekuasaan-Nya) meliputi langit dan bumi. Dia tidak merasa berat memelihara keduanya. Dialah yang Mahatinggi lagi Mahaagung."</p>
+
+            <h2 class="font-bold">3. Surah Al Ikhlas, Surah Al Falaq, dan Surah An Nas (3x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                قُلْ هُوَ اللّٰهُ اَحَدٌۚ ١ اَللّٰهُ الصَّمَدُۚ ٢ لَمْ يَلِدْ وَلَمْ يُوْلَدْۙ ٣ وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌ ࣖ ٤
+            </p>
+            <p class="ml-5">Artinya: "Katakanlah (Nabi Muhammad), "Dialah Allah Yang Maha Esa. Allah tempat meminta segala sesuatu. Dia tidak beranak dan tidak pula diperanakkan serta tidak ada sesuatu pun yang setara dengan-Nya." (QS Al Ikhlas: 1-4)</p>
+            <p class="text-2xl ml-5 my-4 text-right">
+                قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِۙ ١ مِنْ شَرِّ مَا خَلَقَۙ ٢ وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَۙ ٣ وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِۙ ٤ وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَ ࣖ ٥
+            </p>
+            <p class="ml-5">Artinya: "Katakanlah (Nabi Muhammad), "Aku berlindung kepada Tuhan yang (menjaga) fajar (subuh) dari kejahatan (makhluk yang) Dia ciptakan, dari kejahatan malam apabila telah gelap gulita, dari kejahatan perempuan-perempuan (penyihir) yang meniup pada buhul-buhul (talinya),dan dari kejahatan orang yang dengki apabila dia dengki." (QS Al Falaq: 1-5)</p>
+            <p class="text-2xl ml-5 my-4 text-right">
+                قُلْ اَعُوْذُ بِرَبِّ النَّاسِۙ ١ مَلِكِ النَّاسِۙ ٢ اِلٰهِ النَّاسِۙ ٣ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِۙ ٤ الَّذِىْ يُوَسْوِسُ فِى صُدُوْرِ النَّّاسِ ٥ مِنَ الْجِنَّةِ وَالنَّاسِ ٦
+            </p>
+            <p class="ml-5">Artinya: "Katakanlah (Nabi Muhammad), "Aku berlindung kepada Tuhan (yang memelihara dan menguasai) manusia. Raja manusia. Sembahan (Ilah) manusia. Dari kejahatan (bisikan) syaitan yang biasa bersembunyi, yang membisikkan (kejahatan) ke dalam dada-dada manusia, dari jin dan manusia." (QS An Nas: 1-6)</p>
+
+            <h2 class="font-bold">4. Dzikir Petang Pertama</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                أَمْسَيْنَا عَلَى فِطْرَةِ اْلإِسْلاَمِ وَعَلَى كَلِمَةِ اْلإِخْلاَصِ، وَعَلَى دِيْنِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِيْنَا إِبْرَاهِيْمَ، حَنِيْفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِيْنَ
+
+            </p>
+            <p class="ml-5">Artinya: "Di waktu petang kami berada diatas fitrah agama Islam, kalimat ikhlas, agama Nabi kami Muhammad dan agama ayah kami, Ibrahim, yang berdiri di atas jalan yang lurus, muslim dan tidak tergolong orang-orang musyrik."</p>
+
+            <h2 class="font-bold">5. Dzikir Petang Kedua</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                رَضِيْتُ بِاللهِ رَبًّا، وَبِالإِسْلَامِ دِيْنًا، وَبِمُحَمَّدٍ نَبِيًّا
+
+            </p>
+            <p class="ml-5">
+                Artinya: "Aku rela (rida) Allah sebagai Rabb-ku (untukku dan orang lain), Islam sebagai agamaku dan Muhammad sebagai Nabiku (yang diutus oleh Allah)."
+            </p>
+
+            <h2 class="font-bold">6. Dzikir Petang Ketiga</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                اللَّهُمَّ بِكَ أَمْسَيْنَا وَبِكَ أَصْبَحْنَا ، وَبِكَ نَحْيَا وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيْرُ
+
+            </p>
+            <p class="ml-5">
+                Artinya: "Ya Allah, dengan rahmat dan pertolongan-Mu kami memasuki waktu petang, dan dengan rahmat dan pertolongan-Mu kami memasuki waktu pagi. Dengan rahmat dan kehendak-Mu kami hidup dan dengan rahmat dan kehendak-Mu kami mati. Dan kepada-Mu tempat kembali (bagi semua makhluk)."
+            </p>
+
+            <h2 class="font-bold">7. Dzikir Petang Keempat</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ. رَبِّ أَسْأَلُكَ خَيْرَ مَا فِيْ هَذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَأَعُوْذُ بِكَ مِنْ شَرِّ مَا فِي هَذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبِّ أَعُوْذُ بِكَ مِنَ الْكَسَلِ وَسُوْءِ الْكِبَرِ، رَبِّ أَعُوْذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ
+
+            </p>
+            <p class="ml-5">
+                Artinya: "Kami telah memasuki waktu petang dan kerajaan hanya milik Allah, segala puji bagi Allah. Tidak ada Tuhan (yang berhak disembah) kecuali Allah Yang Maha Esa, tiada sekutu bagi-Nya. Bagi-Nya kerajaan dan bagi-Nya pujian. Dia-lah Yang Mahakuasa atas segala se-suatu. Hai Tuhan, aku mohon kepada-Mu kebaikan di hari ini dan kebaikan sesudahnya. Aku berlindung kepadaMu dari kejahatan hari ini dan kejahatan sesudahnya. Wahai Tuhan, aku berlindung kepadaMu dari kemalasan dan kejelekan di hari tua. Wahai Tuhan! Aku berlindung kepadaMu dari siksaan di Neraka dan kubur."
+            </p>
+
+            <h2 class="font-bold">8. Sayyidul Istighfar</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ
+
+            </p>
+            <p class="ml-5">Artinya: "Ya Allah, Engkau lah Tuhanku. Tidak ada Tuhan selain Engkau. Engkau yang menciptakan aku dan aku adalah hamba-Mu. Aku berada di dalam hidayahmu, dan perjanjian dengan-Mu. Sebisa yang aku mampu. Aku berlindung kepada-Mu, dari segala kejelekan yang aku perbuat. Aku bersyukur atas nikmat yang Engkau limpahkan kepada kami, dan aku menyesal atas segala yang dosa yang aku perbuat. Maka ampunilah aku, sesungguhnya tidak ada yang dapat mengampuni dosa selain Engkau."</p>
+
+            <h2 class="font-bold">9. Dzikir Petang Keenam</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                اللَّهُمَّ إنِّي أَسْأَلُكَ العَفْوَ وَالعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ، اللَّهُمَّ إنِّي أَسْأَلُكَ العَفْوَ وَالعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي، وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنَ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي
+
+            </p>
+            <p class="ml-5">Artinya: "Ya Allah, sesungguhnya aku memohon kebajikan dan keselamatan di dunia dan akhirat. Ya Allah, sesungguhnya aku memohon kebaikan dan keselamatan dalam agama, dunia, keluarga dan hartaku. Ya Allah, tutupilah auratku (aib dan sesuatu yang tidak layak dilihat orang) dan tentramkan-lah aku dari rasa takut. Ya Allah, peliharalah aku dari depan, belakang, kanan, kiri dan dari atasku. Aku berlindung dengan kebesaran-Mu, agar aku tidak disambar dari bawahku (aku berlindung dari dibenamkan ke dalam bumi)."</p>
+
+            <h2 class="font-bold">10. Dzikir Petang Ketujuh (3x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ اَللّٰھُمَّ اِنِّیْ اَعُوْذُبِکَ مِنَ الْکُفْرِ وَالْفَقْرِ ، اَللّٰھُمَّ اِنِّی اَعُوْذُ بِکَ مِنَ عَذَابِ الْقَبْرِ، لَا اِلَہَ اِلَّا اَنْتَ
+
+            </p>
+            <p class="ml-5">Artinya: "Ya Allah, selamatkanlah tubuhku (dari penyakit dan dari apa yang tidak aku inginkan). Ya Allah, selamatkanlah pendengaranku. Ya Allah, selamatkanlah penglihatanku, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau. Ya Allah, sesungguhnya aku berlindung kepada-Mu dari kekufuran dan kefakiran. Aku berlindung kepada-Mu dari siksa kubur, tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau.</p>
+
+            <h2 class="font-bold">11. Dzikir Petang Kedelapan</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+
+                اَللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَاْلأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيْكَهُ، أَشْهَدُ أَنْ لاَ إِلَـهَ إِلاَّ أَنْتَ، أَعُوْذُ بِكَ مِنْ شَرِّ نَفْسِيْ، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِيْ سُوْءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ
+
+            </p>
+            <p class="ml-5">Artinya: "Ya Allah Yang Mahamengetahui yang ghaib dan yang nyata, wahai Rabb Pencipta langit dan bumi, Rabb atas segala sesuatu dan Yang Merajainya. Aku bersaksi bahwa tidak ada Ilah yang berhak diibadahi dengan benar kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, setan dan ajakannya menyekutukan Allah (aku berlindung kepada-Mu) dari berbuat kejelekan atas diriku atau mendorong seorang muslim kepadanya.</p>
+
+            <h2 class="font-bold">12. Dzikir Petang Kesembilan (4x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                بِسْمِ اللَّهِ الَّذِى لاَ يَضُرُّ مَعَ اسْمِهِ شَىْءٌ فِى الأَرْضِ وَلاَ فِى السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ
+
+            </p>
+            <p class="ml-5">Artinya: "Dengan Menyebut Nama Allah, yang dengan Nama-Nya tidak ada satupun yang membahayakan, baik di bumi maupun di langit. Dia-lah Yang Maha mendengar dan Maha mengetahui."</p>
+
+            <h2 class="font-bold">13. Dzikir Petang Kesepuluh</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                يَا حَيُّ يَا قَيُّوْمُ بِرَحْمَتِكَ أَسْتَغِيْثُ، وَأَصْلِحْ لِيْ شَأْنِيْ كُلَّهُ وَلاَ تَكِلْنِيْ إِلَى نَفْسِيْ طَرْفَةَ عَيْنٍ
+
+            </p>
+            <p class="ml-5">Artinya: "Wahai Rabb Yang Maha Hidup, wahai Rabb Yang Berdiri Sendiri (tidak butuh segala sesuatu), dengan rahmat-Mu aku minta pertolongan, perbaikilah segala urusanku dan jangan diserahkan kepadaku sekalipun sekejap mata (tanpa mendapat pertolongan dari-Mu).</p>
+
+            <h2 class="font-bold">14. Dzikir Kesebelas (3x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                أَعُوْذُ بِكَلِمَاتِ اللهِ التَّآمَّاتِ مِنْ شَرِّ مَا خَلَقَ
+
+            </p>
+            <p class="ml-5">Artinya: "Aku berlindung dengan kalimat-kalimat Allah yang sempurna, dari kejahatan sesuatu yang diciptakan-Nya."</p>
+
+            <h2 class="font-bold">15. Dzikir Petang Kedua Belas (100x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                سُبْحَانَ اللهِ وَبِحَمْدِهِ
+
+            </p>
+            <p class="ml-5">Artinya: "Mahasuci Allah, aku memuji-Nya."</p>
+
+            <h2 class="font-bold">16. Dzikir Petang Ketiga Belas (3x)</h2>
+            <p class="text-2xl ml-5 my-4 text-right">
+                
+                لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ
+
+            </p>
+            <p class="ml-5">Artinya: "Tidak ada Tuhan selain Allah, Yang Mahaesa tidak ada sekutu bagi-Nya, milik-Nyalah segala kerajaan dan bagi-Nya pujian dan Dia Mahaberkuasa atas segala sesuatu."</p>
+
+            <div class="mt-10 mb-4"> Referensi: <a href="https://www.detik.com/hikmah/doa-dan-hadits/d-7464040/doa-dzikir-pagi-dan-petang-sesuai-sunnah-untuk-pembuka-rezeki" target="_blank">detik.com</a></div>
+
+        </ion-content>
+        <Footer/>
+    </ion-page>
+</template>
+
+<script setup>
+import Header from '@/components/Header.vue'
+import Footer from '@/components/donor/Footer.vue'
+import { IonPage, IonContent } from '@ionic/vue'
+</script>

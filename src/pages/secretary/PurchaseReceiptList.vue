@@ -8,7 +8,7 @@
                     <ion-card-header class="flex flex-row">
                         <div class="flex flex-auto flex-col mx-4">
                             <ion-card-title>{{ pr.posting_date }}</ion-card-title>
-                            <ion-card-subtitle>{{ pr.total }}</ion-card-subtitle>
+                            <ion-card-subtitle>Rp. {{formatCurrency (pr.total)}}</ion-card-subtitle>
                         </div>
                         <ion-button :color="getStatus(pr.status)">
                             {{ pr.status }}
@@ -81,4 +81,8 @@ const loadData = (event) => {
 onMounted(() => {
     getPurchaseReceiptScroll();
 });
+
+const formatCurrency = (value) => {
+    return value.toLocaleString('id-ID');
+}
 </script>

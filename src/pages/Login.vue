@@ -32,7 +32,7 @@
         </div>
         <div class="flex items-center justify-between">
           <div class="text-sm">
-            <router-link to="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">Lupa Password</router-link>
+            <router-link :to="{ name: 'ForgotPassword' }" class="font-medium text-indigo-600 hover:text-indigo-500">Lupa Password</router-link>
           </div>
         </div>
         <div>
