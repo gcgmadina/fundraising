@@ -226,7 +226,17 @@ const routes = [
         path: ':id',
         name: 'Surah',
         component: () => import('@/pages/donor/Surah.vue'),
-      }
+      },
+      {
+        path: 'dzikir-pagi',
+        name: 'DzikirPagi',
+        component: () => import('@/pages/donor/DzikirPagi.vue'),
+      },
+      {
+        path: 'dzikir-petang',
+        name: 'DzikirPetang',
+        component: () => import('@/pages/donor/DzikirPetang.vue'),
+      },
     ],
   },
   {
