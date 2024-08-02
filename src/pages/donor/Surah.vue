@@ -13,6 +13,7 @@
                     </div>
                     <div class="w-10/12">
                         <div class="text-right my-2">{{ ayat.teksArab }}</div>
+                        <div class="text-left my-3 italic"> {{ ayat.teksLatin }} </div>
                         <div class="text-left my-3">{{ ayat.teksIndonesia }}</div>
                     </div>
                 </ion-item>

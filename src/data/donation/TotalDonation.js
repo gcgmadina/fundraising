@@ -1,33 +1,6 @@
 import { createResource } from "frappe-ui"
 import { reactive, ref } from 'vue'
 
-// export const totalResource = createResource({
-//     url: "non_profit.api.fundraising.get_total_amount",
-//     auto: true,
-//     realtime: true,
-//     // cache: "non_profit:totalResource",
-//     transform(data) {
-//         let [d, m, y] = get_date()
-//         const objData = {'title': 'Rp.' + data, 'subtitle': "Total Donasi", 'content': '1 - ' + d + ' ' + m + ' ' + y}
-//         cards.value.push(objData)
-//         return data;
-//     }
-// });
-
-export const totalJumatan = createResource({
-  url: "non_profit.api.fundraising.get_jumatan_donations",
-  auto: true,
-  realtime: true,
-  transform(data) {
-    let [d, m, y] = formatDate(data[1])
-    if (data != null) {
-      const objData = { 'title': 'Rp. ' + data[0], 'subtitle': "Infaq Jum'at", 'content': d + " " + m + " " + y }
-      cards.value.push(objData)
-    }
-    return data;
-  }
-});
-
 export function get_date() {
   const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
   let today = new Date();
@@ -66,7 +39,7 @@ export const getDonationByType = createResource({
     let [d, m, y] = get_date()
     for (let i in data) {
       // console.log(i, " ", data[i])
-      if (data[i] == 0 && i != "Jum'atan") {
+      if (data[i] == 0 && i != "Jumatan") {
         continue
       }
 
@@ -82,6 +55,12 @@ export const getDonationByType = createResource({
           'title': data[i] + ' Orang',
           'subtitle': i,
           'content': day + ' ' + m + ' ' + y
+        };
+      } else if (i === "Jumatan") {
+        objData = {
+          'title': 'Rp. ' + data[i],
+          'subtitle': "Infaq Jum'at",
+          'content': d + ' ' + m + ' ' + y
         };
       } else {
         objData = {
