@@ -35,8 +35,8 @@
             'text-xs bg-white space-y-1.5 transition active:scale-95',
             'font-medium text-gray-700'
         ]">
-            <component :is="BookIcon" class="h-5 w-5" />
-            <div>Qur'an</div>
+            <component :is="Quran" class="h-5 w-5" />
+            <div>Ibadah</div>
         </ion-tab-button>
         <ion-popover trigger="quran" side="top" alignment="center"
             animated="false" :is-open="quranPopoverOpen" @didDismiss="quranPopoverOpen = false">
@@ -86,6 +86,7 @@ import AccountIcon from '@/components/icons/AccountIcon.vue';
 import EventIcon from '@/components/icons/EventIcon.vue';
 import QRIcon from '@/components/icons/QRIcon.vue';
 import BookIcon from '@/components/icons/BookIcon.vue';
+import Quran from '@/components/icons/Quran.vue';
 import { get_donation_qr } from '@/data/accounting/DonationQR';
 
 const user = inject('$user');
