@@ -28,9 +28,10 @@
           </button>
         </div>
       </div>
-      <div id="Schedule-section" v-if="address">
+      <div id="Schedule-section" v-if="address || schedule">
         <div class="event-header">
-          <h2>Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
+          <h2 v-if="address">Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
+          <h2 v-else>Jadwal Sholat Hari Ini</h2>
         </div>
         <div class="prayer-schedule my-2">
           <div v-for="(schedule, index) in schedule" :key="index" class="flex justify-center">
@@ -103,7 +104,7 @@ import Header from "@/components/Header.vue"
 import { tenEvents, tenDonationEvents } from "@/data/event/EventList"
 import SmallerIcon from "@/components/icons/smaller-than.svg"
 import GreaterIcon from "@/components/icons/greater-than.svg"
-import { getMosqueAddress, searchCity, fetchPrayerSchedule } from "@/data/masjid/Address"
+import { getMosqueAddress, searchCity, fetchPrayerSchedule, getCurrentLocation, userPrayerSchedule } from "@/data/masjid/Address"
 import _ from 'lodash';
 
 const menus = [
@@ -118,6 +119,7 @@ const user = inject('$user');
 const session = inject('$session');
 const address = ref(null);
 const schedule = ref();
+const userLocation = ref();
 
 const toEventList = () => {
   router.push({ name: 'EventList' });
@@ -181,31 +183,46 @@ onMounted(() => {
   updateArrows(carousel1, isAtStart1, isAtEnd1);
   updateArrows(carousel2, isAtStart2, isAtEnd2);
 
-  getMosqueAddress()
+  getCurrentLocation()
     .then((data) => {
-      address.value = data;
-      return data.city
-    })
-    .then((city) => {
-      return searchCity(city)
+      userLocation.value = data;
+      userPrayerSchedule(data.latitude, data.longitude)
         .then((data) => {
-          return data[0].id
+          schedule.value = scheduleNameTime(data);
         })
         .catch((error) => {
-          console.error('Error searching city:', error);
-        });
-    })
-    .then((cityId) => {
-      fetchPrayerSchedule(cityId)
-        .then((data) => {
-          schedule.value = scheduleNameTime(data.data.jadwal);
-        })
-        .catch((error) => {
-          console.error('Error fetching prayer schedule:', error);
+          console.error('Error getting user prayer schedule:', error);
         });
     })
     .catch((error) => {
-      console.error('Error fetching mosque address:', error);
+      console.error('Error getting current location:', error);
+
+      getMosqueAddress()
+        .then((data) => {
+          address.value = data;
+          return data.city
+        })
+        .then((city) => {
+          return searchCity(city)
+            .then((data) => {
+              return data[0].id
+            })
+            .catch((error) => {
+              console.error('Error searching city:', error);
+            });
+        })
+        .then((cityId) => {
+          fetchPrayerSchedule(cityId)
+            .then((data) => {
+              schedule.value = scheduleNameTime(data.data.jadwal);
+            })
+            .catch((error) => {
+              console.error('Error fetching prayer schedule:', error);
+            });
+        })
+        .catch((error) => {
+          console.error('Error fetching mosque address:', error);
+        });
     });
 })
 </script>

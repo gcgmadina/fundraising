@@ -109,3 +109,75 @@ export function getMosqueAddress() {
         resource.reload();
     });
 }
+
+// Fungsi untuk mendapatkan latitude dan longitude lokasi saat ini
+export function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    resolve({ latitude, longitude });
+                },
+                error => {
+                    console.error(error);
+                    reject(error);
+                }
+            );
+        } else {
+            const error = new Error('Geolocation is not supported by this browser');
+            reject(error);
+        }
+    });
+}
+
+export function userPrayerSchedule(latitude, longitude) {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+
+    // Peta untuk mengubah nama waktu sholat ke dalam bahasa Indonesia
+    const prayerNamesMap = {
+        Fajr: "subuh",
+        Sunrise: "terbit",
+        Dhuhr: "dzuhur",
+        Asr: "ashar",
+        Sunset: "terbenam",
+        Maghrib: "maghrib",
+        Isha: "isya",
+        Imsak: "imsak",
+        Midnight: "tengah_malam",
+        Firstthird: "sepertiga_malam_pertama",
+        Lastthird: "sepertiga_malam_terakhir"
+    };
+
+    return new Promise((resolve, reject) => {
+        fetch(`http://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    const error = new Error('Failed to fetch prayer schedule');
+                    reject(error);
+                }
+            })
+            .then(data => {
+                const timings = data.data[day - 1].timings;
+                const modifiedTimings = {};
+
+                for (const [key, value] of Object.entries(timings)) {
+                    if (prayerNamesMap[key]) {
+                        modifiedTimings[prayerNamesMap[key]] = value.replace(' (WIB)', '');
+                    }
+                }
+
+                resolve(modifiedTimings);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+}
+
