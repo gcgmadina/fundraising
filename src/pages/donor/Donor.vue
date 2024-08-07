@@ -186,33 +186,30 @@ onMounted(() => {
   getCurrentLocation()
     .then((data) => {
       userLocation.value = data;
-      userPrayerSchedule(data.latitude, data.longitude)
-        .then((data) => {
-          schedule.value = scheduleNameTime(data);
-        })
-        .catch((error) => {
-          console.error('Error getting user prayer schedule:', error);
-        });
+      return userPrayerSchedule(data.latitude, data.longitude);
+    })
+    .then((data) => {
+      schedule.value = scheduleNameTime(data);
     })
     .catch((error) => {
-      console.error('Error getting current location:', error);
+      console.error('Error getting user prayer schedule or current location:', error);
 
       getMosqueAddress()
         .then((data) => {
           address.value = data;
-          return data.city
+          return data.city;
         })
         .then((city) => {
           return searchCity(city)
             .then((data) => {
-              return data[0].id
+              return data[0].id;
             })
             .catch((error) => {
               console.error('Error searching city:', error);
             });
         })
         .then((cityId) => {
-          fetchPrayerSchedule(cityId)
+          return fetchPrayerSchedule(cityId)
             .then((data) => {
               schedule.value = scheduleNameTime(data.data.jadwal);
             })
@@ -224,6 +221,7 @@ onMounted(() => {
           console.error('Error fetching mosque address:', error);
         });
     });
+
 })
 </script>
 

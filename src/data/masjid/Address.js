@@ -154,7 +154,7 @@ export function userPrayerSchedule(latitude, longitude) {
     };
 
     return new Promise((resolve, reject) => {
-        fetch(`http://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}`)
+        fetch(`https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
