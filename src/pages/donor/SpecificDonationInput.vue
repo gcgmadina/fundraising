@@ -1,28 +1,31 @@
 <template>
     <ion-page>
-        <Header/>
-        <ion-content>
+        <Header />
+        <ion-content class="ion-padding">
             <ion-list>
                 <ion-item>
                     <h3>{{ event.subject }}</h3>
                 </ion-item>
 
                 <ion-item>
-                    <ion-input v-model="nama" label="nama" labelPlacement="floating"/>
+                    <ion-input v-model="nama" label="nama" labelPlacement="floating" />
                 </ion-item>
                 <ion-item>
-                    <ion-input v-model="phone" label="phone" labelPlacement="floating"/>
+                    <ion-input v-model="phone" label="phone" labelPlacement="floating" />
                 </ion-item>
                 <ion-item>
-                    <ion-input v-model="email" label="email" labelPlacement="floating"/>
+                    <ion-input v-model="email" label="email" labelPlacement="floating" />
                 </ion-item>
+                <InputAmount @amount-selected="updateAmount" />
                 <ion-item>
-                    <ion-input v-model.number="jumlahDonasi" label="jumlahDonasi" labelPlacement="floating"/>
+                    <ion-input v-model.number="jumlahDonasi" type="number" required label="Jumlah Donasi"
+                        labelPlacement="floating"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-select v-model="metodePembayaran" label="metodePembayaran">
-                        <ion-select-option value="cash">Cash</ion-select-option>
-                        <ion-select-option value="tf">Transfer Bank</ion-select-option>
+                        <!-- <ion-select-option value="cash">Cash</ion-select-option> -->
+                        <ion-select-option value="Wire Transfer">Transfer Bank</ion-select-option>
+                        <ion-select-option v-if="qrImageUrl" value="QRIS">QRIS</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item v-if="metodePembayaran === 'tf'">
@@ -31,11 +34,11 @@
                 <ion-button @click="submitForm" :disabled="!isValidForm">Kirim</ion-button>
 
                 <ion-item>
-                    <img alt="Silhouette of mountains" :src="event.thumbnail" class="w-full h-auto my-2"/>
+                    <img alt="Silhouette of mountains" :src="event.event_thumbnail" class="w-full h-auto my-2" />
                 </ion-item>
             </ion-list>
         </ion-content>
-        <Footer/>
+        <Footer />
     </ion-page>
 </template>
 
@@ -47,7 +50,8 @@ import Footer from '@/components/donor/Footer.vue'
 import Header from '@/components/Header.vue'
 import { createResource } from 'frappe-ui';
 import { formatDateTime } from "@/data/DateUtils";
-
+import InputAmount from "@/components/InputAmount.vue";
+import { get_donation_qr } from "@/data/accounting/DonationQR";
 
 const router = useRouter();
 const event = ref({});
@@ -69,6 +73,14 @@ const eventDetail = createResource({
 
 onMounted(() => {
     eventDetail.reload();
+
+    get_donation_qr()
+        .then((qrImage) => {
+        qrImageUrl.value = qrImage;  // Set the URL or base64 image data
+        })
+        .catch((error) => {
+        console.error("Error fetching QR image:", error);
+        });
 });
 
 const nama = ref();
@@ -79,6 +91,11 @@ const metodePembayaran = ref('');
 const bank = ref('');
 const today = formatDateTime(new Date());
 const tanggal = ref(today);
+const qrImageUrl = ref();
+
+const updateAmount = (amount) => {
+    jumlahDonasi.value = amount;
+};
 
 const isValidForm = computed(() => {
     return jumlahDonasi.value !== null && metodePembayaran.value;
