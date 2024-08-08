@@ -30,7 +30,7 @@
       </div>
       <div id="Schedule-section" v-if="address || schedule">
         <div class="event-header">
-          <h2 v-if="address">Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
+          <h2 v-if="!userLocation">Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
           <h2 v-else>Jadwal Sholat Hari Ini</h2>
         </div>
         <div class="prayer-schedule my-2">
@@ -183,7 +183,12 @@ onMounted(() => {
   updateArrows(carousel1, isAtStart1, isAtEnd1);
   updateArrows(carousel2, isAtStart2, isAtEnd2);
 
-  getCurrentLocation()
+  getMosqueAddress()
+    .then((data) => {
+      address.value = data;
+
+      return getCurrentLocation();
+    })
     .then((data) => {
       userLocation.value = data;
       return userPrayerSchedule(data.latitude, data.longitude);
@@ -194,35 +199,26 @@ onMounted(() => {
     .catch((error) => {
       console.error('Error getting user prayer schedule or current location:', error);
 
-      getMosqueAddress()
-        .then((data) => {
-          address.value = data;
-          return data.city;
-        })
-        .then((city) => {
-          return searchCity(city)
-            .then((data) => {
-              return data[0].id;
-            })
-            .catch((error) => {
-              console.error('Error searching city:', error);
-            });
-        })
-        .then((cityId) => {
-          return fetchPrayerSchedule(cityId)
-            .then((data) => {
-              schedule.value = scheduleNameTime(data.data.jadwal);
-            })
-            .catch((error) => {
-              console.error('Error fetching prayer schedule:', error);
-            });
-        })
-        .catch((error) => {
-          console.error('Error fetching mosque address:', error);
-        });
+      if (address.value && address.value.city) {
+        searchCity(address.value.city)
+          .then((data) => {
+            return data[0].id;
+          })
+          .then((cityId) => {
+            return fetchPrayerSchedule(cityId);
+          })
+          .then((data) => {
+            schedule.value = scheduleNameTime(data.data.jadwal);
+          })
+          .catch((error) => {
+            console.error('Error fetching prayer schedule:', error);
+          });
+      } else {
+        console.error('Error: Address city is not available.');
+      }
     });
+});
 
-})
 </script>
 
 <style scoped>
