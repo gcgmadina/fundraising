@@ -1,16 +1,32 @@
 import { createResource } from "frappe-ui"
 import { reactive, ref } from 'vue'
 
-const bankResource = createResource({
-    url: "non_profit.api.fundraising.get_bank_list",
-    transform(data) {
-        for (let i in data) {
-            bankList.push(data[i]);
-        }
-    }
-});
+// const bankResource = createResource({
+//     url: "non_profit.api.fundraising.get_bank_list",
+//     transform(data) {
+//         for (let i in data) {
+//             bankList.push(data[i]);
+//         }
+//     }
+// });
 
-export const bankList = reactive([]);
+// export const bankList = reactive([]);
+
+export function getBankList() {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: "GET",
+            url: "non_profit.api.fundraising.get_bank_list",
+            transform(data) {
+                resolve(data);
+            },
+            onError: (error) => {
+                reject(error);
+            }
+        });
+        resource.reload();  // Memastikan resource di-reload setelah inisialisasi
+    });
+}
 
 const bankAccountResource = createResource({
     url: "non_profit.api.fundraising.get_bank_account_list",
