@@ -43,6 +43,32 @@
                 <ion-item>
                     <ion-input v-model="address.email" type="email" label="Email" labelPlacement="floating"></ion-input>
                 </ion-item>
+
+                <ion-item>
+                    <ion-label>Gambar Masjid</ion-label>
+                    <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction"
+                            @success="onSuccess">
+                            <template v-slot="{
+                                file,
+                                uploading,
+                                progress,
+                                uploaded,
+                                message,
+                                error,
+                                total,
+                                success,
+                                openFileSelector,
+                            }" class="flex flex-row justify-between">
+                                <Button @click="openFileSelector" :loading="uploading">
+                                    {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
+                                </Button>
+                            </template>
+                        </FileUploader>
+                </ion-item>
+
+                <div v-if="address.image" class="flex justify-between mx-16 m-8">
+                    <img :src="address.image" alt="Preview Image" style="max-width: 200px; max-height: 200px;">
+                </div>
             </ion-list>
             <div class="flex justify-end">
                 <ion-button @click="submitForm">Simpan</ion-button>
@@ -63,11 +89,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { IonPage, IonContent, IonList, IonItem, IonInput, IonButton, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonPage, IonContent, IonList, IonItem, IonInput, IonButton, IonSelect, IonSelectOption, IonLabel } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
 import { fetchAllCities, searchCity, addAddress, editMosqueAddress, getMosqueAddress } from '@/data/masjid/Address';
 import SuccsessModal from '@/components/SuccessModal.vue';
+import { FileUploader, Button } from 'frappe-ui';
 
 const address = ref({
     name: '',
@@ -77,7 +104,8 @@ const address = ref({
     postalcode: '',
     country: 'Indonesia', // Default country
     phone: '',
-    email: ''
+    email: '', 
+    image: ''
 });
 
 const router = useRouter();
@@ -110,6 +138,11 @@ const onCitySearch = async () => {
     }
 };
 
+const validateFileFunction = (fileObject) => { }
+const onSuccess = (file) => {
+    address.value.image = file.file_url;
+}
+
 onMounted(() => {
     loadCities();
 
@@ -124,7 +157,8 @@ onMounted(() => {
                     postalcode: message.pincode || '',
                     country: message.country || 'Indonesia',
                     phone: message.phone || '',
-                    email: message.email_id || ''
+                    email: message.email_id || '',
+                    image: message.image || ''
                 };
                 isEditMode.value = true;  // Set mode to edit
             }
