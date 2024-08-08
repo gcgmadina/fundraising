@@ -18,8 +18,9 @@
                     </ion-item>
                     <ion-item class="flex-1">
                         <ion-select v-model="address.city" label="Pilih Kota">
-                            <ion-select-option v-for="city in filteredCities" :key="city.id" :value="city.lokasi">{{
-            city.lokasi }}</ion-select-option>
+                            <ion-select-option v-for="city in filteredCities" :key="city.id" :value="city.lokasi">
+                                {{ city.lokasi }}
+                            </ion-select-option>
                         </ion-select>
                     </ion-item>
                 </div>
@@ -32,8 +33,8 @@
                         labelPlacement="floating"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-input v-model="address.country" type="text" label="Negara"
-                        labelPlacement="floating" :disabled="true"></ion-input>
+                    <ion-input v-model="address.country" type="text" label="Negara" labelPlacement="floating"
+                        :disabled="true"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-input v-model="address.phone" type="text" label="Nomor Telepon"
@@ -56,7 +57,7 @@ import { ref, onMounted } from 'vue';
 import { IonPage, IonContent, IonList, IonItem, IonInput, IonButton, IonSelect, IonSelectOption } from '@ionic/vue';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
-import { fetchAllCities, searchCity, addAddress } from '@/data/masjid/Address';
+import { fetchAllCities, searchCity, addAddress, editMosqueAddress, getMosqueAddress } from '@/data/masjid/Address';
 
 const address = ref({
     name: '',
@@ -72,6 +73,7 @@ const address = ref({
 const citySearch = ref('');
 const allCities = ref([]);
 const filteredCities = ref([]);
+const isEditMode = ref(false);
 
 const loadCities = async () => {
     try {
@@ -96,21 +98,47 @@ const onCitySearch = async () => {
     }
 };
 
-onMounted(loadCities);
+onMounted(() => {
+    loadCities();
 
-const submitForm = () => {
-    console.log('address:', address.value);
-    // const addressData = {
-    //     address: { ...address.value }
-    // };
-    // console.log(addressData);
-
-    addAddress (address.value, true)
+    getMosqueAddress()
         .then((message) => {
-            console.log('Address added:', message);
+            if (message) {
+                address.value = {
+                    name: message.address_title || '',
+                    address_line1: message.address_line1 || '',
+                    city: message.city || '',
+                    province: message.state || '',
+                    postalcode: message.pincode || '',
+                    country: message.country || 'Indonesia',
+                    phone: message.phone || '',
+                    email: message.email_id || ''
+                };
+                isEditMode.value = true;  // Set mode to edit
+            }
         })
         .catch((error) => {
-            console.error('Error adding address:', error);
+            console.error('Error fetching mosque address:', error);
         });
+});
+
+const submitForm = () => {
+    if (isEditMode.value) {
+        editMosqueAddress(address.value)
+            .then((message) => {
+                console.log('Address edited:', message);
+            })
+            .catch((error) => {
+                console.error('Error editing address:', error);
+            });
+    } else {
+        addAddress(address.value, true)
+            .then((message) => {
+                console.log('Address added:', message);
+            })
+            .catch((error) => {
+                console.error('Error adding address:', error);
+            });
+    }
 };
 </script>
