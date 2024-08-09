@@ -26,18 +26,16 @@
 
       <div class="event-section">
         <div class="event-header">
-          <h2>Kegiatan</h2>
-          <button style="color: blue;" @click="toEventList">See more</button>
+          <h2>Berita Terkini</h2>
+          <!-- <button style="color: blue;" @click="toEventList">See more</button> -->
         </div>
         <div class="relative">
           <div ref="carousel1" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(event, index) in tenEvents" :key="index">
-              <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
-                <ImageCard :title="event.subject"
-                  :thumbnail="event.event_thumbnail ? event.event_thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
-                  :content="event.starts_on">
+            <div class="card-image-container" v-for="(news, index) in news" :key="index">
+                <ImageCard :title="news.title"
+                  :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                  :content="news.uploaded_date">
                 </ImageCard>
-              </router-link>
             </div>
           </div>
           <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
@@ -128,6 +126,9 @@ import SmallerIcon from "@/components/icons/smaller-than.svg"
 import GreaterIcon from "@/components/icons/greater-than.svg"
 import { getMosqueAddress, searchCity, fetchPrayerSchedule, getCurrentLocation, userPrayerSchedule } from "@/data/masjid/Address"
 import _ from 'lodash';
+import { fetchAllNews } from "@/data/masjid/News"
+
+const news = ref([]);
 
 const menus = [
   { icon: ZakatIcon, label: 'Zakat', route: 'Zakat' },
@@ -204,6 +205,14 @@ onMounted(() => {
   carousel2.value.addEventListener('scroll', () => updateArrows(carousel2, isAtStart2, isAtEnd2));
   updateArrows(carousel1, isAtStart1, isAtEnd1);
   updateArrows(carousel2, isAtStart2, isAtEnd2);
+
+  fetchAllNews()
+    .then((data) => {
+      news.value = data;
+    })
+    .catch((error) => {
+      console.error('Error fetching news:', error);
+    });
 
   getMosqueAddress()
     .then((data) => {
