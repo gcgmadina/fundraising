@@ -2,6 +2,28 @@
   <ion-page>
     <Header></Header>
     <ion-content>
+      <div class="hero-section relative w-full max-h-full overflow-hidden">
+        <!-- Gambar -->
+        <img v-if="address && address.image" :src="address.image" alt="Gambar Masjid"
+          class="brightness-50 w-full h-full object-cover object-center">
+        <img v-else src="@/components/icons/masjid_nabawi.webp" alt="Masjid Nabawi"
+          class="brightness-50 w-full h-full object-cover object-center">
+
+        <!-- Tulisan di atas gambar -->
+        <div class="absolute inset-0 flex items-center justify-center flex-col">
+          <h1 v-if="address && address.address_title" class="text-white text-3xl font-bold text-center w-4/5">
+            {{ address.address_title }}
+          </h1>
+          <h1 v-else class="text-white text-3xl font-bold text-center w-4/5">
+            Pantau Kegiatan dan Keuangan Masjid Secara Transparan
+          </h1>
+          <h2 class="text-white text-3xl font-bold">
+            ~ Dari Masjid Membangun Umat ~
+          </h2>
+        </div>
+      </div>
+
+
       <div class="event-section">
         <div class="event-header">
           <h2>Kegiatan</h2>
