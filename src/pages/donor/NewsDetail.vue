@@ -12,10 +12,16 @@
             <div v-html="news.content"></div>
 
         </ion-content>
-        <ion-button v-if="session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Secretary')"
-            expand="block" @click="deleteNews" color="danger" class="px-4">
-            Hapus Kegiatan
-        </ion-button>
+        <div v-if="session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Secretary')" 
+            class="px-4 flex flex-row justify-center gap-4"
+        >
+            <ion-button expand="block" @click="deleteNews" color="danger">
+                Hapus Kegiatan
+            </ion-button>
+            <ion-button expand="block" @click="router.push({ name: 'NewsInput', params: { id: news.name } })" color="primary">
+                Edit Kegiatan
+            </ion-button>
+        </div>
 
         <SuccsessModal 
             :isModalOpen="isModalOpen" 

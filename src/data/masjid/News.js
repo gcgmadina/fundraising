@@ -73,3 +73,26 @@ export function fetchNews(news_id) {
         resource.reload();
     });
 }
+
+export function updateNews(news) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            url: `${BASE_URL}.edit_news`,
+            method: 'PUT',
+            params: {
+                news: news
+            },
+            transform(data) {
+                if (data.status === 'success') {
+                    resolve(data.message);
+                } else {
+                    const error = new Error(data.message || "Gagal mengupdate berita");
+                    error.data = data;
+                    reject(error);
+                }
+            }
+        })
+
+        resource.reload();
+    });
+}
