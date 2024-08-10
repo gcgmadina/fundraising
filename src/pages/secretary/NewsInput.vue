@@ -22,12 +22,13 @@
                         success,
                         openFileSelector,
                     }" class="flex flex-row justify-between">
-                            <Button @click="openFileSelector" :loading="uploading">
+                            <Button @click="openFileSelector" :loading="uploading" class="">
                                 {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                             </Button>
                         </template>
                     </FileUploader>
                 </ion-item>
+                <div v-if="fileSizeLimit" class="text-red-600 text-right ion-padding">*Ukuran gambar tidak boleh lebih dari 1MB</div>
                 <div v-if="news.thumbnail" class="flex justify-between mx-16 m-8">
                     <img :src="news.thumbnail" alt="Preview Image" class="max-w-xs max-h-xs">
                 </div>
@@ -64,7 +65,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
 import { FileUploader, Button } from 'frappe-ui';
 import SuccessModal from '@/components/SuccessModal.vue';
-import { createNews } from '@/data/masjid/News';
+import { createNews, updateNews, fetchNews } from '@/data/masjid/News';
 import { IonPage, IonContent, IonList, IonItem, IonInput, IonButton, IonLabel } from '@ionic/vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
@@ -80,11 +81,15 @@ const isModalOpen = ref(false);
 const validationSuccess = ref(false);
 const successMessage = ref('');
 const failureMessage = ref('');
+const fileSizeLimit = ref(false);
 
 const validateFileFunction = (file) => {
     if (file.size > 1000000) {
+        fileSizeLimit.value = true;
+
         return 'File size should be less than 1MB';
     }
+    fileSizeLimit.value = false;
 };
 
 const onSuccess = (file) => {
@@ -94,19 +99,31 @@ const onSuccess = (file) => {
 const submitForm = () => {
     news.value.content = editor.root.innerHTML;
 
-    createNews(news.value)
-        .then(() => {
-            validationSuccess.value = true;
-            successMessage.value = 'Berita berhasil ditambahkan';
-            isModalOpen.value = true;
-        })
-        .catch(() => {
-            validationSuccess.value = false;
-            failureMessage.value = 'Gagal menambahkan berita';
-            isModalOpen.value = true;
-        });
-
-    console.log(news.value);
+    if (router.currentRoute.value.params.id) {
+        updateNews(news.value)
+            .then(() => {
+                validationSuccess.value = true;
+                successMessage.value = 'Berita berhasil diubah';
+                isModalOpen.value = true;
+            })
+            .catch(() => {
+                validationSuccess.value = false;
+                failureMessage.value = 'Gagal mengubah berita';
+                isModalOpen.value = true;
+            });
+    } else {
+        createNews(news.value)
+            .then(() => {
+                validationSuccess.value = true;
+                successMessage.value = 'Berita berhasil ditambahkan';
+                isModalOpen.value = true;
+            })
+            .catch(() => {
+                validationSuccess.value = false;
+                failureMessage.value = 'Gagal menambahkan berita';
+                isModalOpen.value = true;
+            });
+    }
 };
 
 const closeModal = () => {
@@ -134,8 +151,10 @@ onMounted(() => {
         }
     });
 
-    // Sinkronisasi editor dengan content awal jika ada
-    editor.root.innerHTML = news.value.content;
+    fetchNews(router.currentRoute.value.params.id).then((data) => {
+        news.value = data;
+        editor.root.innerHTML = news.value.content;
+    });
 });
 </script>
 
