@@ -22,12 +22,13 @@
                         success,
                         openFileSelector,
                     }" class="flex flex-row justify-between">
-                            <Button @click="openFileSelector" :loading="uploading">
+                            <Button @click="openFileSelector" :loading="uploading" class="">
                                 {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                             </Button>
                         </template>
                     </FileUploader>
                 </ion-item>
+                <div v-if="fileSizeLimit" class="text-red-600 text-right ion-padding">*Ukuran gambar tidak boleh lebih dari 1MB</div>
                 <div v-if="news.thumbnail" class="flex justify-between mx-16 m-8">
                     <img :src="news.thumbnail" alt="Preview Image" class="max-w-xs max-h-xs">
                 </div>
@@ -80,11 +81,15 @@ const isModalOpen = ref(false);
 const validationSuccess = ref(false);
 const successMessage = ref('');
 const failureMessage = ref('');
+const fileSizeLimit = ref(false);
 
 const validateFileFunction = (file) => {
     if (file.size > 1000000) {
+        fileSizeLimit.value = true;
+
         return 'File size should be less than 1MB';
     }
+    fileSizeLimit.value = false;
 };
 
 const onSuccess = (file) => {
