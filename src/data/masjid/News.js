@@ -46,3 +46,26 @@ export function createNews(news_data) {
         resource.reload();
     });
 }
+
+export function fetchNews(news_id) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            url: `${BASE_URL}.get_news_by_name`,
+            method: 'GET',
+            params: {
+                news_id: news_id
+            },
+            transform(data) {
+                if (data.status === 'success') {
+                    resolve(data.data);
+                } else {
+                    const error = new Error(data.message || "Gagal mendapatkan berita");
+                    error.data = data;
+                    reject(error);
+                }
+            }
+        })
+
+        resource.reload();
+    });
+}

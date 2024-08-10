@@ -32,10 +32,12 @@
         <div class="relative">
           <div ref="carousel1" class="overflow-x-auto flex flex-row">
             <div class="card-image-container" v-for="(news, index) in news" :key="index">
+              <router-link :to="{ name: 'News', params: { id: news.name } }">
                 <ImageCard :title="news.title"
                   :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
                   :content="news.uploaded_date">
                 </ImageCard>
+              </router-link>
             </div>
           </div>
           <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
