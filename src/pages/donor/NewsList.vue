@@ -14,13 +14,18 @@
 
                 </ion-item>
             </ion-list>
+            
+            <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
         </ion-content>
         <Footer></Footer>
     </ion-page>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonList, IonItem } from "@ionic/vue"
+import { IonPage, IonContent, IonList, IonItem, IonInfiniteScroll, IonInfiniteScrollContent } from "@ionic/vue"
 import { fetchAllNews } from "@/data/masjid/News.js"
 import Header from "@/components/Header.vue"
 import Footer from "@/components/donor/Footer.vue"
@@ -33,8 +38,22 @@ const router = useRouter();
 
 onMounted(() => {
     fetchAllNews().then((response) => {
-        console.log(response);
         news.value = response;
     });
 });
+
+const start = ref(10);
+const length = ref(10);
+const loadDisabled = ref(false);
+
+const loadData = (event) => {
+    fetchAllNews(start.value, length.value).then((response) => {
+        news.value.push(...response);
+        start.value += length.value;
+        if (response.length == 0) {
+            loadDisabled.value = true;
+        }
+        event.target.complete();
+    });
+}
 </script>

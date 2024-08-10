@@ -4,14 +4,17 @@ import { reactive, ref } from 'vue'
 // URL API base
 const BASE_URL = 'non_profit.api.news';
 
-export function fetchAllNews() {
+export function fetchAllNews(start = 0, limit = 10) {
     return new Promise((resolve, reject) => {
         const resource = createResource({
             url: `${BASE_URL}.get_news`,
             method: 'GET',
+            params: {
+                start: start,
+                limit: limit
+            },
             transform(data) {
                 if (data.status === 'success') {
-                    console.log(data.data);
                     resolve(data.data);
                 } else {
                     const error = new Error(data.message || "Gagal mendapatkan berita");
