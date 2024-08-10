@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <Header/>
+        <Header :showBackButton="true"/>
         <ion-content class="ion-padding">
             <div class="flex flex-col justify-center text-center mb-8">
                 <h1 class="font-semibold">{{news.title}}</h1>

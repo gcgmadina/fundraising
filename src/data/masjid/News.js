@@ -11,6 +11,7 @@ export function fetchAllNews() {
             method: 'GET',
             transform(data) {
                 if (data.status === 'success') {
+                    console.log(data.data);
                     resolve(data.data);
                 } else {
                     const error = new Error(data.message || "Gagal mendapatkan berita");

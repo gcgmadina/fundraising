@@ -197,9 +197,19 @@ const routes = [
         ],
       },
       {
-        path: 'news/:id',
-        name: 'News',
-        component: () => import('@/pages/donor/NewsDetail.vue'),
+        path: 'news',
+        children: [
+          {
+            path: '',
+            name: 'NewsList',
+            component: () => import('@/pages/donor/NewsList.vue'),
+          },
+          {
+            path: '/:id',
+            name: 'News',
+            component: () => import('@/pages/donor/NewsDetail.vue'),
+          }
+        ],
       }
     ],
   },

@@ -27,7 +27,7 @@
       <div class="event-section">
         <div class="event-header">
           <h2>Berita Terkini</h2>
-          <!-- <button style="color: blue;" @click="toEventList">See more</button> -->
+          <button style="color: blue;" @click="toNewsList">See more</button>
         </div>
         <div class="relative">
           <div ref="carousel1" class="overflow-x-auto flex flex-row">
@@ -146,8 +146,8 @@ const address = ref(null);
 const schedule = ref();
 const userLocation = ref();
 
-const toEventList = () => {
-  router.push({ name: 'EventList' });
+const toNewsList = () => {
+  router.push({ name: 'NewsList' });
 };
 
 const toDonationList = () => {
