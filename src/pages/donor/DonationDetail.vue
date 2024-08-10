@@ -91,7 +91,6 @@
         <!-- Modal for success message -->
         <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div class="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
-                <p>{{ validationSuccess }}</p>
                 <component :is="validationSuccess ? SuccessIcon : FailedIcon" class="w-20 h-20 mx-auto mb-4" />
                 <p v-if="validationSuccess" class="text-center text-2xl">Donasi Berhasil Divalidasi</p>
                 <p v-else class="text-center text-2xl">Gagal Memvalidasi Donasi</p>

@@ -110,6 +110,29 @@ export function getMosqueAddress() {
     });
 }
 
+export function editMosqueAddress(address) {
+    return new Promise((resolve, reject) => {
+        const resource = createResource({
+            method: 'POST',
+            url: 'non_profit.api.address.edit_address',
+            params: {
+                address: address,
+            },
+            transform(data) {
+                if (data.status === 'success') {
+                    resolve(data.message);
+                } else {
+                    const error = new Error(data.message || "Gagal mengedit alamat masjid");
+                    error.data = data;
+                    console.error(error);
+                    reject(error);
+                }
+            }
+        });
+        resource.reload();
+    });
+}
+
 // Fungsi untuk mendapatkan latitude dan longitude lokasi saat ini
 export function getCurrentLocation() {
     return new Promise((resolve, reject) => {
@@ -154,7 +177,7 @@ export function userPrayerSchedule(latitude, longitude) {
     };
 
     return new Promise((resolve, reject) => {
-        fetch(`http://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}`)
+        fetch(`https://api.aladhan.com/v1/calendar/${year}/${month}?latitude=${latitude}&longitude=${longitude}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();

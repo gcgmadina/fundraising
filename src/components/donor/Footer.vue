@@ -61,6 +61,8 @@
                 <h4 class="my-4 cursor-pointer" @click="toInventaris">Administrasi</h4>
                 <h4 class="my-4 cursor-pointer" @click="toEventInput"
                     v-if="user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
+                <h4 class="my-4 cursor-pointer" @click="toNewsInput"
+                    v-if="user.data.roles.includes('Non Profit Secretary')">Berita</h4>
             </ion-content>
         </ion-popover>
         <ion-tab-button @click="router.push({ name: 'Account' })" :class="[
@@ -136,6 +138,11 @@ const toDzikirPagi = () => {
 const toDzikirPetang = () => {
     quranPopoverOpen.value = false;
     router.push({ name: 'DzikirPetang' });
+};
+
+const toNewsInput = () => {
+    popoverOpen.value = false;
+    router.push({ name: 'NewsInput' });
 };
 
 onMounted(async () => {

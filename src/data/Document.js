@@ -4,7 +4,7 @@ import { reactive, ref } from 'vue'
 export function deleteDocument(doctype, docname) {
     return new Promise((resolve, reject) => {
         const resource = createResource({
-            method: "POST",
+            method: "DELETE",
             url: "non_profit.api.fundraising.delete_document",
             auto: true,
             realtime: true,
@@ -13,7 +13,6 @@ export function deleteDocument(doctype, docname) {
                 docname: docname
             },
             onSuccess: (response) => {
-                console.log("Successfully deleted document:", response);
                 resolve(response);
             },
             onError: (error) => {

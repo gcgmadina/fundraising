@@ -31,7 +31,7 @@
 import { ref, computed, defineProps, onMounted } from 'vue';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
 import Header from '@/components/Header.vue';
-import { bankList, getBankById, editBankAccount } from '@/data/accounting/BankList';
+import { getBankList, getBankById, editBankAccount } from '@/data/accounting/BankList';
 import { createResource } from "frappe-ui"
 import { useRouter } from 'vue-router';
 import { deleteDocument } from '@/data/Document';
@@ -40,6 +40,8 @@ const props = defineProps({
     mode: String,
     id: String
 });
+
+const bankList = ref([]);
 
 const bankAccount = ref({
     bank: undefined,
@@ -112,6 +114,12 @@ const deleteBankAccount = () => {
 };
 
 onMounted(() => {
+    getBankList().then(response => {
+        bankList.value = response;
+    }).catch(error => {
+        console.error("Failed to load bank list:", error);
+    });
+
     if (props.mode === 'edit') {
         loading.value = true;  // Pastikan untuk menggunakan .value untuk mengakses atau mutasi ref
         const bankDetails = getBankById(props.id);
@@ -128,8 +136,5 @@ onMounted(() => {
     } else {
         loading.value = false;  // Jika tidak dalam mode edit, tidak perlu loading
     }
-
-    console.log(props.id, " ", props.mode)
-    // console.log(bankAccount.value)  // Akses bankAccount dengan .value untuk log
 });
 </script>

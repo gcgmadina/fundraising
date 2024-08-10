@@ -72,6 +72,11 @@ const routes = [
         path: 'address',
         name: 'Address',
         component: () => import('@/pages/secretary/AddressInput.vue'),
+      },
+      {
+        path: 'news-input',
+        name: 'NewsInput',
+        component: () => import('@/pages/secretary/NewsInput.vue'),
       }
     ],
   },
@@ -196,6 +201,21 @@ const routes = [
           },
         ],
       },
+      {
+        path: 'news',
+        children: [
+          {
+            path: '',
+            name: 'NewsList',
+            component: () => import('@/pages/donor/NewsList.vue'),
+          },
+          {
+            path: '/:id',
+            name: 'News',
+            component: () => import('@/pages/donor/NewsDetail.vue'),
+          }
+        ],
+      }
     ],
   },
   {
