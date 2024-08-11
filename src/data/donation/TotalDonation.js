@@ -58,13 +58,13 @@ export const getDonationByType = createResource({
         };
       } else if (i === "Jumatan") {
         objData = {
-          'title': 'Rp. ' + data[i],
+          'title': 'Rp. ' + formatCurrency(data[i]),
           'subtitle': "Infaq Jum'at",
           'content': d + ' ' + m + ' ' + y
         };
       } else {
         objData = {
-          'title': 'Rp. ' + data[i],
+          'title': 'Rp. ' + formatCurrency(data[i]),
           'subtitle': i,
           'content': day + ' ' + m + ' ' + y
         };
@@ -77,3 +77,7 @@ export const getDonationByType = createResource({
 });
 
 export const cards = ref([])
+
+const formatCurrency = (value) => {
+  return value.toLocaleString('id-ID');
+}

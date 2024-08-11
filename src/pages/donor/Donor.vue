@@ -10,16 +10,30 @@
           class="brightness-50 w-full h-full object-cover object-center">
 
         <!-- Tulisan di atas gambar -->
-        <div class="absolute inset-0 flex items-center justify-center flex-col">
-          <h1 v-if="address && address.address_title" class="text-white text-3xl font-bold text-center w-4/5">
+        <!-- <div class="absolute inset-0 flex items-center justify-center flex-col">
+          <h1 v-if="address && address.address_title" class="text-white font-bold text-center w-4/5">
             {{ address.address_title }}
           </h1>
-          <h1 v-else class="text-white text-3xl font-bold text-center w-4/5">
+          <h1 v-else class="text-white font-bold text-center w-4/5">
             Pantau Kegiatan dan Keuangan Masjid Secara Transparan
           </h1>
-          <h2 class="text-white text-3xl font-bold">
-            ~ Dari Masjid Membangun Umat ~
-          </h2>
+          <h3 class="text-white font-bold w-4/5 text-center">
+            Menyatukan Hati, Menggapai Ridha Ilahi
+          </h3>
+        </div> -->
+
+        <div class="absolute inset-0 flex items-end justify-center">
+          <div class="flex flex-col items-center w-full pb-6">
+            <h1 v-if="address && address.address_title" class="text-white font-bold text-center w-4/5 mb-1">
+              {{ address.address_title }}
+            </h1>
+            <h1 v-else class="text-white font-bold text-center w-4/5">
+              Pantau Kegiatan dan Keuangan Masjid Secara Transparan
+            </h1>
+            <h3 class="text-white font-bold w-4/5 text-center mt-2">
+              Menyatukan Hati, Menggapai Ridha Ilahi
+            </h3>
+          </div>
         </div>
       </div>
 
