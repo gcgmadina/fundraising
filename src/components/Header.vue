@@ -8,7 +8,12 @@
             <img v-if="!computedTitle"
                 src="@/components/icons/WhatsApp_Image_2023-12-18_at_10.48.59_9397a2c2-removebg-preview (1).jpg"
                 alt="logo" class="w-52 mx-auto block" />
+
             <h1 v-else class="text-center w-full">{{ computedTitle }}</h1>
+
+            <ion-buttons slot="end">
+                <slot name="end"></slot>
+            </ion-buttons>
         </ion-toolbar>
     </ion-header>
 </template>
