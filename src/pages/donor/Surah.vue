@@ -2,7 +2,7 @@
     <ion-page>
         <Header :title="surahContent.namaLatin + ': ' + surahContent.nomor" :showBackButton="true" />
         <ion-content class="ion-padding">
-            <h1 class="text-center">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ </h1>
+            <h1 v-if="!(route.params.id == 1 || route.params.id==9)" class="text-center uthmanic">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ </h1>
 
             <ion-list>
                 <ion-item 
@@ -14,7 +14,7 @@
                         <component :is="NumberIcon" :number="ayat.nomorAyat" class="w-10 h-10" />
                     </div>
                     <div class="w-10/12">
-                        <div class="text-right my-2 text-3xl">{{ ayat.teksArab }}</div>
+                        <div class="text-right my-2 text-3xl uthmanic">{{ ayat.teksArab }}</div>
                         <div v-if="showLatin" class="text-left my-3 italic">{{ ayat.teksLatin }}</div>
                         <div v-if="showTranslation" class="text-left my-3">{{ ayat.teksIndonesia }}</div>
                     </div>
@@ -63,6 +63,7 @@ const fetchSurahContent = async (surahNumber) => {
     try {
         const data = await getSurahContent(surahNumber);
         surahContent.value = data;
+        console.log("Surah content:", surahContent.value);
     } catch (error) {
         console.error("Error fetching surah content:", error);
     }
@@ -80,3 +81,16 @@ onMounted(() => {
     fetchSurahContent(route.params.id);
 });
 </script>
+
+<style scoped>
+@font-face {
+    font-family: "UthmanicHafs";
+    src: url("@/components/fonts/LPMQ IsepMisbah.ttf");
+}
+
+.uthmanic {
+    font-family: "UthmanicHafs";
+    line-height: normal !important;
+
+}
+</style>
