@@ -57,7 +57,7 @@
                     class="flex items-start my-2 space-y-4"
                 >
                     <div class="flex justify-center w-2/12">
-                        <component :is="NumberIcon" :number="ayat.nomorAyat" class="w-10 h-10" />
+                        <component :is="NumberIcon" :number="ayat.nomorAyat" class="w-20 h-20" color="#11a048"/>
                     </div>
                     <div class="w-10/12">
                         <div v-if="showArabic" class="text-right my-2 text-3xl uthmanic">{{ ayat.teksArab }}</div>

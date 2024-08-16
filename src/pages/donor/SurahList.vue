@@ -15,7 +15,7 @@
                         </div>
                     </template>
                     <template #image>
-                        <NumberIcon :number="surah.nomor" />
+                        <NumberIcon :number="surah.nomor" color="#11a048"/>
                     </template>
                 </CardListItem>
             </ion-list>
