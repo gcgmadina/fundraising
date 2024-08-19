@@ -10,12 +10,12 @@
                     @click="router.push({ name: 'Surah', params: { id: surah.nomor } })">
                     <template #status>
                         <div class="flex flex-col items-center">
-                            <span class="text-lg font-semibold">{{ surah.nama }}</span>
+                            <span class="text-lg font-semibold uthmanic">{{ surah.nama }}</span>
                             <span class="text-sm text-gray-500">{{ surah.jumlahAyat }} Ayat</span>
                         </div>
                     </template>
                     <template #image>
-                        <NumberIcon :number="surah.nomor" />
+                        <NumberIcon :number="surah.nomor" color="#11a048"/>
                     </template>
                 </CardListItem>
             </ion-list>
@@ -76,3 +76,16 @@ const filteredSurahList = computed(() => {
     return result.map(item => item.item);
 });
 </script>
+
+<style scoped>
+@font-face {
+    font-family: "UthmanicHafs";
+    src: url("@/components/fonts/LPMQ IsepMisbah.ttf");
+}
+
+.uthmanic {
+    font-family: "UthmanicHafs";
+    line-height: normal !important;
+
+}
+</style>
