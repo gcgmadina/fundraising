@@ -1,5 +1,5 @@
 import { createResource, toast } from "frappe-ui"
-import { transform } from "lodash"
+import { method, transform } from "lodash"
 import { reactive, ref } from 'vue'
 
 export const fundraising = reactive ({
@@ -39,22 +39,25 @@ export const fundraising = reactive ({
         },
     }),
 
-    list: [],
-
     getList: createResource ({
         url: "non_profit.api.charity.get_fundraisings",
         auto: false,
-        makeParams( start=0, length=10, show_all=false, ended=false ) {
-            return {
-                start: start,
-                length: length,
-                show_all: show_all,
-                ended: ended
+        makeParams( data ) {
+            return data
+        },
+        transform(response) {
+            if (response.data.length == 0) {
+                return {
+                    stop: true,
+                    data: response.data
+                }
+            } else {
+                return {
+                    stop: false,
+                    data: response.data
+                }
             }
-        },
-        transform(response){
-            fundraising.list = response.data
-        },
+        },        
         onError(error) {
             toast({
                 title: "Gagal",
@@ -65,4 +68,6 @@ export const fundraising = reactive ({
             })
         }
     }),
+
+    detail: ref({}),
 })

@@ -9,19 +9,6 @@
         <img v-else src="@/components/icons/masjid_nabawi.webp" alt="Masjid Nabawi"
           class="brightness-50 w-full h-full object-cover object-center">
 
-        <!-- Tulisan di atas gambar -->
-        <!-- <div class="absolute inset-0 flex items-center justify-center flex-col">
-          <h1 v-if="address && address.address_title" class="text-white font-bold text-center w-4/5">
-            {{ address.address_title }}
-          </h1>
-          <h1 v-else class="text-white font-bold text-center w-4/5">
-            Pantau Kegiatan dan Keuangan Masjid Secara Transparan
-          </h1>
-          <h3 class="text-white font-bold w-4/5 text-center">
-            Menyatukan Hati, Menggapai Ridha Ilahi
-          </h3>
-        </div> -->
-
         <div class="absolute inset-0 flex items-end justify-center">
           <div class="flex flex-col items-center w-full pb-6">
             <h1 v-if="address && address.address_title" class="text-white font-bold text-center w-4/5 mb-1">
@@ -40,12 +27,12 @@
       <div class="event-section">
         <div class="event-header">
           <h2>Penggalangan Dana</h2>
-          <button style="color: blue;" @click="toDonationList">See more</button>
+          <button style="color: blue;" @click="toFundraisingList">See more</button>
         </div>
         <div class="relative">
           <div ref="carousel2" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(fund, index) in fundraising.list" :key="index">
-              <ion-card>
+            <div class="card-image-container" v-for="(fund, index) in fundraisingList" :key="index">
+              <ion-card @click="toFundraisingDetail(fund)">
                 <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
                   class="w-full h-[140px] object-cover">
 
@@ -97,10 +84,10 @@
       <div class="accumulate-donation">
         <h2 class="px-6 py-0">Akumulasi Donasi</h2>
         <div class="menu-button-list flex justify-around items-center w-full mt-6">
-        <div v-for="menu in menus" :key="menu.route">
-          <MenuButton :icon="menu.icon" :label="menu.label" :route="menu.route"></MenuButton>
+          <div v-for="menu in menus" :key="menu.route">
+            <MenuButton :icon="menu.icon" :label="menu.label" :route="menu.route"></MenuButton>
+          </div>
         </div>
-      </div>
         <div class="donation-report flex overflow-x-auto">
           <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
             <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
@@ -154,7 +141,6 @@ import Card from "@/components/Card.vue"
 import Footer from "@/components/donor/Footer.vue"
 import ImageCard from "@/components/ImageCard.vue"
 import Header from "@/components/Header.vue"
-import { tenEvents, tenDonationEvents } from "@/data/event/EventList"
 import SmallerIcon from "@/components/icons/smaller-than.svg"
 import GreaterIcon from "@/components/icons/greater-than.svg"
 import { getMosqueAddress, searchCity, fetchPrayerSchedule, getCurrentLocation, userPrayerSchedule } from "@/data/masjid/Address"
@@ -181,10 +167,6 @@ const userLocation = ref();
 
 const toNewsList = () => {
   router.push({ name: 'NewsList' });
-};
-
-const toDonationList = () => {
-  router.push({ name: 'Donation' });
 };
 
 const carousel1 = ref(null);
@@ -235,6 +217,17 @@ const scheduleNameTime = (data) => {
   ];
 };
 
+const fundraisingList = ref([]);
+
+const toFundraisingList = () => {
+  router.push({ name: 'FundraisingList' });
+};
+
+const toFundraisingDetail = (fundData) => {
+  router.push({ name: 'FundraisingDetail', params: { id: fundData.name } });
+  fundraising.detail = fundData;
+};
+
 onMounted(() => {
   carousel1.value.addEventListener('scroll', () => updateArrows(carousel1, isAtStart1, isAtEnd1));
   carousel2.value.addEventListener('scroll', () => updateArrows(carousel2, isAtStart2, isAtEnd2));
@@ -249,7 +242,15 @@ onMounted(() => {
       console.error('Error fetching news:', error);
     });
 
-  fundraising.getList.fetch()
+  fundraising.getList.fetch(
+    { start: 0, length: 10 }
+  )
+    .then((data) => {
+      fundraisingList.value = [...fundraisingList.value, ...data.data];
+    })
+    .catch((error) => {
+      console.error('Error fetching fundraising list:', error);
+    });
 
   getMosqueAddress()
     .then((data) => {

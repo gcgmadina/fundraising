@@ -195,6 +195,21 @@ const routes = [
             component: () => import('@/pages/donor/NewsDetail.vue'),
           }
         ],
+      },
+      {
+        path: 'fundraisings',
+        children: [
+          {
+            path: '',
+            name: 'FundraisingList',
+            component: () => import('@/pages/donor/FundraisingList.vue'),
+          },
+          {
+            path: ':id',
+            name: 'FundraisingDetail',
+            component: () => import('@/pages/donor/FundraisingDetail.vue'),
+          },
+        ]
       }
     ],
   },
