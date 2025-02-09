@@ -3,14 +3,16 @@
         <Header/>
         <ion-content class="ion-padding">
             <h1 >Daftar Penggalangan Dana</h1>
-            <ion-segment class="my-6" value="on-going" mode="ios" v-model="currentSegment">
-                <ion-segment-button value="on-going">
-                    <ion-label>Berlangsung</ion-label>
-                </ion-segment-button>
-                <ion-segment-button value="ended">
-                    <ion-label>Selesai</ion-label>
-                </ion-segment-button>
-            </ion-segment>
+            <div class="sticky top-0 bg-white z-10 py-2">
+                <ion-segment class="my-2" value="on-going" mode="ios" v-model="currentSegment">
+                    <ion-segment-button value="on-going">
+                        <ion-label>Berlangsung</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="ended">
+                        <ion-label>Selesai</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </div>
 
             <onGoingFundraising v-if="currentSegment == 'on-going'"></onGoingFundraising>
             <endedFundraising v-else-if="currentSegment == 'ended'"></endedFundraising>
