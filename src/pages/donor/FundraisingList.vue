@@ -13,6 +13,8 @@
             </ion-segment>
 
             <onGoingFundraising v-if="currentSegment == 'on-going'"></onGoingFundraising>
+            <endedFundraising v-else-if="currentSegment == 'ended'"></endedFundraising>
+
         </ion-content>
         <Footer></Footer>
     </ion-page>
@@ -27,6 +29,7 @@ import { fundraising } from '@/data/donation/Fundraising';
 import { useRouter } from 'vue-router';
 import { formatCurrency } from '@/data/utils';
 import onGoingFundraising from '@/components/FundraisingOnGoing.vue';
+import endedFundraising from '@/components/FundraisingEnded.vue';
 
 const router = useRouter();
 const currentSegment = ref('on-going');
