@@ -167,21 +167,6 @@ const routes = [
         component: () => import('@/pages/donor/DonationDetail.vue'),
       },
       {
-        path: 'event',
-        children: [
-          {
-            path: '',
-            name: 'EventList',
-            component: () => import('@/pages/donor/ListEvent.vue'),
-          },
-          {
-            path: ':id',
-            name: 'EventDetail',
-            component: () => import('@/pages/donor/EventDetail.vue'),
-          },
-        ],
-      },
-      {
         path: 'donation',
         children: [
           {
