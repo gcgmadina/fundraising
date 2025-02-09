@@ -37,61 +37,6 @@
         </div>
       </div>
 
-
-      <div class="event-section">
-        <div class="event-header">
-          <h2>Berita Terkini</h2>
-          <button style="color: blue;" @click="toNewsList">See more</button>
-        </div>
-        <div class="relative">
-          <div ref="carousel1" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(news, index) in news" :key="index">
-              <router-link :to="{ name: 'News', params: { id: news.name } }">
-                <ImageCard :title="news.title"
-                  :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
-                  :content="news.uploaded_date">
-                </ImageCard>
-              </router-link>
-            </div>
-          </div>
-          <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
-            class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
-            <img :src="SmallerIcon" alt="Scroll Left" class="w-6 h-6 rotate-180">
-          </button>
-          <button v-if="!isAtEnd1" @click="scrollRight('carousel1')"
-            class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
-            <img :src="GreaterIcon" alt="Scroll Right" class="w-6 h-6">
-          </button>
-        </div>
-      </div>
-      <div id="Schedule-section" v-if="address || schedule">
-        <div class="event-header">
-          <h2 v-if="!userLocation">Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
-          <h2 v-else>Jadwal Sholat Hari Ini</h2>
-        </div>
-        <div class="prayer-schedule my-2">
-          <div v-for="(schedule, index) in schedule" :key="index" class="flex justify-center">
-            <div class="grid grid-cols-2 my-1 text-green-600">
-              <div>{{ schedule.waktu }}</div>
-              <div class="pl-10">{{ schedule.jam }} WIB</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="menu-button-list flex justify-around items-center w-full mt-6">
-        <div v-for="menu in menus" :key="menu.route">
-          <MenuButton :icon="menu.icon" :label="menu.label" :route="menu.route"></MenuButton>
-        </div>
-      </div>
-      <div class="accumulate-donation">
-        <h2 class="px-6 py-0">Akumulasi Donasi</h2>
-        <div class="donation-report flex overflow-x-auto">
-          <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
-            <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
-              @click="donationCard(card.subtitle)"></Card>
-          </div>
-        </div>
-      </div>
       <div class="event-section">
         <div class="event-header">
           <h2>Penggalangan Dana</h2>
@@ -129,6 +74,62 @@
             <img :src="SmallerIcon" alt="Scroll Left" class="w-6 h-6 rotate-180">
           </button>
           <button v-if="!isAtEnd2" @click="scrollRight('carousel2')"
+            class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
+            <img :src="GreaterIcon" alt="Scroll Right" class="w-6 h-6">
+          </button>
+        </div>
+      </div>
+
+      <div id="Schedule-section" v-if="address || schedule">
+        <div class="event-header">
+          <h2 v-if="!userLocation">Jadwal Sholat {{ _.startCase(_.toLower(address.city)) }}</h2>
+          <h2 v-else>Jadwal Sholat Hari Ini</h2>
+        </div>
+        <div class="prayer-schedule my-2">
+          <div v-for="(schedule, index) in schedule" :key="index" class="flex justify-center">
+            <div class="grid grid-cols-2 my-1 text-green-600">
+              <div>{{ schedule.waktu }}</div>
+              <div class="pl-10">{{ schedule.jam }} WIB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accumulate-donation">
+        <h2 class="px-6 py-0">Akumulasi Donasi</h2>
+        <div class="menu-button-list flex justify-around items-center w-full mt-6">
+        <div v-for="menu in menus" :key="menu.route">
+          <MenuButton :icon="menu.icon" :label="menu.label" :route="menu.route"></MenuButton>
+        </div>
+      </div>
+        <div class="donation-report flex overflow-x-auto">
+          <div v-for="(card, index) in cards" :key="index" class="card-container flex-none">
+            <Card :title="card.title" :subtitle="card.subtitle" :content="card.content"
+              @click="donationCard(card.subtitle)"></Card>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-section">
+        <div class="event-header">
+          <h2>Berita Terkini</h2>
+          <button style="color: blue;" @click="toNewsList">See more</button>
+        </div>
+        <div class="relative">
+          <div ref="carousel1" class="overflow-x-auto flex flex-row">
+            <div class="card-image-container" v-for="(news, index) in news" :key="index">
+              <router-link :to="{ name: 'News', params: { id: news.name } }">
+                <ImageCard :title="news.title"
+                  :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                  :content="news.uploaded_date">
+                </ImageCard>
+              </router-link>
+            </div>
+          </div>
+          <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
+            class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
+            <img :src="SmallerIcon" alt="Scroll Left" class="w-6 h-6 rotate-180">
+          </button>
+          <button v-if="!isAtEnd1" @click="scrollRight('carousel1')"
             class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
             <img :src="GreaterIcon" alt="Scroll Right" class="w-6 h-6">
           </button>
