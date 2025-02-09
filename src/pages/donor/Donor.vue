@@ -99,14 +99,30 @@
         </div>
         <div class="relative">
           <div ref="carousel2" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(event, index) in tenDonationEvents" :key="index">
-              <router-link :to="{ name: 'EventDetail', params: { id: event.name } }">
-                <ImageCard :title="event.subject"
-                  :thumbnail="event.event_thumbnail ? event.event_thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
-                  :content="event.starts_on + ' - ' + event.ends_on">
-                </ImageCard>
-              </router-link>
+            <div class="card-image-container" v-for="(fund, index) in fundraising.list" :key="index">
+              <ion-card>
+                <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
+                  class="w-full h-[140px] object-cover">
+
+                <ion-card-header>
+                  <ion-card-subtitle>Tersedia Rp. {{ fund.income - fund.outcome }}</ion-card-subtitle>
+                  <ion-card-title>{{ fund.title }}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  {{ fund.starts_on }} s/d {{ fund.ends_on }}
+                </ion-card-content>
+
+                <!-- Progress Bar -->
+                <div class="flex items-center justify-between px-4">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+                    </div>
+                  </div>
+
+                </div>
+              </ion-card>
             </div>
+
           </div>
           <button v-if="!isAtStart2" @click="scrollLeft('carousel2')"
             class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
@@ -127,7 +143,7 @@
 import { ref, onMounted, inject } from "vue"
 import { useRouter } from 'vue-router';
 import { cards } from "@/data/donation/TotalDonation"
-import { IonPage, IonContent, IonToolbar } from "@ionic/vue"
+import { IonPage, IonContent, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import ZakatIcon from "@/components/icons/ZakatIcon.svg?raw"
 import InfaqIcon from "@/components/icons/InfaqIcon.svg?raw"
@@ -143,6 +159,7 @@ import GreaterIcon from "@/components/icons/greater-than.svg"
 import { getMosqueAddress, searchCity, fetchPrayerSchedule, getCurrentLocation, userPrayerSchedule } from "@/data/masjid/Address"
 import _ from 'lodash';
 import { fetchAllNews } from "@/data/masjid/News"
+import { fundraising } from "@/data/donation/Fundraising"
 
 const news = ref([]);
 
@@ -229,6 +246,8 @@ onMounted(() => {
     .catch((error) => {
       console.error('Error fetching news:', error);
     });
+
+  fundraising.getList.fetch()
 
   getMosqueAddress()
     .then((data) => {
