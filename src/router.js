@@ -25,11 +25,6 @@ const routes = [
         component: () => import('@/pages/secretary/SecretaryMenu.vue'),
       },
       {
-        path: 'event-input',
-        name: 'EventInput',
-        component: () => import('@/pages/secretary/EventInput.vue'),
-      },
-      {
         path: 'item-group',
         name: 'ItemGroups',
         component: () => import('@/pages/secretary/ItemGroupList.vue'),
@@ -167,28 +162,8 @@ const routes = [
         component: () => import('@/pages/donor/FidyahInput.vue'),
       },
       {
-        path: 'event',
-        children: [
-          {
-            path: '',
-            name: 'EventList',
-            component: () => import('@/pages/donor/ListEvent.vue'),
-          },
-          {
-            path: ':id',
-            name: 'EventDetail',
-            component: () => import('@/pages/donor/EventDetail.vue'),
-          },
-        ],
-      },
-      {
         path: 'donation',
         children: [
-          {
-            path: '',
-            name: 'Donation',
-            component: () => import('@/pages/donor/ListDonationEvent.vue'),
-          },
           {
             path: 'specific-donation/:id',
             name: 'SpecificDonation',

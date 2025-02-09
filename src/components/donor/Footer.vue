@@ -59,8 +59,8 @@
                 <h4 class="my-4 cursor-pointer" @click="toAccounting"
                     v-if="user.data.roles.includes('Non Profit Accounting')">Keuangan</h4>
                 <h4 class="my-4 cursor-pointer" @click="toInventaris">Administrasi</h4>
-                <h4 class="my-4 cursor-pointer" @click="toEventInput"
-                    v-if="user.data.roles.includes('Non Profit Secretary')">Kegiatan</h4>
+                <h4 class="my-4 cursor-pointer" @click="toFundraisingInput"
+                    v-if="user.data.roles.includes('Non Profit Secretary')">Penggalangan Dana</h4>
                 <h4 class="my-4 cursor-pointer" @click="toNewsInput"
                     v-if="user.data.roles.includes('Non Profit Secretary')">Berita</h4>
             </ion-content>
@@ -106,9 +106,9 @@ const openPopover = () => {
     popoverOpen.value = !popoverOpen.value;
 };
 
-const toEventInput = () => {
+const toFundraisingInput = () => {
     popoverOpen.value = false;
-    router.push({ name: 'EventInput' });
+    router.push({ name: 'FundraisingInput' });
 };
 
 const toInventaris = () => {
