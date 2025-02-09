@@ -105,7 +105,7 @@
                   class="w-full h-[140px] object-cover">
 
                 <ion-card-header>
-                  <ion-card-subtitle>Tersedia Rp. {{ fund.income - fund.outcome }}</ion-card-subtitle>
+                  <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
                   <ion-card-title>{{ fund.title }}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
@@ -160,6 +160,7 @@ import { getMosqueAddress, searchCity, fetchPrayerSchedule, getCurrentLocation, 
 import _ from 'lodash';
 import { fetchAllNews } from "@/data/masjid/News"
 import { fundraising } from "@/data/donation/Fundraising"
+import { formatCurrency } from "@/data/utils"
 
 const news = ref([]);
 
