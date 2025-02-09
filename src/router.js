@@ -77,6 +77,11 @@ const routes = [
         path: 'news-input/:id?',
         name: 'NewsInput',
         component: () => import('@/pages/secretary/NewsInput.vue'),
+      },
+      {
+        path: 'fundraising-input',
+        name: 'FundraisingInput',
+        component: () => import('@/pages/secretary/FundraisingInput.vue'),
       }
     ],
   },
