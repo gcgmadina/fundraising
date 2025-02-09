@@ -25,11 +25,6 @@ const routes = [
         component: () => import('@/pages/secretary/SecretaryMenu.vue'),
       },
       {
-        path: 'event-input',
-        name: 'EventInput',
-        component: () => import('@/pages/secretary/EventInput.vue'),
-      },
-      {
         path: 'item-group',
         name: 'ItemGroups',
         component: () => import('@/pages/secretary/ItemGroupList.vue'),
@@ -77,6 +72,11 @@ const routes = [
         path: 'news-input/:id?',
         name: 'NewsInput',
         component: () => import('@/pages/secretary/NewsInput.vue'),
+      },
+      {
+        path: 'fundraising-input',
+        name: 'FundraisingInput',
+        component: () => import('@/pages/secretary/FundraisingInput.vue'),
       }
     ],
   },
@@ -184,11 +184,6 @@ const routes = [
       {
         path: 'donation',
         children: [
-          {
-            path: '',
-            name: 'Donation',
-            component: () => import('@/pages/donor/ListDonationEvent.vue'),
-          },
           {
             path: 'specific-donation/:id',
             name: 'SpecificDonation',
