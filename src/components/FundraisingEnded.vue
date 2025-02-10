@@ -3,11 +3,19 @@
         <ion-card v-for="(fund, index) in list" :key="index" @click="toFundraisingDetail(fund)"
             class="flex flex-row">
             <img :src=fund.thumbnail alt="Gambar penggalangan dana" class="w-1/5 mx-auto">
-            <ion-card-content class="w-4/5" mode="ios">
+            <ion-card-content class="w-4/5 flex flex-col justify-between" mode="ios">
                 <ion-card-title class="text-lg ">{{ fund.title }}</ion-card-title>
                 <ion-card-subtitle>Terkumpul: <span class="text-blue-500">Rp. {{ formatCurrency(fund.income)
                         }}</span></ion-card-subtitle>
                 <p>Diadakan {{ fund.starts_on }} s\d {{ fund.ends_on }}</p>
+
+                <div class="flex items-center justify-between">
+                  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+                    </div>
+                  </div>
+
+                </div>
             </ion-card-content>
         </ion-card>
 
