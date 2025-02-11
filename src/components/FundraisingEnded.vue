@@ -37,7 +37,7 @@ const router = useRouter();
 
 const toFundraisingDetail = (fund) => {
     router.push({ name: 'FundraisingDetail', params: { id: fund.name } })
-    fundraising.detail = fund
+    // fundraising.detail = fund
 }
 
 const loadDisabled = ref(false);

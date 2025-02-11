@@ -32,27 +32,29 @@
         <div class="relative">
           <div ref="carousel2" class="overflow-x-auto flex flex-row">
             <div class="card-image-container" v-for="(fund, index) in fundraisingList" :key="index">
-              <ion-card @click="toFundraisingDetail(fund)">
-                <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
-                  class="w-full h-[140px] object-cover">
-
-                <ion-card-header>
-                  <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
-                  <ion-card-title>{{ fund.title }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  {{ fund.starts_on }} s/d {{ fund.ends_on }}
-                </ion-card-content>
-
-                <!-- Progress Bar -->
-                <div class="flex items-center justify-between px-4">
-                  <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
-                    <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+              <router-link :to="{ name: 'FundraisingDetail', params: { id: fund.name } }">
+                <ion-card>
+                  <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
+                    class="w-full h-[140px] object-cover">
+  
+                  <ion-card-header>
+                    <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
+                    <ion-card-title>{{ fund.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    {{ fund.starts_on }} s/d {{ fund.ends_on }}
+                  </ion-card-content>
+  
+                  <!-- Progress Bar -->
+                  <div class="flex items-center justify-between px-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+                      <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+                      </div>
                     </div>
+  
                   </div>
-
-                </div>
-              </ion-card>
+                </ion-card>
+              </router-link>
             </div>
 
           </div>
@@ -221,11 +223,6 @@ const fundraisingList = ref([]);
 
 const toFundraisingList = () => {
   router.push({ name: 'FundraisingList' });
-};
-
-const toFundraisingDetail = (fundData) => {
-  router.push({ name: 'FundraisingDetail', params: { id: fundData.name } });
-  fundraising.detail = fundData;
 };
 
 onMounted(() => {
