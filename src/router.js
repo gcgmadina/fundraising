@@ -209,6 +209,12 @@ const routes = [
             name: 'FundraisingDetail',
             component: () => import('@/pages/donor/FundraisingDetail.vue'),
           },
+          {
+            path: ':id/donation',
+            name: 'FundraisingForm',
+            meta: { auth: true },
+            component: () => import('@/pages/donor/FundraisingForm.vue'),
+          }
         ]
       }
     ],

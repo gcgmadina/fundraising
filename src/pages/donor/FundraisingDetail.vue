@@ -10,8 +10,12 @@
             <p class="mb-8">Diadakan {{ fundraisingDetail.starts_on }} s\d {{ fundraisingDetail.ends_on }}</p>
 
             <div v-html="fundraisingDetail.content"></div>
-            <!-- <p>{{ fundraisingDetail.data.name }}</p> -->
         </ion-content>
+        <div class="w-full px-4 py-2">
+            <ion-button expand="block" color="primary" @click="router.push({ name: 'FundraisingForm', params: { id: fundraisingDetail.name } })">
+                Donasi Sekarang
+            </ion-button>
+        </div>
         <Footer></Footer>
     </ion-page>
 </template>
@@ -20,19 +24,19 @@
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
 import { ref, onMounted, onBeforeMount } from 'vue';
-import { useRoute } from 'vue-router';
-import { IonPage, IonContent, } from "@ionic/vue"
+import { useRouter } from 'vue-router';
+import { IonPage, IonContent, IonButton } from "@ionic/vue"
 import { fundraising } from '@/data/donation/Fundraising';
 import { formatCurrency } from '@/data/utils';
 import { createResource, toast } from 'frappe-ui';
 // import { transform } from 'lodash';
 
-const route = useRoute();
+const router = useRouter();
 const fundraisingDetail = ref({});
 
 onMounted(async() => {
     fundraising.detail.fetch({ 
-        fundraising: route.params.id
+        fundraising: router.currentRoute.value.params.id
      }).then((response) => {
         fundraisingDetail.value = response;
      })
