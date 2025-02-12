@@ -210,7 +210,7 @@ const routes = [
             component: () => import('@/pages/donor/FundraisingDetail.vue'),
           },
           {
-            path: ':id/donation',
+            path: ':id/donation-form',
             name: 'FundraisingForm',
             meta: { auth: true },
             component: () => import('@/pages/donor/FundraisingForm.vue'),
@@ -219,6 +219,15 @@ const routes = [
             path: 'donation/:id',
             name: 'FundraisingReceivedDetail',
             component: () => import('@/pages/donor/FundraisingReceivedDetail.vue'),
+          },
+          {
+            path: ':id/allocation-form',
+            name: 'AllocationForm',
+            meta: {
+              auth: true,
+              roles: ['Non Profit Accounting']
+            },
+            component: () => import('@/pages/donor/FundraisingAllocationForm.vue'),
           }
         ]
       }

@@ -11,9 +11,16 @@
 
             <div v-html="fundraisingDetail.content"></div>
         </ion-content>
-        <div class="w-full px-4 py-2">
-            <ion-button expand="block" color="primary" @click="router.push({ name: 'FundraisingForm', params: { id: fundraisingDetail.name } })">
+        <div class="w-full px-4 py-2 flex flex-row gap-x-2">
+            <ion-button :class="user.data.roles.includes('Non Profit Accounting') ? 'w-1/2' : 'w-full'" expand="block"
+                color="primary"
+                @click="router.push({ name: 'FundraisingForm', params: { id: fundraisingDetail.name } })">
                 Donasi Sekarang
+            </ion-button>
+            <ion-button v-if="user.data.roles.includes('Non Profit Accounting')" class="w-1/2" expand="block"
+                color="success"
+                @click="router.push({ name: 'AllocationForm', params: { id: fundraisingDetail.name } })">
+                Alokasikan
             </ion-button>
         </div>
         <Footer></Footer>
@@ -23,7 +30,7 @@
 <script setup>
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonContent, IonButton } from "@ionic/vue"
 import { fundraising } from '@/data/donation/Fundraising';
@@ -33,12 +40,13 @@ import { createResource, toast } from 'frappe-ui';
 
 const router = useRouter();
 const fundraisingDetail = ref({});
+const user = inject('$user');
 
-onMounted(async() => {
-    fundraising.detail.fetch({ 
+onMounted(async () => {
+    fundraising.detail.fetch({
         fundraising: router.currentRoute.value.params.id
-     }).then((response) => {
+    }).then((response) => {
         fundraisingDetail.value = response;
-     })
+    })
 });
 </script>
