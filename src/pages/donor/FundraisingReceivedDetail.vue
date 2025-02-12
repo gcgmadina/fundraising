@@ -35,6 +35,15 @@
                 }" class="font-bold">{{ journalEntryDetails.docstatus }}</span>
             </div>
         </ion-content>
+        <div class="px-2 py-2 w-full">
+            <ion-button
+                v-if="user.data.roles.includes('Non Profit Accounting') && journalEntryDetails.docstatus == 'Menunggu Verifikasi'"
+                expand="block" @click="verifyDonation"
+            >
+                Verifikasi
+            </ion-button>
+
+        </div>
         <Footer />
     </ion-page>
 </template>
@@ -44,12 +53,13 @@ import { IonPage, IonContent, IonButton, IonCard, IonCardContent, IonCardTitle, 
 import Header from '@/components/Header.vue';
 import Footer from '@/components/donor/Footer.vue';
 import { journalEntry } from '@/data/donation/Fundraising';
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatCurrency } from "@/data/utils";
 
 const router = useRouter()
 const journalEntryDetails = ref({})
+const user = inject('$user');
 
 onMounted(async () => {
     await journalEntry.detail.fetch({
@@ -59,4 +69,17 @@ onMounted(async () => {
 
     })
 });
+
+const verifyDonation = async () => {
+    await journalEntry.verify.submit({
+        name: journalEntryDetails.value.name
+    })
+
+    await journalEntry.detail.reload({
+        journal_entry: router.currentRoute.value.params.id
+    }).then((response) => {
+        journalEntryDetails.value = response
+
+    })
+}
 </script>
