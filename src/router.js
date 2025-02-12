@@ -228,6 +228,11 @@ const routes = [
               roles: ['Non Profit Accounting']
             },
             component: () => import('@/pages/donor/FundraisingAllocationForm.vue'),
+          },
+          {
+            path: ':id/allocations',
+            name: 'FundraisingAllocationList',
+            component: () => import('@/pages/donor/FundraisingAllocationList.vue'),
           }
         ]
       }
