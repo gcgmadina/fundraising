@@ -36,6 +36,7 @@ import InputAmount from '@/components/InputAmount.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { journalEntry } from '@/data/donation/Fundraising'
+import { toast } from 'frappe-ui';
  
 const router = useRouter();
 const jumlahUang = ref(0);
@@ -50,11 +51,20 @@ const submit = (e) => {
     data.fundraising = router.currentRoute.value.params.id;
     data.mode_of_payment = paymentMethod.value;
     
-    console.log(data)
-    journalEntry.allocation.submit({data}).then(
-        router.push({ name: 'FundraisingDetail', params: { id:  router.currentRoute.value.params.id} })
-    )
-    // journalEntry.allocation.submit(data)
+    if (data.amount == 0) {
+        toast({
+            title: "Gagal",
+            text: "Jumlah dana alokasi tidak boleh 0",
+            icon: "x-circle",
+            position: "bottom-center",
+            iconClasses: "text-red-500"
+        })
+    } else {
+        journalEntry.allocation.submit({data}).then(
+            router.push({ name: 'FundraisingDetail', params: { id:  router.currentRoute.value.params.id} })
+        )
+
+    }
 };
 
 const updateAmount = (amount) => {
