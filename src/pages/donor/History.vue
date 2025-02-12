@@ -2,32 +2,49 @@
     <ion-page>
         <Header/>
         <ion-content>
-            <ion-list>
-                <CardListItem v-for="UserDonation, index in userDonationData"
-                :key="index"
-                :title="UserDonation.fullname"
-                :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp.' + formatCurrency(UserDonation.amount) : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
-                :status="UserDonation.status"
-                @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })"/>
-            </ion-list>
-            <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
-                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-                </ion-infinite-scroll-content>
-            </ion-infinite-scroll>
+            <div class="sticky top-0 bg-white z-10 py-2">
+                <ion-segment class="my-2" value="on-going" mode="ios" v-model="currentSegment">
+                    <ion-segment-button value="zis">
+                        <ion-label>ZIS</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="fundraising">
+                        <ion-label>Penggalangan</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </div>
+            
+            <div v-if="currentSegment == 'zis'">
+                <ion-list>
+                    <CardListItem v-for="UserDonation, index in userDonationData"
+                    :key="index"
+                    :title="UserDonation.fullname"
+                    :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp.' + formatCurrency(UserDonation.amount) : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
+                    :status="UserDonation.status"
+                    @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })"/>
+                </ion-list>
+                <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
+                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                    </ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+                
+            </div>
+            <FundraisingReceivedList v-else="currentSegment == 'fundraising'"/>
         </ion-content>
         <Footer/>
     </ion-page>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue';
+import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
 import { onMounted, ref, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
 import Footer from '@/components/donor/Footer.vue'
 import Header from '@/components/Header.vue'
 import CardListItem from '@/components/CardListItem.vue'
+import FundraisingReceivedList from '@/components/FundraisingReceivedList.vue';
 
+const currentSegment = ref('zis');
 const loadDisabled = ref(false);
 
 const route = useRoute();

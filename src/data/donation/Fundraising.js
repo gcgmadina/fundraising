@@ -139,4 +139,34 @@ export const journalEntry = reactive ({
             })
         }
     }),
+
+    list: createResource ({
+        url: "non_profit.api.charity.get_fundraising_journal_entry_received",
+        auto: false,
+        makeParams(data) {
+            return data
+        },
+        transform(response) {
+            if ( response.status == "success" ) {
+                return response.data
+            } else {
+                toast({
+                    title: "Gagal",
+                    text: response.message,
+                    icon: "x-circle",
+                    position: "bottom-center",
+                    iconClasses: "text-red-500"
+                })
+            }
+        },
+        onError(error) {
+            toast({
+                title: "Gagal",
+                text: error.message,
+                icon: "x-circle",
+                position: "bottom-center",
+                iconClasses: "text-red-500"
+            })
+        }
+    }),
 })
