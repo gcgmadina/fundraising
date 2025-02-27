@@ -65,6 +65,29 @@
           </div>
         </div>
       </div>
+
+      <div v-if="disc" class="relative w-4/5 mx-auto my-6">
+        <!-- Overlay untuk membuat gambar lebih gelap -->
+        <div class="absolute inset-0 bg-black/50"></div>
+
+        <!-- Gambar kajian -->
+        <img :src="disc.thumbnail" alt="Gambar kajian" class="w-full h-auto object-cover">
+
+        <!-- Tanggal di pojok kiri atas -->
+        <p class="absolute top-2 left-2 text-white px-2 py-1 rounded z-10">
+          {{ disc.time }}
+        </p>
+
+        <ion-button class="absolute top-2 right-2 px-3 py-1 rounded z-10" color="light" fill="outline" mode="ios">Jadwal
+          Kajian</ion-button>
+
+        <!-- Subject dan Speaker di pojok kiri bawah -->
+        <div class="absolute bottom-2 left-2 text-white p-3 rounded z-10">
+          <h2 class="text-lg font-bold">{{ disc.subject }}</h2>
+          <p v-if="disc.speaker">{{ disc.speaker }}</p>
+        </div>
+      </div>
+
       <div class="accumulate-donation">
         <h2 class="px-6 py-0">Akumulasi Donasi</h2>
         <div class="menu-button-list flex justify-around items-center w-full mt-6">
@@ -92,7 +115,7 @@
                 <ion-card>
                   <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
                     class="w-full h-[140px] object-cover">
-  
+
                   <ion-card-header>
                     <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
                     <ion-card-title>{{ fund.title }}</ion-card-title>
@@ -100,14 +123,15 @@
                   <ion-card-content>
                     {{ fund.starts_on }} s/d {{ fund.ends_on }}
                   </ion-card-content>
-  
+
                   <!-- Progress Bar -->
                   <div class="flex items-center justify-between px-4">
                     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
-                      <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+                      <div class="bg-blue-600 h-2.5 rounded-full"
+                        :style="{ width: (fund.income / fund.goal * 100) + '%' }">
                       </div>
                     </div>
-  
+
                   </div>
                 </ion-card>
               </router-link>
@@ -133,7 +157,7 @@
 import { ref, onMounted, inject } from "vue"
 import { useRouter } from 'vue-router';
 import { cards } from "@/data/donation/TotalDonation"
-import { IonPage, IonContent, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
+import { IonPage, IonContent, IonButton, IonToolbar, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
 import MenuButton from "@/components/MenuButton.vue"
 import ZakatIcon from "@/components/icons/ZakatIcon.svg?raw"
 import InfaqIcon from "@/components/icons/InfaqIcon.svg?raw"
@@ -150,6 +174,7 @@ import _ from 'lodash';
 import { fetchAllNews } from "@/data/masjid/News"
 import { fundraising } from "@/data/donation/Fundraising"
 import { formatCurrency } from "@/data/utils"
+import { discourse } from "@/data/masjid/Discourse"
 
 const news = ref([]);
 
@@ -220,6 +245,7 @@ const scheduleNameTime = (data) => {
 };
 
 const fundraisingList = ref([]);
+const disc = ref([]);
 
 const toFundraisingList = () => {
   router.push({ name: 'FundraisingList' });
@@ -282,6 +308,17 @@ onMounted(() => {
       } else {
         console.error('Error: Address city is not available.');
       }
+    });
+
+  discourse.getList.fetch(
+    { start: 0, length: 1 }
+  )
+    .then((data) => {
+      disc.value = data.data[0];
+      console.log(disc.value);
+    })
+    .catch((error) => {
+      console.error('Error fetching news:', error);
     });
 });
 
