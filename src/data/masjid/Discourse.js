@@ -26,4 +26,17 @@ export const discourse = reactive ({
             console.log(error)
         }
     }),
+    getDetail: createResource ({
+        url: "non_profit.api.discourse.get_islamic_discourse",
+        auto: false,
+        makeParams( name ) {
+            return { name }
+        },
+        transform(response) {
+            return response.data
+        },
+        onError(error) {
+            console.log(error)
+        }
+    }),
 })

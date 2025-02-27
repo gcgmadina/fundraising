@@ -66,7 +66,8 @@
         </div>
       </div>
 
-      <div v-if="disc" class="relative w-4/5 mx-auto my-6">
+      <div v-if="disc" class="relative w-4/5 mx-auto my-6"
+        @click="router.push({ name: 'DiscourseDetail', params: { id: disc.name } })">
         <!-- Overlay untuk membuat gambar lebih gelap -->
         <div class="absolute inset-0 bg-black/50"></div>
 
@@ -78,7 +79,8 @@
           {{ disc.time }}
         </p>
 
-        <ion-button class="absolute top-2 right-2 px-3 py-1 rounded z-10" color="light" fill="outline" mode="ios">Jadwal
+        <ion-button class="absolute top-2 right-2 px-3 py-1 rounded z-10" color="light" fill="outline" mode="ios"
+          size="small">Jadwal
           Kajian</ion-button>
 
         <!-- Subject dan Speaker di pojok kiri bawah -->
@@ -315,7 +317,6 @@ onMounted(() => {
   )
     .then((data) => {
       disc.value = data.data[0];
-      console.log(disc.value);
     })
     .catch((error) => {
       console.error('Error fetching news:', error);

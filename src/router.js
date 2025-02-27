@@ -235,6 +235,16 @@ const routes = [
             component: () => import('@/pages/donor/FundraisingAllocationList.vue'),
           }
         ]
+      },
+      {
+        path: 'discourses',
+        children: [
+          {
+            path: ':id',
+            name: 'DiscourseDetail',
+            component: () => import('@/pages/donor/DiscourseDetail.vue'),
+          }
+        ]
       }
     ],
   },
