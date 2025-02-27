@@ -26,43 +26,25 @@
 
       <div class="event-section">
         <div class="event-header">
-          <h2>Penggalangan Dana</h2>
-          <button style="color: blue;" @click="toFundraisingList">See more</button>
+          <h2>Berita Terkini</h2>
+          <button style="color: blue;" @click="toNewsList">See more</button>
         </div>
         <div class="relative">
-          <div ref="carousel2" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(fund, index) in fundraisingList" :key="index">
-              <router-link :to="{ name: 'FundraisingDetail', params: { id: fund.name } }">
-                <ion-card>
-                  <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
-                    class="w-full h-[140px] object-cover">
-  
-                  <ion-card-header>
-                    <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
-                    <ion-card-title>{{ fund.title }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    {{ fund.starts_on }} s/d {{ fund.ends_on }}
-                  </ion-card-content>
-  
-                  <!-- Progress Bar -->
-                  <div class="flex items-center justify-between px-4">
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
-                      <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
-                      </div>
-                    </div>
-  
-                  </div>
-                </ion-card>
+          <div ref="carousel1" class="overflow-x-auto flex flex-row">
+            <div class="card-image-container" v-for="(news, index) in news" :key="index">
+              <router-link :to="{ name: 'News', params: { id: news.name } }">
+                <ImageCard :title="news.title"
+                  :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                  :content="news.uploaded_date">
+                </ImageCard>
               </router-link>
             </div>
-
           </div>
-          <button v-if="!isAtStart2" @click="scrollLeft('carousel2')"
+          <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
             class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
             <img :src="SmallerIcon" alt="Scroll Left" class="w-6 h-6 rotate-180">
           </button>
-          <button v-if="!isAtEnd2" @click="scrollRight('carousel2')"
+          <button v-if="!isAtEnd1" @click="scrollRight('carousel1')"
             class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
             <img :src="GreaterIcon" alt="Scroll Right" class="w-6 h-6">
           </button>
@@ -100,25 +82,43 @@
 
       <div class="event-section">
         <div class="event-header">
-          <h2>Berita Terkini</h2>
-          <button style="color: blue;" @click="toNewsList">See more</button>
+          <h2>Penggalangan Dana</h2>
+          <button style="color: blue;" @click="toFundraisingList">See more</button>
         </div>
         <div class="relative">
-          <div ref="carousel1" class="overflow-x-auto flex flex-row">
-            <div class="card-image-container" v-for="(news, index) in news" :key="index">
-              <router-link :to="{ name: 'News', params: { id: news.name } }">
-                <ImageCard :title="news.title"
-                  :thumbnail="news.thumbnail ? news.thumbnail : 'https://ionicframework.com/docs/img/demos/card-media.png'"
-                  :content="news.uploaded_date">
-                </ImageCard>
+          <div ref="carousel2" class="overflow-x-auto flex flex-row">
+            <div class="card-image-container" v-for="(fund, index) in fundraisingList" :key="index">
+              <router-link :to="{ name: 'FundraisingDetail', params: { id: fund.name } }">
+                <ion-card>
+                  <img :src="fund.thumbnail" alt="https://ionicframework.com/docs/img/demos/card-media.png"
+                    class="w-full h-[140px] object-cover">
+  
+                  <ion-card-header>
+                    <ion-card-subtitle>Tersedia Rp. {{ formatCurrency(fund.income - fund.outcome) }}</ion-card-subtitle>
+                    <ion-card-title>{{ fund.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    {{ fund.starts_on }} s/d {{ fund.ends_on }}
+                  </ion-card-content>
+  
+                  <!-- Progress Bar -->
+                  <div class="flex items-center justify-between px-4">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 my-2">
+                      <div class="bg-blue-600 h-2.5 rounded-full" :style="{ width: (fund.income / fund.goal * 100) + '%' }">
+                      </div>
+                    </div>
+  
+                  </div>
+                </ion-card>
               </router-link>
             </div>
+
           </div>
-          <button v-if="!isAtStart1" @click="scrollLeft('carousel1')"
+          <button v-if="!isAtStart2" @click="scrollLeft('carousel2')"
             class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
             <img :src="SmallerIcon" alt="Scroll Left" class="w-6 h-6 rotate-180">
           </button>
-          <button v-if="!isAtEnd1" @click="scrollRight('carousel1')"
+          <button v-if="!isAtEnd2" @click="scrollRight('carousel2')"
             class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2">
             <img :src="GreaterIcon" alt="Scroll Right" class="w-6 h-6">
           </button>
