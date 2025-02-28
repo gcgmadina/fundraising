@@ -240,6 +240,11 @@ const routes = [
         path: 'discourses',
         children: [
           {
+            path: '',
+            name: 'DiscourseList',
+            component: () => import('@/pages/donor/DiscourseList.vue'),
+          },
+          {
             path: ':id',
             name: 'DiscourseDetail',
             component: () => import('@/pages/donor/DiscourseDetail.vue'),

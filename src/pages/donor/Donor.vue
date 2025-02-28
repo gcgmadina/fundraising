@@ -80,8 +80,8 @@
         </p>
 
         <ion-button class="absolute top-2 right-2 px-3 py-1 rounded z-10" color="light" fill="outline" mode="ios"
-          size="small">Jadwal
-          Kajian</ion-button>
+          size="small" @click.stop="router.push({ name: 'DiscourseList' })">
+          Jadwal Kajian</ion-button>
 
         <!-- Subject dan Speaker di pojok kiri bawah -->
         <div class="absolute bottom-2 left-2 text-white p-3 rounded z-10">

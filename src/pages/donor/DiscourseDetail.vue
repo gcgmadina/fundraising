@@ -28,7 +28,6 @@ onMounted(() => {
     discourse.getDetail.fetch(router.currentRoute.value.params.id)
         .then(data => {
             discourseDetail.value = data
-            console.log(discourseDetail.value)
         })
 })
 </script>
