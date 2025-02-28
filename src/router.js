@@ -77,6 +77,11 @@ const routes = [
         path: 'fundraising-input',
         name: 'FundraisingInput',
         component: () => import('@/pages/secretary/FundraisingInput.vue'),
+      },
+      {
+        path: 'discourse-input',
+        name: 'DiscourseInput',
+        component: () => import('@/pages/secretary/DiscourseInput.vue'),
       }
     ],
   },

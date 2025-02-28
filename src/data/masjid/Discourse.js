@@ -1,4 +1,4 @@
-import { createResource } from "frappe-ui"
+import { createResource, toast } from "frappe-ui"
 import { reactive, ref } from 'vue'
 
 export const discourse = reactive ({
@@ -37,6 +37,41 @@ export const discourse = reactive ({
         },
         onError(error) {
             console.log(error)
+        }
+    }),
+    create: createResource ({
+        url: "non_profit.api.discourse.new_islamic_discourse",
+        auto: false,
+        makeParams( data ) {
+            return { data }
+        },
+        transform(response) {
+            if (response.status == "success") {
+                toast({
+                    title: "Sukses",
+                    text: response.message,
+                    icon: "check-circle",
+                    position: "bottom-center",
+                    iconClasses: "text-green-500"
+                })
+            } else {
+                toast({
+                    title: "Gagal",
+                    text: response.message,
+                    icon: "x-circle",
+                    position: "bottom-center",
+                    iconClasses: "text-red-500"
+                })
+            }
+        },
+        onError(error) {
+            toast({
+                title: "Gagal",
+                text: error.message,
+                icon: "x-circle",
+                position: "bottom-center",
+                iconClasses: "text-red-500"
+            })
         }
     }),
 })

@@ -63,6 +63,8 @@
                     v-if="user.data.roles.includes('Non Profit Secretary')">Penggalangan Dana</h4>
                 <h4 class="my-4 cursor-pointer" @click="toNewsInput"
                     v-if="user.data.roles.includes('Non Profit Secretary')">Berita</h4>
+                <h4 class="my-4 cursor-pointer" @click="toDiscourseInput"
+                    v-if="user.data.roles.includes('Non Profit Secretary')">Kajian</h4>
             </ion-content>
         </ion-popover>
         <ion-tab-button @click="router.push({ name: 'Account' })" :class="[
@@ -143,6 +145,11 @@ const toDzikirPetang = () => {
 const toNewsInput = () => {
     popoverOpen.value = false;
     router.push({ name: 'NewsInput' });
+};
+
+const toDiscourseInput = () => {
+    popoverOpen.value = false;
+    router.push({ name: 'DiscourseInput' });
 };
 
 onMounted(async () => {
