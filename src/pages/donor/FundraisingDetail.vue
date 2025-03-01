@@ -22,7 +22,7 @@
                 @click="router.push({ name: 'FundraisingForm', params: { id: fundraisingDetail.name } })">
                 Donasi Sekarang
             </ion-button>
-            <ion-button v-if="user.data.roles.includes('Non Profit Accounting')" class="w-1/2" expand="block"
+            <ion-button v-if="session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Accounting')" class="w-1/2" expand="block"
                 color="success"
                 @click="router.push({ name: 'AllocationForm', params: { id: fundraisingDetail.name } })">
                 Alokasikan
@@ -47,6 +47,7 @@ import { wallet } from 'ionicons/icons'
 const router = useRouter();
 const fundraisingDetail = ref({});
 const user = inject('$user');
+const session = inject('$session');
 
 onMounted(async () => {
     fundraising.detail.fetch({

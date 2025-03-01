@@ -8,6 +8,12 @@
                         placeholder="Penggalangan Dana" mode="md"></ion-input>
                 </ion-item>
 
+                <ion-item class="flex flex-row items-start w-full">
+                    <ion-input required name="code" label="Kode Unik" label-placement="floating"
+                        placeholder="Kode Penggalangan Dana" mode="md" class="w-full"></ion-input>
+                        <!-- <p class="text-xs">*Kode ini digunakan untuk pengecekan riwayat transaksi pada akun bank</p> -->
+                </ion-item>
+
                 <!-- Picker untuk Mulai -->
                 <DatePicker label="Mulai" v-model="startDate" />
 
