@@ -322,7 +322,7 @@ const routes = [
 ]
 
 let router = createRouter({
-  history: createWebHistory('/fundraising'),
+  history: createWebHistory('/masjid'),
   routes,
 })
 
