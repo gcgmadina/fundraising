@@ -74,4 +74,39 @@ export const discourse = reactive ({
             })
         }
     }),
+    delete: createResource ({
+        url: "non_profit.api.discourse.delete_islamic_discourse",
+        auto: false,
+        makeParams( name ) {
+            return { name }
+        },
+        transform(response) {
+            if (response.status == "success") {
+                toast({
+                    title: "Sukses",
+                    text: response.message,
+                    icon: "check-circle",
+                    position: "bottom-center",
+                    iconClasses: "text-green-500"
+                })
+            } else {
+                toast({
+                    title: "Gagal",
+                    text: response.message,
+                    icon: "x-circle",
+                    position: "bottom-center",
+                    iconClasses: "text-red-500"
+                })
+            }
+        },
+        onError(error) {
+            toast({
+                title: "Gagal",
+                text: error.message,
+                icon: "x-circle",
+                position: "bottom-center",
+                iconClasses: "text-red-500"
+            })
+        }
+    }),
 })

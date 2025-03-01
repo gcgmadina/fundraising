@@ -9,6 +9,7 @@
             <p v-if="discourseDetail.location">di {{ discourseDetail.location }}</p>
             <div v-html="discourseDetail.description" class="my-6"></div>
         </ion-content>
+        <ion-button color="danger" @click="deleteDiscourse">Hapus</ion-button>
         <Footer></Footer>
     </ion-page>
 </template>
@@ -17,7 +18,7 @@
 import { ref, onMounted } from 'vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/donor/Footer.vue'
-import { IonPage, IonContent } from '@ionic/vue'
+import { IonPage, IonContent, IonButton } from '@ionic/vue'
 import { discourse } from '@/data/masjid/Discourse'
 import { useRouter } from 'vue-router'
 
@@ -30,4 +31,11 @@ onMounted(() => {
             discourseDetail.value = data
         })
 })
+
+const deleteDiscourse = () => {
+    discourse.delete.submit(router.currentRoute.value.params.id)
+        .then(() => {
+            router.push({ name: 'DonorHome' })
+        })
+}
 </script>

@@ -99,7 +99,10 @@ const submit = (e) => {
     data.time = time.value.replace('T', ' ').substring(0, 19);
 
     if ( data.thumbnail && data.time ) {
-        discourse.create.submit(data);
+        discourse.create.submit(data)
+            .then(() => {
+                router.push({ name: 'DonorHome' });
+            })
 
     } else {
         toast({
