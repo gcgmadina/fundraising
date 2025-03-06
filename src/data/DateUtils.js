@@ -4,15 +4,17 @@ import 'moment/dist/locale/id';
 // Set bahasa Indonesia secara global
 moment.locale('id');
 
-export function formatDate(date) {
-    return moment(date).format('dddd, D MMMM YYYY');
+export function formatDate(date, weekday = true) {
+    if (weekday) {
+        return moment(date).format('dddd, D MMMM YYYY');
+    }else{
+        return moment(date).format('D MMMM YYYY');
+    }
 }
 
 export function formatDateTime(date) {
     return moment(date).format('D MMMM YYYY HH:mm');
 }
-
-import { ref, onMounted } from "vue";
 
 export async function hijriDate(date) {
     const formattedDate = moment(date).format("DD-MM-YYYY");
