@@ -1,6 +1,15 @@
 <template>
     <BaseLayout>
         <template #content>
+            <!-- Discourse section -->
+            <div class="flex flex-col">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-violet-900">Kajian Islami</h3>
+                    <button class="text-violet-600 hover:text-violet-800 font-medium" @click="router.push({ name: 'DiscourseList' })">Selengkapnya ></button>
+                </div>
+                <img :src="course.thumbnail" alt="Gambar kajian" class="w-full max-h-[300px] object-cover rounded-lg my-4" @click="router.push({ name: 'DiscourseDetail', params: { id: course.name } })">
+            </div>
+
             <!-- News section -->
             <div class="flex flex-col">
                 <div class="flex justify-between items-center">
@@ -80,16 +89,21 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
 import { formatCurrency } from "@/data/utils"
+import { discourse } from "@/data/masjid/Discourse";
 
 const router = useRouter();
 
 const fundraisingList = ref([]);
 const newsList = ref([]);
+const course = ref({});
 
 onMounted(async () => {
     await fundraising.getList.fetch({ start: 0, length: 10 });
     fundraisingList.value = fundraising.getList.data.data;
 
     newsList.value = await fetchAllNews()
+
+    await discourse.getList.fetch();
+    course.value = discourse.getList.data.data[0];
 });
 </script>
