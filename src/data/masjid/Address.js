@@ -59,7 +59,7 @@ export function fetchPrayerSchedule(cityId, date = new Date().toISOString().spli
                 }
             })
             .then(data => {
-                resolve(data);
+                resolve(data.data.jadwal);
             })
             .catch(error => {
                 reject(error);
