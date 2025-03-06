@@ -3,7 +3,10 @@
         <template #content>
             <!-- News section -->
             <div class="flex flex-col">
-                <h3 class="font-bold text-violet-900">Berita Terbaru</h3>
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-violet-900">Berita Terbaru</h3>
+                    <button class="text-violet-600 hover:text-violet-800 font-medium" @click="router.push({ name: 'NewsList' });">Selengkapnya ></button>
+                </div>
                 <Carousel>
                     <div class="flex-none w-[300px] h-auto" v-for="news in newsList" :key="news.name">
                         <router-link :to="{ name: 'News', params: { id: news.name } }">
@@ -26,7 +29,10 @@
 
             <!-- fundraising section -->
             <div class="flex flex-col">
-                <h3 class="font-bold text-violet-900">Penggalangan Dana</h3>
+                <div class="flex justify-between items-center">
+                    <h3 class="font-bold text-violet-900">Penggalangan Dana</h3>
+                    <button class="text-violet-600 hover:text-violet-800 font-medium" @click="router.push({ name: 'FundraisingList' });">Selengkapnya ></button>
+                </div>
                 <Carousel>
                     <div class="flex-none w-[300px] h-auto" v-for="fund in fundraisingList" :key="fund.name">
                         <router-link :to="{ name: 'FundraisingDetail', params: { id: fund.name } }">
@@ -71,8 +77,11 @@ import Carousel from "@/components/Carousel.vue";
 import { fetchAllNews } from "@/data/masjid/News"
 import { fundraising } from "@/data/donation/Fundraising"
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
 import { formatCurrency } from "@/data/utils"
+
+const router = useRouter();
 
 const fundraisingList = ref([]);
 const newsList = ref([]);
