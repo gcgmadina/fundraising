@@ -1,12 +1,36 @@
 <template>
     <BaseLayout>
         <template #content>
+            <!-- News section -->
             <div class="flex flex-col">
                 <h3 class="font-bold text-violet-900">Berita Terbaru</h3>
                 <Carousel>
-                    <div class="flex-none w-[300px] h-auto" v-for="fund in fundraisingList" :key="fundraising.id">
+                    <div class="flex-none w-[300px] h-auto" v-for="news in newsList" :key="news.name">
+                        <router-link :to="{ name: 'News', params: { id: news.name } }">
+                            <ion-card mode="md">
+                                <img :src="news.thumbnail"
+                                    alt="https://ionicframework.com/docs/img/demos/card-media.png"
+                                    class="w-full h-[140px] object-cover">
+
+                                <ion-card-header>
+                                    <ion-card-title>{{ news.title }}</ion-card-title>
+                                    <ion-card-subtitle class="flex justify-between">
+                                        {{ news.uploaded_date }}
+                                    </ion-card-subtitle>
+                                </ion-card-header>
+                            </ion-card>
+                        </router-link>
+                    </div>
+                </Carousel>
+            </div>
+
+            <!-- fundraising section -->
+            <div class="flex flex-col">
+                <h3 class="font-bold text-violet-900">Penggalangan Dana</h3>
+                <Carousel>
+                    <div class="flex-none w-[300px] h-auto" v-for="fund in fundraisingList" :key="fund.name">
                         <router-link :to="{ name: 'FundraisingDetail', params: { id: fund.name } }">
-                            <ion-card>
+                            <ion-card mode="md">
                                 <img :src="fund.thumbnail"
                                     alt="https://ionicframework.com/docs/img/demos/card-media.png"
                                     class="w-full h-[140px] object-cover">
@@ -44,15 +68,19 @@
 <script setup>
 import BaseLayout from "@/components/BaseLayout.vue";
 import Carousel from "@/components/Carousel.vue";
+import { fetchAllNews } from "@/data/masjid/News"
 import { fundraising } from "@/data/donation/Fundraising"
 import { ref, onMounted } from "vue";
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle } from "@ionic/vue"
 import { formatCurrency } from "@/data/utils"
 
 const fundraisingList = ref([]);
+const newsList = ref([]);
 
 onMounted(async () => {
     await fundraising.getList.fetch({ start: 0, length: 10 });
     fundraisingList.value = fundraising.getList.data.data;
+
+    newsList.value = await fetchAllNews()
 });
 </script>
