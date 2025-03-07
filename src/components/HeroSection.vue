@@ -1,5 +1,5 @@
 <template>
-    <div class="relative bg-cover bg-center text-white p-6 rounded-lg shadow-md overflow-hidden before:absolute before:inset-0 before:bg-black/20 before:rounded-lg before:z-0"
+    <div class="relative bg-cover bg-center text-white p-6 mb-6 rounded-lg shadow-md overflow-hidden before:absolute before:inset-0 before:bg-black/20 before:rounded-lg before:z-0"
         :style="`background-image: url('${masjid}')`">
 
         <div class="relative z-10 mb-4">
@@ -12,7 +12,6 @@
             <p>{{ nearestPrayerTime.name }}</p>
             <h1 class="font-bold mt-0">{{ nearestPrayerTime.time }}</h1>
         </div>
-
     </div>
 </template>
 

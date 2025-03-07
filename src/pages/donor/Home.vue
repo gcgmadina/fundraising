@@ -1,6 +1,9 @@
 <template>
     <BaseLayout>
         <template #content>
+            <!-- Menu Section -->
+            <MenuList></MenuList>
+
             <!-- Discourse section -->
             <div class="flex flex-col">
                 <div class="flex justify-between items-center">
@@ -83,6 +86,7 @@
 <script setup>
 import BaseLayout from "@/components/BaseLayout.vue";
 import Carousel from "@/components/Carousel.vue";
+import MenuList from "@/components/MenuList.vue";
 import { fetchAllNews } from "@/data/masjid/News"
 import { fundraising } from "@/data/donation/Fundraising"
 import { ref, onMounted } from "vue";
