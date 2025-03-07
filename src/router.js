@@ -288,14 +288,9 @@ const routes = [
         component: () => import('@/pages/donor/Surah.vue'),
       },
       {
-        path: 'dzikir-pagi',
-        name: 'DzikirPagi',
-        component: () => import('@/pages/donor/DzikirPagi.vue'),
-      },
-      {
-        path: 'dzikir-petang',
-        name: 'DzikirPetang',
-        component: () => import('@/pages/donor/DzikirPetang.vue'),
+        path: 'dzikir',
+        name: 'Dzikir',
+        component: () => import('@/pages/donor/Dzikir.vue'),
       },
     ],
   },
@@ -322,7 +317,7 @@ const routes = [
 ]
 
 let router = createRouter({
-  history: createWebHistory('/masjid'),
+  history: createWebHistory('/fundraising'),
   routes,
 })
 

@@ -19,7 +19,7 @@
             <!-- Main Page Content -->
             <IonContent class="ion-padding">
                 <!-- Hero section -->
-                <HeroSection></HeroSection>
+                <HeroSection v-if="showHeroSection"></HeroSection>
 
                 <!-- <img src="@/components/icons/masjid_nabawi.webp" alt="gambar"> -->
                 <slot name="content" />
@@ -37,7 +37,15 @@
 </template>
 
 <script setup>
+import { defineProps } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton } from '@ionic/vue';
 import Footer from "@/components/donor/Footer.vue";
 import HeroSection from "@/components/HeroSection.vue";
+
+defineProps({
+    showHeroSection: {
+        type: Boolean,
+        default: true // Secara default HeroSection tetap muncul
+    }
+});
 </script>
