@@ -255,6 +255,11 @@ const routes = [
             component: () => import('@/pages/donor/DiscourseDetail.vue'),
           }
         ]
+      },
+      {
+        path: 'jadwal-sholat',
+        name: 'PrayerTimes',
+        component: () => import('@/pages/donor/PrayerTimes.vue')
       }
     ],
   },
