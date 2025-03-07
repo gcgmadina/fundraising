@@ -1,39 +1,38 @@
 <template>
-    <ion-page>
-        <Header />
-        <ion-content>
-            <div class="p-4">
-                <input type="text" v-model="searchQuery" placeHolder="Cari Surah" class="w-full p-2 border rounded">
-            </div>
-            <ion-list v-for="(surah, index) in filteredSurahList" :key="index">
-                <CardListItem :title="surah.namaLatin" :subtitle="surah.arti" :status="true" :image="true"
+    <BaseLayout>
+        <template #content>
+            <h3 class="font-bold text-violet-900">Quran</h3>
+            <ion-searchbar placeholder="Cari Surah" mode="md" v-model="searchQuery"></ion-searchbar>
+            <div class="border-2 my-6"></div>
+
+            <ion-list>
+                <ion-item v-for="(surah, index) in filteredSurahList" :key="index"
                     @click="router.push({ name: 'Surah', params: { id: surah.nomor } })">
-                    <template #status>
-                        <div class="flex flex-col items-center">
-                            <span class="text-lg font-semibold uthmanic">{{ surah.nama }}</span>
-                            <span class="text-sm text-gray-500">{{ surah.jumlahAyat }} Ayat</span>
+                    <ion-label class="flex flex-row border-2 p-2 rounded-lg">
+                        <div class="flex flex-row items-center justify-between px-4">
+                            <Star :number="surah.nomor" />
+                            <div class="flex flex-col items-center">
+                                <h2 class="font-bold text-violet-900">{{ surah.namaLatin }}</h2>
+                                <p class="text-gray-500">{{ surah.arti }}</p>
+                            </div>
+                            <ion-icon :icon="chevronForward" slot="end" size="large" color="tertiary"></ion-icon>
                         </div>
-                    </template>
-                    <template #image>
-                        <NumberIcon :number="surah.nomor" color="#11a048"/>
-                    </template>
-                </CardListItem>
+                    </ion-label>
+                </ion-item>
             </ion-list>
-        </ion-content>
-        <Footer />
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonList } from "@ionic/vue";
-import Header from "@/components/Header.vue";
-import Footer from "@/components/donor/Footer.vue";
-import CardListItem from "@/components/CardListItem.vue";
-import NumberIcon from "@/components/icons/NumberIcon.vue";
-import { ref, onMounted, computed, watch } from "vue";
-import { useRouter } from "vue-router";
-import { getSurahList } from "@/data/masjid/Quran";
+import BaseLayout from '@/components/BaseLayout.vue';
+import { IonList, IonItem, IonLabel, IonIcon, IonSearchbar } from '@ionic/vue';
+import { chevronForward } from 'ionicons/icons';
+import { ref, onMounted, computed, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { getSurahList } from '@/data/masjid/Quran';
 import Fuse from "fuse.js";
+import Star from '@/components/icons/Star.vue';
 
 const router = useRouter();
 const surahList = ref([]);
@@ -44,7 +43,7 @@ const fetchSurahList = () => {
     getSurahList()
         .then((data) => {
             surahList.value = data;
-            
+
             fuse = new Fuse(surahList.value, {
                 keys: ['namaLatin'],
                 threshold: 0.3,
