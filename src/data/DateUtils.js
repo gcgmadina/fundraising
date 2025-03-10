@@ -40,7 +40,7 @@ export async function hijriDate(date) {
     }
 }
 
-export function getDifferenceInDays(date1, date2) {
-    const diffInMs = Math.abs(new Date(date2) - new Date(date1)); // Selisih dalam milidetik
+export function getDifferenceInDays(date1, date2 = new Date()) {
+    const diffInMs = Math.abs(new Date(date1) - new Date(date2)); // Selisih dalam milidetik
     return Math.floor(diffInMs / (1000 * 60 * 60 * 24)); // Konversi ke hari
 }

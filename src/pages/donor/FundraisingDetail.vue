@@ -28,7 +28,7 @@
                 </div>
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="text-blue-800 my-0">Rp. {{ formatCurrency(fundraisingDetail.income) }}</h3>
-                    <h3 class="text-blue-800 my-0">{{ getDifferenceInDays(fundraisingDetail.starts_on, fundraisingDetail.ends_on) }} hari</h3>
+                    <h3 class="text-blue-800 my-0">{{ getDifferenceInDays(fundraisingDetail.ends_on) }} hari</h3>
                 </div>
             </div>
 
