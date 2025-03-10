@@ -26,6 +26,7 @@
     "quill": "^2.0.2",
     "quill-image-resize-vue": "^1.0.4",
     "swiper": "^11.0.7",
+    "tailwind": "^4.0.0",
     "vue": "^3.2.25",
     "vue-quill": "^1.5.1",
     "vue-router": "^4.0.12"
