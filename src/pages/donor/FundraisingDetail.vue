@@ -32,11 +32,12 @@
                 </div>
             </div>
 
-            <ion-card class="flex flex-auto justify-around items-center"
+            <ion-card class="flex flex-auto justify-center items-center gap-2 py-3"
                 @click="router.push({ name: 'FundraisingAllocationList', params: { id: fundraisingDetail.name } })">
-                <ion-icon :src="wallet" color="primary" size="large"></ion-icon>
-                <h4 class="text">Rincian penggunaan dana</h4>
-                <ion-icon :icon="GreaterThan" />
+                <!-- <ion-icon :src="wallet" color="primary" size="large"></ion-icon> -->
+                <ion-icon :icon="eyeOutline" size="large" color="primary"></ion-icon>
+                <h4 class="text my-0">Rincian penggunaan dana</h4>
+                <!-- <ion-icon :icon="GreaterThan" /> -->
             </ion-card>
 
             <div v-html="fundraisingDetail.content"></div>
@@ -70,7 +71,7 @@ import { IonPage, IonContent, IonButton, IonCard, IonIcon, IonCardSubtitle } fro
 import { fundraising } from '@/data/donation/Fundraising';
 import { formatCurrency } from '@/data/utils';
 import GreaterThan from '@/components/icons/greater-than.svg';
-import { wallet } from 'ionicons/icons'
+import { wallet, eyeOutline } from 'ionicons/icons'
 import BaseLayout from '@/components/BaseLayout.vue';
 import { formatDate, getDifferenceInDays } from '@/data/DateUtils.js';
 
