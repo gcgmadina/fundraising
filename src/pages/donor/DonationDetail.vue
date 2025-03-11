@@ -1,7 +1,6 @@
 <template>
-    <ion-page>
-        <Header :showBackButton="true" />
-        <ion-content>
+    <BaseLayout :showHeroSection="false">
+        <template #content>
             <div v-if="loading" class="w-full h-48 bg-gray-300 animate-pulse"></div>
             <div v-else class="w-full h-auto">
                 <div class="thanks-section text-center mx-2">
@@ -37,9 +36,10 @@
                     </div>
                     <div v-if="donation.status == 'Menunggu Bukti Pembayaran'" class="text-center my-4">
                         <div v-if="donation.mode_of_payment == 'QRIS'">Scan QR di bawah</div>
-                        <div v-if="donation.mode_of_payment == 'Transfer Bank'">Transfer donasimu ke nomor rekening: {{donation.bank_account_no}}</div>
+                        <div v-if="donation.mode_of_payment == 'Transfer Bank'">Transfer donasimu ke nomor rekening:
+                            {{ donation.bank_account_no }}</div>
                         <div>Lalu kirimkan bukti tranfermu</div>
-                    </div>                                                      
+                    </div>
                 </div>
                 <div v-if="donation.item_type === 'Uang'" class="flex justify-between mx-16 my-8">
                     <div>Total Donasi</div>
@@ -85,25 +85,22 @@
                     </div>
                 </div>
             </div>
-        </ion-content>
-        <Footer />
 
-        <!-- Modal for success message -->
-        <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div class="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
-                <component :is="validationSuccess ? SuccessIcon : FailedIcon" class="w-20 h-20 mx-auto mb-4" />
-                <p v-if="validationSuccess" class="text-center text-2xl">Donasi Berhasil Divalidasi</p>
-                <p v-else class="text-center text-2xl">Gagal Memvalidasi Donasi</p>
-                <ion-button class="mt-4" @click="closeModal">Tutup</ion-button>
+            <!-- Modal for success message -->
+            <div v-if="isModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div class="flex flex-col justify-center bg-white p-6 rounded-lg shadow-lg w-full max-w-md w-4/5">
+                    <component :is="validationSuccess ? SuccessIcon : FailedIcon" class="w-20 h-20 mx-auto mb-4" />
+                    <p v-if="validationSuccess" class="text-center text-2xl">Donasi Berhasil Divalidasi</p>
+                    <p v-else class="text-center text-2xl">Gagal Memvalidasi Donasi</p>
+                    <ion-button class="mt-4" @click="closeModal">Tutup</ion-button>
+                </div>
             </div>
-        </div>
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonButton } from '@ionic/vue';
-import Header from '@/components/Header.vue';
-import Footer from '@/components/donor/Footer.vue';
+import { IonButton } from '@ionic/vue';
 import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { createResource, FileUploader, Button } from 'frappe-ui';
@@ -114,6 +111,7 @@ import { submitDocument } from '@/data/Document';
 import SuccessIcon from '@/components/icons/SuccessIcon.vue';
 import FailedIcon from '@/components/icons/FailedIcon.vue';
 import { get_donation_qr } from '@/data/accounting/DonationQR';
+import BaseLayout from '@/components/BaseLayout.vue';
 
 moment.locale('id')
 const router = useRouter();
@@ -190,7 +188,7 @@ const donationDetail = createResource({
 onMounted(() => {
     get_donation_qr()
         .then((qrImage) => {
-            qrImageUrl.value = qrImage;  
+            qrImageUrl.value = qrImage;
         })
         .catch((error) => {
             console.error("Error fetching QR image:", error);
