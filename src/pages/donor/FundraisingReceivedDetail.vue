@@ -15,11 +15,11 @@
                 <span>Metode Pembayaran:</span>
                 <span>{{ journalEntryDetails.mode_of_payment }}</span>
             </div>
-            <div class="flex justify-between mx-16 my-8">
+            <div v-if="journalEntryDetails.cheque_name && journalEntryDetails.cheque_name!='None'" class="flex justify-between mx-16 my-8">
                 <span>Dari (a/n):</span>
                 <span>{{ journalEntryDetails.cheque_name }}</span>
             </div>
-            <div class="flex justify-between mx-16 my-8">
+            <div v-if="journalEntryDetails.cheque_no" class="flex justify-between mx-16 my-8">
                 <span>No. Rekening:</span>
                 <span>{{ journalEntryDetails.cheque_no }}</span>
             </div>
