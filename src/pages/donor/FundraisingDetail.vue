@@ -4,7 +4,7 @@
 
             <img :src=fundraisingDetail.thumbnail alt="Gambar penggalangan dana" class="w-4/5 mx-auto">
 
-            <h1 class="font-bold text-blue-900">{{ fundraisingDetail.title }}</h1>
+            <h1 class="font-bold text-blue-900 my-6">{{ fundraisingDetail.title }}</h1>
 
             <div id="fundraising-progress">
                 <p>Target Donasi:</p>
