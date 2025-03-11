@@ -23,7 +23,8 @@
                 <p class="text-center w-full">© 2025 My App</p>
             </IonToolbar>
         </IonFooter> -->
-        <Footer></Footer>
+        <!-- <Footer></Footer> -->
+        <ButtomTabs></ButtomTabs>
     </IonPage>
 </template>
 
@@ -32,6 +33,7 @@ import { defineProps } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter, IonButton } from '@ionic/vue';
 import Footer from "@/components/donor/Footer.vue";
 import HeroSection from "@/components/HeroSection.vue";
+import ButtomTabs from './donor/ButtomTabs.vue';
 
 defineProps({
     showHeroSection: {
