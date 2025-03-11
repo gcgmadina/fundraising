@@ -136,6 +136,11 @@ const routes = [
         component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
         props: { mode: 'approve' },
       },
+      {
+        path: ':id/allocation-form',
+        name: 'AllocationForm',
+        component: () => import('@/pages/accountant/FundraisingAllocationForm.vue'),
+      },
     ],
   },
   {
@@ -224,15 +229,6 @@ const routes = [
             path: 'donation/:id',
             name: 'FundraisingReceivedDetail',
             component: () => import('@/pages/donor/FundraisingReceivedDetail.vue'),
-          },
-          {
-            path: ':id/allocation-form',
-            name: 'AllocationForm',
-            meta: {
-              auth: true,
-              roles: ['Non Profit Accounting']
-            },
-            component: () => import('@/pages/donor/FundraisingAllocationForm.vue'),
           },
           {
             path: ':id/allocations',
