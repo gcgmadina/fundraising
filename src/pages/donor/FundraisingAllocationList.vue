@@ -1,7 +1,6 @@
 <template>
-    <ion-page>
-        <Header />
-        <ion-content class="ion-padding">
+    <BaseLayout :showHeroSection="false">
+        <template #content>
             <ion-card class="p-4">
                 <h1 class="text-black text-center mb-8">{{ fundraisingDetail.title }}</h1>
                 <ion-item>
@@ -42,19 +41,17 @@
                     </div>
                 </ion-item>
             </ion-list>
-        </ion-content>
-        <Footer />
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/donor/Footer.vue';
 import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonButton, IonCard } from "@ionic/vue"
 import { journalEntry, fundraising } from '@/data/donation/Fundraising';
 import { formatCurrency } from '@/data/utils';
+import BaseLayout from '@/components/BaseLayout.vue';
 
 const router = useRouter();
 const allocations = ref([]);
