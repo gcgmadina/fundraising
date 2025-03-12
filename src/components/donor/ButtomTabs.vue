@@ -1,20 +1,47 @@
 <script setup>
-import { computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Home from '@/components/icons/beranda.vue';
 import History from '@/components/icons/riwayat.vue';
 import QR from '@/components/icons/qr.vue';
 import Profile from '@/components/icons/akun.vue';
 import { IonTabBar } from '@ionic/vue';
+import { get_donation_qr } from '@/data/accounting/DonationQR';
 
 const router = useRouter();
+const hasDonationQR = ref(false); // Status QR Code
 
-const tabs = [
+// Ambil data saat komponen dimuat
+onMounted(async () => {
+    try {
+        const qrImage = await get_donation_qr();
+        if (qrImage) {
+            hasDonationQR.value = true;
+        }
+    } catch (error) {
+        console.error("Failed to get donation QR:", error);
+    }
+});
+
+// Tab dasar tanpa "Donasi"
+const baseTabs = [
     { name: 'Beranda', icon: Home, routeName: 'DonorHome' },
     { name: 'Riwayat', icon: History, routeName: 'History' },
-    { name: 'Donasi', icon: QR, routeName: 'QR' },
     { name: 'Akun', icon: Profile, routeName: 'Account' }
 ];
+
+// Menentukan tabs secara dinamis
+const tabs = computed(() => {
+    if (hasDonationQR.value) {
+        return [
+            baseTabs[0], // Beranda
+            baseTabs[1], // Riwayat
+            { name: 'Donasi', icon: QR, routeName: 'QR' }, // Donasi (sebelum Akun)
+            baseTabs[2]  // Akun
+        ];
+    }
+    return baseTabs;
+});
 
 const activeTab = computed(() => router.currentRoute.value.name);
 
