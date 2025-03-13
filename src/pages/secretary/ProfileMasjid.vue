@@ -63,7 +63,9 @@
                     <ion-button type="submit" expand="block">Simpan Profil</ion-button>
                 </form>
             </div>
-            <div v-if="currentSegment == 'about'"></div>
+            <div v-if="currentSegment == 'about'">
+                <AboutMasjid></AboutMasjid>
+            </div>
         </template>
     </BaseLayout>
 </template>
@@ -76,6 +78,7 @@ import { fetchAllCities } from '@/data/masjid/Address';
 import Fuse from "fuse.js";
 import { masjidProfile } from '@/data/masjid/MasjidProfile.js';
 import { FileUploader } from 'frappe-ui';
+import AboutMasjid from './ProfileMasjidAbout.vue';
 
 const masjid = ref({});
 const currentSegment = ref('profile');
