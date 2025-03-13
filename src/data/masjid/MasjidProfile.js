@@ -1,17 +1,16 @@
-import { createResource } from "frappe-ui"
+import { createResource, toast } from "frappe-ui"
 import { transform, update } from "lodash"
-import { toast } from "node_modules/frappe-ui/src/index"
 import { reactive, ref } from 'vue'
 import { on } from "ws"
 
 export const masjidProfile = reactive ({
     getProfile: createResource ({
-        url: "non_profit.api.charity.get_masjid_profile",
+        url: "non_profit.api.masjid_profile.get_masjid_profile",
         auto: false,
         makeParams(data) {
             return {data}
         },
-        onSuccess(response) {
+        transform(response) {
             if (response.status == "success") {
                 return response.data
             } else {
@@ -35,7 +34,7 @@ export const masjidProfile = reactive ({
         }
     }),
     updateProfile: createResource ({
-        url: "non_profit.api.charity.update_masjid_profile",
+        url: "non_profit.api.masjid_profile.update_masjid_profile",
         auto: false,
         makeParams(data) {
             return {data}

@@ -15,11 +15,11 @@
             <div v-if="currentSegment == 'profile'">
                 <form class="flex flex-col gap-4" @submit.prevent="submit">
                     <ion-input required name="masjid_name" label="Nama Masjid" label-placement="floating" fill="outline"
-                        mode="md" placeholder="Masukkan nama masjid"></ion-input>
+                        mode="md" placeholder="Masukkan nama masjid" v-model="masjid.masjid_name"></ion-input>
                     <ion-input name="address_line" label="Alamat Masjid" label-placement="floating"
-                        fill="outline" mode="md" placeholder="Jln. xxx, no. xx, Kec.xxx"></ion-input>
+                        fill="outline" mode="md" placeholder="Jln. xxx, no. xx, Kec.xxx" v-model="masjid.address_line"></ion-input>
                     <div class="flex gap-1">
-                        <ion-input name="pincode" label="Kode Pos" label-placement="floating" fill="outline" mode="md" class="w-1/2" placeholder="XXXX"></ion-input>
+                        <ion-input name="pincode" label="Kode Pos" label-placement="floating" fill="outline" mode="md" class="w-1/2" placeholder="XXXX" v-model="masjid.pincode"></ion-input>
                         <div class="flex flex-col w-1/2 relative">
                             <ion-searchbar id="searchCity" name="city" v-model="searchQuery" mode="md"
                             placeholder="Kota/Kabupaten" @click="showFilteredCityList"></ion-searchbar>
@@ -31,8 +31,8 @@
                             </ion-list>
                         </div>
                     </div>
-                    <ion-input name="phone" label="Nomor telepon" label-placement="floating" fill="outline" mode="md" placeholder="+62-XXX-XXXX-XXXX"></ion-input>
-                    <ion-input name="email_id" label="Email" label-placement="floating" fill="outline" mode="md" placeholder="example@domain.com"></ion-input>
+                    <ion-input name="phone" label="Nomor telepon" type="tel"  pattern="08[0-9]{8,10}" label-placement="floating" fill="outline" mode="md" placeholder="+62-XXX-XXXX-XXXX" v-model="masjid.phone"></ion-input>
+                    <ion-input name="email_id" label="Email" type="email" label-placement="floating" fill="outline" mode="md" placeholder="example@domain.com" v-model="masjid.email_id"></ion-input>
                     <ion-button type="submit" expand="block">Simpan Profil</ion-button>
                 </form>
             </div>
@@ -47,8 +47,10 @@ import { ref, onMounted, computed } from 'vue';
 import { IonSegmentButton, IonSegment, IonLabel, IonList, IonItem, IonInput, IonSearchbar, IonButton } from "@ionic/vue"
 import { fetchAllCities } from '@/data/masjid/Address';
 import Fuse from "fuse.js";
-import PhoneInput from '@/components/PhoneInput.vue';
+import { masjidProfile } from '@/data/masjid/MasjidProfile.js';
+import { toast } from 'frappe-ui';
 
+const masjid = ref({});
 const currentSegment = ref('profile');
 const cities = ref([]);
 const searchQuery = ref("");
@@ -61,6 +63,9 @@ onMounted(async () => {
         keys: ['lokasi'], 
         threshold: 1,
     });
+
+    masjid.value = await masjidProfile.getProfile.fetch();
+    searchQuery.value = masjid.value.city;
 });
 
 const filteredCities = computed(() => {
@@ -79,9 +84,11 @@ function chooseCity(city) {
     showCityList.value = false;
 }
 
-const submit = (e) => {
+const submit = async (e) => {
     let formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    // console.log(data);
+
+    await masjidProfile.updateProfile.submit(data)
 };
 </script>
