@@ -18,6 +18,11 @@
             <h3 class="font-semibold">{{ masjid.title }}</h3>
             <div v-html="masjid.description" class="quill-content"></div>
         </template>
+        <template #footer>
+            <div class="p-2" v-if="session.isLoggedIn && user.data && user.data.roles?.includes('Non Profit Secretary')">
+                <ion-button expand="block" @click='router.push({name: "MasjidProfileEdit"})'>Ubah Profil</ion-button>
+            </div>
+        </template>
     </BaseLayout>
 </template>
 
@@ -26,6 +31,7 @@ import { onMounted, ref, inject, computed } from "vue";
 import { useRouter } from "vue-router";
 import BaseLayout from "@/components/BaseLayout.vue";
 import { masjidProfile } from "@/data/masjid/MasjidProfile.js"
+import { IonButton } from "@ionic/vue";
 
 const router = useRouter();
 const user = inject('$user');
