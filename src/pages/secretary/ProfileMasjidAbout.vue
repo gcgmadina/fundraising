@@ -1,7 +1,7 @@
 <template>
     <form class="flex flex-col gap-4" @submit.prevent="submit">
         <ion-input name="title" label="Judul" label-placement="floating" fill="outline" mode="md"
-            placeholder="Masukkan judul artikel"></ion-input>
+            placeholder="Masukkan judul artikel" v-model="profile.title"></ion-input>
         <div class="flex flex-col w-full">
             <ion-label class="mb-2 ml-4">Deskripsi</ion-label>
             <div ref="editorContainer" class="quill-editor w-full min-h-[200px] border border-gray-300 rounded-lg">
@@ -24,8 +24,8 @@
                     <Button @click="openFileSelector" :loading="uploading">
                         {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                     </Button>
-                    <div v-if="uploaded" class="my-4">
-                        <img :src="image" alt="Preview Image" style="max-width: 200px; max-height: 200px;">
+                    <div v-if="profile.image" class="my-4">
+                        <img :src="profile.image" alt="Preview Image" style="max-width: 200px; max-height: 200px;">
                     </div>
                 </template>
             </FileUploader>
@@ -44,10 +44,11 @@ import { masjidProfile } from '@/data/masjid/MasjidProfile.js';
 
 const editorContainer = ref(null);
 let editor = null;
+const profile = ref({});
 
-onMounted(() => {
+onMounted(async () => {
     editor = new Quill(editorContainer.value, {
-        theme: 'snow', // Tema Quill, bisa juga 'bubble'
+        theme: 'snow',
         modules: {
             toolbar: [
                 [{ 'header': [1, 2, false] }],
@@ -59,13 +60,25 @@ onMounted(() => {
             ]
         }
     });
+
+    profile.value = await masjidProfile.getProfile.fetch();
+
+    if (profile.value.description) {
+        editor.root.innerHTML = profile.value.description;
+    }
 });
 
-const image = ref(null);
-
-const validateFileFunction = (fileObject) => { }
+const validateFileFunction = (fileObject) => { 
+    if (fileObject.size > 2000000) {
+        alert('File size should be less than 2MB');
+        return false;
+    }
+    // console.log(fileObject);
+    // return true;
+}
 const onSuccess = (file) => {
-    image.value = file.file_url;
+    // image.value = file.file_url;
+    profile.value.image = file.file_url;
 }
 
 const submit = async (e) => {
@@ -73,7 +86,7 @@ const submit = async (e) => {
     const data = Object.fromEntries(formData.entries());
 
     data.description = editor.root.innerHTML;
-    data.image = image.value;
+    data.image = profile.value.image;
 
     masjidProfile.updateProfile.submit(data);
 };
