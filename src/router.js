@@ -261,6 +261,11 @@ const routes = [
         path: 'jadwal-sholat',
         name: 'PrayerTimes',
         component: () => import('@/pages/donor/PrayerTimes.vue')
+      },
+      {
+        path: 'masjid-profile',
+        name: 'MasjidProfile',
+        component: () => import('@/pages/donor/MasjidProfile.vue'),
       }
     ],
   },
