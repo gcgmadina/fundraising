@@ -2,7 +2,12 @@
     <BaseLayout>
         <template #content>
             <h1 class="font-semibold text-violet-900">Berita</h1>
-            <ion-card v-for="news in allNews" class="flex justify-between items-center p-4" mode="md">
+            <ion-searchbar v-model="searchQuery" mode="md" debounce="300" placeholder="Cari berita..." @ionInput="searchNews">
+            </ion-searchbar>
+            <div class="border-2 my-4"></div>
+
+
+            <ion-card v-for="news in filteredNews" class="flex justify-between items-center p-4" mode="md">
                 <ion-card-header class="w-[40%]">
                     <ion-card-title class="text-violet-800 font-medium overflow-hidden  text-ellipsis line-clamp-2">
                         {{ news.title }}
@@ -60,20 +65,40 @@
 import BaseLayout from '@/components/BaseLayout.vue';
 import { fetchAllNews } from '@/data/masjid/News';
 import { ref, onMounted } from 'vue';
-import { IonCard, IonCardHeader, IonCardTitle, IonButton, IonIcon, IonInfiniteScrollContent, IonInfiniteScroll, IonModal } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonButton, IonIcon, IonInfiniteScrollContent, IonInfiniteScroll, IonModal, IonSearchbar } from '@ionic/vue';
 import { create, trashBin, addCircle } from 'ionicons/icons';
 import { useRouter } from 'vue-router';
 import { deleteDocument } from '@/data/Document';
 import { toast } from 'frappe-ui';
+import Fuse from 'fuse.js';
 
 const router = useRouter();
 const allNews = ref([]);
+const searchQuery = ref('');
+const filteredNews = ref([]);
+const fuse = ref(null);
 
 onMounted(() => {
     fetchAllNews().then((data) => {
         allNews.value = data;
+        filteredNews.value = data; // Awalnya tampilkan semua berita
+
+        // Inisialisasi Fuse.js
+        fuse.value = new Fuse(data, {
+            keys: ['title'], // Mencari berdasarkan judul
+            threshold: 0.5,  // Sensitivitas pencarian (semakin kecil, semakin ketat)
+        });
     });
 });
+
+const searchNews = () => {
+    if (!searchQuery.value) {
+        filteredNews.value = allNews.value; // Jika kosong, tampilkan semua berita
+    } else {
+        const result = fuse.value.search(searchQuery.value);
+        filteredNews.value = result.map(item => item.item); // Ambil hasil pencarian
+    }
+};
 
 const start = ref(10);
 const length = ref(10);
