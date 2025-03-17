@@ -37,7 +37,7 @@ const guestMenus = ref([
 
 const secretaryMenus = ref([
     { title: "Profil Masjid", icon: ProfilMasjid, link: "MasjidProfile" },
-    { title: "Berita", icon: Berita, link: "NewsList" },
+    { title: "Berita", icon: Berita, link: "SecretaryNewsList" },
     { title: "Kajian", icon: Kajian, link: "KajianList" },
     { title: "Penggalangan Dana", icon: PenggalanganDana, link: "FundraisingList" }
 ])

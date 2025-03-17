@@ -11,7 +11,7 @@ export function fetchAllNews(start = 0, limit = 10) {
             method: 'GET',
             params: {
                 start: start,
-                limit: limit
+                length: limit
             },
             transform(data) {
                 if (data.status === 'success') {

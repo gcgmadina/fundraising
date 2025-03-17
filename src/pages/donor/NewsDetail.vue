@@ -13,7 +13,7 @@
             <SuccsessModal :isModalOpen="isModalOpen" :validationSuccess="validationSuccess" :closeModal="closeModal"
                 :successMessage="successMessage" :failureMessage="failureMessage" />
         </template>
-        <template #footer>
+        <!-- <template #footer>
             <div v-if="session.isLoggedIn && user.data && user.data.roles.includes('Non Profit Secretary')"
                 class="px-4 flex flex-row justify-center gap-4">
                 <ion-button expand="block" @click="deleteNews" color="danger">
@@ -24,7 +24,7 @@
                     Edit Kegiatan
                 </ion-button>
             </div>
-        </template>
+        </template> -->
 
     </BaseLayout>
 
@@ -33,9 +33,7 @@
 <script setup>
 import { ref, onMounted, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import Header from '@/components/Header.vue';
-import Footer from '@/components/donor/Footer.vue';
-import { IonPage, IonContent, IonButton } from '@ionic/vue';
+import { IonButton } from '@ionic/vue';
 import { fetchNews } from '@/data/masjid/News';
 import { deleteDocument } from '@/data/Document';
 import SuccsessModal from '@/components/SuccessModal.vue';

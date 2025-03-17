@@ -1,50 +1,48 @@
 <template>
-    <ion-page>
-        <Header />
-        <ion-content class="ion-padding">
-            <ion-list>
-                <ion-item>
-                    <ion-input v-model="news.title" required type="text" label="Judul Berita"
-                        labelPlacement="floating"></ion-input>
-                </ion-item>
+    <BaseLayout :showHeroSection="false">
+        <template #content>
 
-                <ion-item>
+            <ion-list>
+                <ion-input v-model="news.title" required type="text" label="Judul Berita" labelPlacement="floating"
+                    fill="outline" mode="md"></ion-input>
+
+                <div class="flex w-full justify-between my-6 p-4 border border-gray-500 rounded-sm">
                     <ion-label>Thumbnail</ion-label>
                     <FileUploader :fileTypes="['image/*']" :validateFile="validateFileFunction" @success="onSuccess">
                         <template v-slot="{
-                        file,
-                        uploading,
-                        progress,
-                        uploaded,
-                        message,
-                        error,
-                        total,
-                        success,
-                        openFileSelector,
-                    }" class="flex flex-row justify-between">
+                            file,
+                            uploading,
+                            progress,
+                            uploaded,
+                            message,
+                            error,
+                            total,
+                            success,
+                            openFileSelector,
+                        }" class="flex flex-row justify-between">
                             <Button @click="openFileSelector" :loading="uploading" class="">
                                 {{ uploading ? `Uploading ${progress}%` : 'Upload Image' }}
                             </Button>
                         </template>
                     </FileUploader>
-                </ion-item>
-                <div v-if="fileSizeLimit" class="text-red-600 text-right ion-padding">*Ukuran gambar tidak boleh lebih dari 1MB</div>
+                </div>
+
+                <div v-if="fileSizeLimit" class="text-red-600 text-right ion-padding">*Ukuran gambar tidak boleh lebih
+                    dari 1MB</div>
                 <div v-if="news.thumbnail" class="flex justify-between mx-16 m-8">
                     <img :src="news.thumbnail" alt="Preview Image" class="max-w-xs max-h-xs">
                 </div>
 
-                <ion-item>
-                    <div class="flex flex-col">
-                        <div class="my-2">
-                            <ion-label >Isi Berita</ion-label>
-
-                        </div>
-                        <div class="w-full">
-                            <div ref="editorContainer" class="quill-editor"></div>
-                        </div>
+                <div class="flex flex-col">
+                    <div class="my-2 mx-4">
+                        <ion-label>Isi Berita</ion-label>
 
                     </div>
-                </ion-item>
+                    <div class="w-full">
+                        <div ref="editorContainer" class="quill-editor"></div>
+                    </div>
+
+                </div>
 
             </ion-list>
             <div class="flex justify-end">
@@ -53,9 +51,8 @@
 
             <SuccessModal :isModalOpen="isModalOpen" :validationSuccess="validationSuccess" :closeModal="closeModal"
                 :successMessage="successMessage" :failureMessage="failureMessage" />
-        </ion-content>
-        <Footer />
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
@@ -69,6 +66,7 @@ import { createNews, updateNews, fetchNews } from '@/data/masjid/News';
 import { IonPage, IonContent, IonList, IonItem, IonInput, IonButton, IonLabel } from '@ionic/vue';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
+import BaseLayout from '@/components/BaseLayout.vue';
 
 const router = useRouter();
 const news = ref({
