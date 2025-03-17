@@ -89,6 +89,11 @@ const routes = [
         component: () => import('@/pages/secretary/DiscourseInput.vue'),
       },
       {
+        path: 'discourses',
+        name: 'SecretaryDiscourseList',
+        component: () => import('@/pages/secretary/DiscourseList.vue'),
+      },
+      {
         path: 'masjid-profile-edit',
         name: 'MasjidProfileEdit',
         component: () => import('@/pages/secretary/ProfileMasjid.vue'),
