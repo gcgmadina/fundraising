@@ -161,6 +161,11 @@ const routes = [
         name: 'AllocationForm',
         component: () => import('@/pages/accountant/FundraisingAllocationForm.vue'),
       },
+      {
+        path: 'qr-code',
+        name: 'QRCode',
+        component: () => import('@/pages/accountant/QRCode.vue'),
+      }
     ],
   },
   {

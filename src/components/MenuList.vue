@@ -50,7 +50,7 @@ const accountantMenus = ref([
     { title: "Laporan Keuangan", icon: LaporanKeuangan, link: "AccountantFinancialReport" },
     { title: "Pengeluaran", icon: Pengeluaran, link: "Expenses" },
     { title: "Rekening Bank", icon: RekeningBank, link: "BankAccount" },
-    { title: "QR Donasi", icon: qrDonasi, link: "AccountantDonationQR" }
+    { title: "QR Donasi", icon: qrDonasi, link: "QRCode" }
 ])
 
 const menus = computed(() => {
