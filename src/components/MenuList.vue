@@ -39,7 +39,7 @@ const secretaryMenus = ref([
     { title: "Profil Masjid", icon: ProfilMasjid, link: "MasjidProfile" },
     { title: "Berita", icon: Berita, link: "SecretaryNewsList" },
     { title: "Kajian", icon: Kajian, link: "SecretaryDiscourseList" },
-    { title: "Penggalangan Dana", icon: PenggalanganDana, link: "FundraisingList" }
+    { title: "Penggalangan Dana", icon: PenggalanganDana, link: "SecretaryFundraisingList" }
 ])
 
 const menus = computed(() => {
