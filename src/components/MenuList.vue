@@ -24,6 +24,10 @@ import Berita from "@/components/icons/berita.svg"
 import Kajian from "@/components/icons/kajian.svg"
 import PenggalanganDana from "@/components/icons/penggalangan_dana.svg"
 import ProfilMasjid from "@/components/icons/profil_masjid.svg"
+import LaporanKeuangan from "@/components/icons/laporan_keuangan.svg"
+import Pengeluaran from "@/components/icons/pengeluaran.svg"
+import RekeningBank from "@/components/icons/rekening_bank.svg"
+import qrDonasi from "@/components/icons/qr_donasi.svg"
 
 const router = useRouter();
 const user = inject('$user');
@@ -42,13 +46,29 @@ const secretaryMenus = ref([
     { title: "Penggalangan Dana", icon: PenggalanganDana, link: "SecretaryFundraisingList" }
 ])
 
+const accountantMenus = ref([
+    { title: "Laporan Keuangan", icon: LaporanKeuangan, link: "AccountantFinancialReport" },
+    { title: "Pengeluaran", icon: Pengeluaran, link: "Expenses" },
+    { title: "Rekening Bank", icon: RekeningBank, link: "BankAccount" },
+    { title: "QR Donasi", icon: qrDonasi, link: "AccountantDonationQR" }
+])
+
 const menus = computed(() => {
-    if (session?.isLoggedIn && user?.data?.roles?.includes('Non Profit Secretary')) {
-        return [...secretaryMenus.value, ...guestMenus.value]; 
-    } else {
-        return guestMenus.value;
+    const roles = user?.data?.roles || [];
+
+    let combinedMenus = [...guestMenus.value];
+
+    if (roles.includes('Non Profit Secretary')) {
+        combinedMenus = [ ...secretaryMenus.value, ...combinedMenus];
     }
+
+    if (roles.includes('Non Profit Accounting')) {
+        combinedMenus = [...accountantMenus.value, ...combinedMenus];
+    }
+
+    return combinedMenus;
 });
+
 
 const navigate = (route) => {
     router.push({ name: route });
