@@ -135,14 +135,14 @@ const routes = [
         props: { mode: 'add' }
       },
       {
-        path: 'expenses/:name',
-        name: 'Expenses',
-        component: () => import('@/pages/accountant/ExpenseList.vue'),
-      },
-      {
         path: 'add-expense/:name',
         name: 'AddExpense',
         component: () => import('@/pages/accountant/ExpenseInput.vue'),
+      },
+      {
+        path: 'expense',
+        name: 'Expenses',
+        component: () => import('@/pages/accountant/Expense.vue'),
       },
       {
         path: 'purchase-to-approve',
