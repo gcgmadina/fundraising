@@ -165,6 +165,11 @@ const routes = [
         path: 'qr-code',
         name: 'QRCode',
         component: () => import('@/pages/accountant/QRCode.vue'),
+      },
+      {
+        path: 'financial-report',
+        name: 'FinancialReport',
+        component: () => import('@/pages/accountant/FinancialReport.vue'),
       }
     ],
   },

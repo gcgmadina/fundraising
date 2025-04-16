@@ -1,6 +1,7 @@
 <template>
     <div class="w-full">
-        <ion-item class="border-b border-gray-300">
+        <!-- Jika label ada, gunakan ion-item -->
+        <ion-item v-if="label" class="border-b border-gray-300">
             <div class="flex flex-col space-y-2 w-full">
                 <div class="flex justify-between items-center">
                     <ion-label class="text-gray-700 font-medium">{{ label }}</ion-label>
@@ -10,6 +11,13 @@
                 </div>
             </div>
         </ion-item>
+
+        <!-- Jika label tidak ada, tampilkan button biasa -->
+        <div v-else>
+            <ion-button fill="outline" @click="openModal" mode="ios">
+                {{ selectedDate ? selectedDate : 'Pilih' }}
+            </ion-button>
+        </div>
 
         <!-- Modal -->
         <div v-if="isModalOpen" 
