@@ -1,9 +1,10 @@
 <template>
-    <ion-page>
-        <Header :showBackButton="true"></Header>
-        <ion-content class="ion-padding">
+    <BaseLayout :showHeroSection="false">
+        <template #content>
+            <h1 class="font-bold text-violet-900">Jadwal Kajian</h1>
             <ion-list>
-                <ion-card v-for="(discourse, index) in list" :key="index" @click="router.push({ name: 'DiscourseDetail', params: { id: discourse.name } })"
+                <ion-card v-for="(discourse, index) in list" :key="index"
+                    @click="router.push({ name: 'DiscourseDetail', params: { id: discourse.name } })"
                     class="flex flex-row">
                     <img :src=discourse.thumbnail alt="Gambar penggalangan dana" class="w-1/5 mx-auto">
                     <ion-card-content class="w-4/5 flex flex-col justify-between" mode="ios">
@@ -18,18 +19,16 @@
                     </ion-infinite-scroll-content>
                 </ion-infinite-scroll>
             </ion-list>
-        </ion-content>
-        <Footer></Footer>
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/donor/Footer.vue'
-import { IonPage, IonContent, IonList, IonCard, IonCardContent, IonCardTitle, IonCardSubtitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
+import { IonList, IonCard, IonCardContent, IonCardTitle, IonCardSubtitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 import { discourse } from '@/data/masjid/Discourse'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import BaseLayout from '@/components/BaseLayout.vue'
 
 const router = useRouter()
 const start = ref(0)

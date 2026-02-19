@@ -74,14 +74,34 @@ const routes = [
         component: () => import('@/pages/secretary/NewsInput.vue'),
       },
       {
+        path: 'news',
+        name: 'SecretaryNewsList',
+        component: () => import('@/pages/secretary/NewsList.vue'),
+      },
+      {
         path: 'fundraising-input',
         name: 'FundraisingInput',
         component: () => import('@/pages/secretary/FundraisingInput.vue'),
       },
       {
+        path: 'fundraisings',
+        name: 'SecretaryFundraisingList',
+        component: () => import('@/pages/secretary/FundraisingList.vue'),
+      },
+      {
         path: 'discourse-input',
         name: 'DiscourseInput',
         component: () => import('@/pages/secretary/DiscourseInput.vue'),
+      },
+      {
+        path: 'discourses',
+        name: 'SecretaryDiscourseList',
+        component: () => import('@/pages/secretary/DiscourseList.vue'),
+      },
+      {
+        path: 'masjid-profile-edit',
+        name: 'MasjidProfileEdit',
+        component: () => import('@/pages/secretary/ProfileMasjid.vue'),
       }
     ],
   },
@@ -115,14 +135,14 @@ const routes = [
         props: { mode: 'add' }
       },
       {
-        path: 'expenses/:name',
-        name: 'Expenses',
-        component: () => import('@/pages/accountant/ExpenseList.vue'),
-      },
-      {
         path: 'add-expense/:name',
         name: 'AddExpense',
         component: () => import('@/pages/accountant/ExpenseInput.vue'),
+      },
+      {
+        path: 'expense',
+        name: 'Expenses',
+        component: () => import('@/pages/accountant/Expense.vue'),
       },
       {
         path: 'purchase-to-approve',
@@ -136,6 +156,21 @@ const routes = [
         component: () => import('@/pages/secretary/PurchaseReceiptDetail.vue'),
         props: { mode: 'approve' },
       },
+      {
+        path: ':id/allocation-form',
+        name: 'AllocationForm',
+        component: () => import('@/pages/accountant/FundraisingAllocationForm.vue'),
+      },
+      {
+        path: 'qr-code',
+        name: 'QRCode',
+        component: () => import('@/pages/accountant/QRCode.vue'),
+      },
+      {
+        path: 'financial-report',
+        name: 'FinancialReport',
+        component: () => import('@/pages/accountant/FinancialReport.vue'),
+      }
     ],
   },
   {
@@ -226,15 +261,6 @@ const routes = [
             component: () => import('@/pages/donor/FundraisingReceivedDetail.vue'),
           },
           {
-            path: ':id/allocation-form',
-            name: 'AllocationForm',
-            meta: {
-              auth: true,
-              roles: ['Non Profit Accounting']
-            },
-            component: () => import('@/pages/donor/FundraisingAllocationForm.vue'),
-          },
-          {
             path: ':id/allocations',
             name: 'FundraisingAllocationList',
             component: () => import('@/pages/donor/FundraisingAllocationList.vue'),
@@ -255,6 +281,16 @@ const routes = [
             component: () => import('@/pages/donor/DiscourseDetail.vue'),
           }
         ]
+      },
+      {
+        path: 'jadwal-sholat',
+        name: 'PrayerTimes',
+        component: () => import('@/pages/donor/PrayerTimes.vue')
+      },
+      {
+        path: 'masjid-profile',
+        name: 'MasjidProfile',
+        component: () => import('@/pages/donor/MasjidProfile.vue'),
       }
     ],
   },
@@ -288,14 +324,9 @@ const routes = [
         component: () => import('@/pages/donor/Surah.vue'),
       },
       {
-        path: 'dzikir-pagi',
-        name: 'DzikirPagi',
-        component: () => import('@/pages/donor/DzikirPagi.vue'),
-      },
-      {
-        path: 'dzikir-petang',
-        name: 'DzikirPetang',
-        component: () => import('@/pages/donor/DzikirPetang.vue'),
+        path: 'dzikir',
+        name: 'Dzikir',
+        component: () => import('@/pages/donor/Dzikir.vue'),
       },
     ],
   },
@@ -322,7 +353,7 @@ const routes = [
 ]
 
 let router = createRouter({
-  history: createWebHistory('/masjid'),
+  history: createWebHistory('/fundraising'),
   routes,
 })
 

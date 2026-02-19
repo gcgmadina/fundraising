@@ -31,21 +31,6 @@
                 class="h-5 w-5" />
             <div>Donasi</div>
         </ion-tab-button>
-        <ion-tab-button @click="openQuranPopover" id="quran" :class="[
-            'text-xs bg-white space-y-1.5 transition active:scale-95',
-            'font-medium text-gray-700'
-        ]">
-            <component :is="Quran" class="h-5 w-5" />
-            <div>Ibadah</div>
-        </ion-tab-button>
-        <ion-popover trigger="quran" side="top" alignment="center"
-            animated="false" :is-open="quranPopoverOpen" @didDismiss="quranPopoverOpen = false">
-            <ion-content class="ion-padding">
-                <h4 class="my-4 cursor-pointer" @click="toSurahList">Qur'an</h4>
-                <h4 class="my-4 cursor-pointer" @click="toDzikirPagi">Dzikir Pagi</h4>
-                <h4 class="my-4 cursor-pointer" @click="toDzikirPetang">Dzikir Petang</h4>
-            </ion-content>
-        </ion-popover>
         <ion-tab-button v-if="isAdmin" @click="openPopover" id="administrasi" :class="[
             'text-xs bg-white space-y-1.5 transition active:scale-95',
             'font-medium text-gray-700'

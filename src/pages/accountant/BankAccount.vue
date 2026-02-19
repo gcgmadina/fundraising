@@ -1,7 +1,7 @@
 <template>
-    <ion-page>
-        <Header :showBackButton="true" />
-        <ion-content class="ion-padding">
+    <BaseLayout :showHeroSection="false">
+        <template #content>
+            <h1 class="text-violet-900 font-semibold text-center my-6">Tambah Rekening Bank</h1>
             <div v-if="loading && props.mode === 'edit'" class="w-full h-48 bg-gray-300 animate-pulse"></div>
             <div v-else>
                 <ion-list>
@@ -19,15 +19,18 @@
                         <ion-input v-model="bankAccount.bank_account_no" label="Nomor Rekening"
                             labelPlacement="floating" type="number" />
                     </ion-item>
-                    <ion-button @click="submitForm" :disabled="!isValidForm">Submit</ion-button>
-                    <ion-button v-if="props.mode === 'edit'" color="danger" @click="deleteBankAccount">Delete</ion-button>
+                    <div class="flex justify-end gap-2 mt-4">
+                        <ion-button @click="submitForm" :disabled="!isValidForm">Submit</ion-button>
+                        <ion-button v-if="props.mode === 'edit'" color="danger" @click="deleteBankAccount">Delete</ion-button>
+                    </div>
                 </ion-list>
             </div>
-        </ion-content>
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
+import BaseLayout from '@/components/BaseLayout.vue';
 import { ref, computed, defineProps, onMounted } from 'vue';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton } from '@ionic/vue';
 import Header from '@/components/Header.vue';

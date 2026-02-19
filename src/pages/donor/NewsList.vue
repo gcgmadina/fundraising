@@ -1,37 +1,33 @@
 <template>
-    <ion-page>
-        <Header></Header>
-        <ion-content >
+    <BaseLayout :showHeroSection="false">
+        <template #content>
+            <h1 class="font-bold text-violet-900">Daftar Berita Terbaru</h1>
             <ion-list>
-                <ion-item v-for="(news, index) in news">
                     <CardListItem
+                        v-for="(news, index) in news"
                         :key="index"
                         :title="news.title"
                         :subtitle="news.uploaded_date"
                         :image="news.thumbnail"
                         @click="router.push({ name: 'News', params: { id: news.name } })"
                     />
-
-                </ion-item>
             </ion-list>
             
             <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
-        </ion-content>
-        <Footer></Footer>
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonList, IonItem, IonInfiniteScroll, IonInfiniteScrollContent } from "@ionic/vue"
+import { IonList, IonInfiniteScroll, IonInfiniteScrollContent } from "@ionic/vue"
 import { fetchAllNews } from "@/data/masjid/News.js"
-import Header from "@/components/Header.vue"
-import Footer from "@/components/donor/Footer.vue"
 import CardListItem from "@/components/CardListItem.vue"
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import BaseLayout from "@/components/BaseLayout.vue"
 
 const news = ref([]);
 const router = useRouter();

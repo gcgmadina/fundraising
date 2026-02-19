@@ -1,6 +1,7 @@
 import { createResource, toast } from "frappe-ui"
 import { method, transform } from "lodash"
 import { reactive, ref } from 'vue'
+import { formatDate } from '../DateUtils'
 
 export const fundraising = reactive ({
     newFundraising: createResource ({
@@ -52,6 +53,11 @@ export const fundraising = reactive ({
                     data: response.data
                 }
             } else {
+                response.data.forEach( (item) => {
+                    item.starts_on = formatDate(item.starts_on, false)
+                    item.ends_on = formatDate(item.ends_on, false)
+                })
+
                 return {
                     stop: false,
                     data: response.data

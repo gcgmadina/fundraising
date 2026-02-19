@@ -47,21 +47,23 @@ export function searchCity(cityName) {
 }
 
 // Fungsi untuk mendapatkan jadwal sholat harian untuk kota tertentu
+export const prayerSchedule = reactive({
+    get: null
+});
+
 export function fetchPrayerSchedule(cityId, date = new Date().toISOString().split('T')[0]) {
     return new Promise((resolve, reject) => {
         fetch(`${BASE_URL}/jadwal/${cityId}/${date}`)
             .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    const error = new Error('Failed to fetch prayer schedule');
-                    reject(error);
-                }
+                if (!response.ok) throw new Error('Failed to fetch prayer schedule');
+                return response.json();
             })
             .then(data => {
-                resolve(data);
+                prayerSchedule.get = data.data;  
+                resolve(data.data.jadwal);
             })
             .catch(error => {
+                console.error(error);
                 reject(error);
             });
     });

@@ -1,26 +1,40 @@
 <template>
-    <ion-page>
-        <Header/>
-        <ion-content>
+    <BaseLayout>
+        <template #content>
+            <h2 class="font-bold text-violet-800">Riwayat Transaksi</h2>
+
             <div class="sticky top-0 bg-white z-10 py-2">
-                <ion-segment class="my-2" value="on-going" mode="ios" v-model="currentSegment">
+                <ion-segment class="my-2" value="on-going" mode="md" v-model="currentSegment" color="tertiary">
                     <ion-segment-button value="zis">
-                        <ion-label>ZIS</ion-label>
+                        <ion-label class="normal-case">ZIS</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="fundraising">
-                        <ion-label>Penggalangan</ion-label>
+                        <ion-label class="normal-case">Penggalangan</ion-label>
                     </ion-segment-button>
                 </ion-segment>
             </div>
             
             <div v-if="currentSegment == 'zis'">
                 <ion-list>
-                    <CardListItem v-for="UserDonation, index in userDonationData"
-                    :key="index"
-                    :title="UserDonation.fullname"
-                    :subtitle="UserDonation.item_type == 'Uang' ? UserDonation.donation_type + ' Rp.' + formatCurrency(UserDonation.amount) : UserDonation.donation_type + ' ' + UserDonation.item_name + ': '  + UserDonation.item_amount"
-                    :status="UserDonation.status"
-                    @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })"/>
+                    <ion-card mode="md" v-for="UserDonation, index in userDonationData" :key="index" @click="router.push({ name: 'DonationDetail', params: { id: UserDonation.name } })">
+                        <div class="flex flex-row justify-between items-center p-2">
+                            <ion-card-header class="w-[30%]">
+                                <ion-card-title class="text-violet-800 text-xl w-full overflow-hidden whitespace-nowrap text-ellipsis ">{{ UserDonation.donation_type }}</ion-card-title>
+                            </ion-card-header>
+
+                            <ion-card-content class="p-0 max-w-[60%]">
+                                <div class="flex flex-col justify-center items-center text-sm my-2">
+                                    <div class="flex flex-row w-full">
+                                        <p class="max-w-[50%] overflow-hidden whitespace-nowrap text-ellipsis">{{ UserDonation.fullname }}&nbsp</p>
+                                        <p class="max-w-[50%] overflow-hidden whitespace-nowrap text-ellipsis">Rp.{{ formatCurrency(UserDonation.amount) }}</p>
+                                    </div>
+                                    <p class="w-full overflow-hidden whitespace-nowrap text-ellipsis">{{ UserDonation.status }}</p>
+                                </div>
+                            </ion-card-content>
+
+                            <ion-icon class="w-[10%]" :icon="chevronForward" size="large" color="tertiary"></ion-icon>
+                        </div>
+                    </ion-card>
                 </ion-list>
                 <ion-infinite-scroll :disabled="loadDisabled" @ionInfinite="loadData($event)">
                     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
@@ -29,20 +43,18 @@
                 
             </div>
             <FundraisingReceivedList v-else="currentSegment == 'fundraising'"/>
-        </ion-content>
-        <Footer/>
-    </ion-page>
+        </template>
+    </BaseLayout>
 </template>
 
 <script setup>
-import { IonPage, IonContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
+import { IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue';
 import { onMounted, ref, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { userDonationResource, userDonationData, userDonationDataLength } from '@/data/donation/UserDonation'
-import Footer from '@/components/donor/Footer.vue'
-import Header from '@/components/Header.vue'
-import CardListItem from '@/components/CardListItem.vue'
 import FundraisingReceivedList from '@/components/FundraisingReceivedList.vue';
+import BaseLayout from '@/components/BaseLayout.vue';
+import { chevronForward } from 'ionicons/icons';
 
 const currentSegment = ref('zis');
 const loadDisabled = ref(false);
